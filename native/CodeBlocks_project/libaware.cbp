@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="libaware" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="../libaware" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="../../" />
+				<Option object_output="obj/Debug/" />
+				<Option type="3" />
+				<Option compiler="gcc" />
+				<Option parameters='-ea -Ddevel -Xmx64m -classpath &quot;./dist/aware.jar:/home/cruxic/Programming/libs/lwjgl-2.5/jar/jinput.jar:/home/cruxic/Programming/libs/lwjgl-2.5/jar/lwjgl_util.jar:/home/cruxic/Programming/libs/lwjgl-2.5/jar/lwjgl.jar:/home/cruxic/Programming/libs/json_simple-1.x/lib/json_simple-1.1.jar&quot; cruxic.aware.Main' />
+				<Option host_application="/usr/bin/java" />
+				<Option createDefFile="1" />
+				<Option createStaticLib="1" />
+				<Compiler>
+					<Add option="-g" />
+					<Add option="-DGLIMAGE_SAFE" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="../libaware" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="../../" />
+				<Option object_output="obj/Release/" />
+				<Option type="3" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Option createStaticLib="1" />
+				<Compiler>
+					<Add option="-march=nocona" />
+					<Add option="-O1" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+			<Environment>
+				<Variable name="JDK_HOME" value="/usr/lib/jvm/java-6-sun" />
+			</Environment>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add option="-fPIC" />
+			<Add directory="$(JDK_HOME)/include" />
+			<Add directory="$(JDK_HOME)/include/linux" />
+		</Compiler>
+		<Linker>
+			<Add library="png" />
+			<Add library="jpeg" />
+			<Add library="GL" />
+		</Linker>
+		<Unit filename="../GLImage.cpp" />
+		<Unit filename="../GLImage.h" />
+		<Unit filename="../GLImageUpload.cpp" />
+		<Unit filename="../HeightMap.cpp" />
+		<Unit filename="../HeightMap.hpp" />
+		<Unit filename="../ImageMask.cpp" />
+		<Unit filename="../ImageMask.hpp" />
+		<Unit filename="../Liquid_StaticNoiseOverlay_Impl.cpp" />
+		<Unit filename="../Liquid_StaticNoiseOverlay_Impl.hpp" />
+		<Unit filename="../StaticNoiseLiquidRefactionRenderer.cpp" />
+		<Unit filename="../StaticNoiseLiquidRefactionRenderer.hpp" />
+		<Unit filename="../aware_util.cpp" />
+		<Unit filename="../aware_util.h" />
+		<Unit filename="../jni/Liquid_StaticNoiseOverlay_Impl_jni.cpp" />
+		<Unit filename="../misc/ArrayList.cpp" />
+		<Unit filename="../misc/ArrayList.hpp" />
+		<Unit filename="../misc/Rect4i.cpp" />
+		<Unit filename="../misc/Rect4i.hpp" />
+		<Unit filename="../misc/libtarga.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../misc/libtarga.h" />
+		<Unit filename="../misc/noise1234.cpp" />
+		<Unit filename="../misc/noise1234.h" />
+		<Extensions>
+			<code_completion />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

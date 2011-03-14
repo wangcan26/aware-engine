@@ -1,0 +1,6 @@
+Aware Engine Change Log
+======================================
+
+March 13th, 2011
+	* First public code drop, Code is in an alpha state.  It runs the first technology demo.
+

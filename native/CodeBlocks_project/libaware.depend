@@ -1,0 +1,142 @@
+# depslib dependency file v1.0
+1296317497 source:/home/cruxic/Programming/AwareEngine/native/misc/ArrayList.cpp
+	"ArrayList.hpp"
+	<stdio.h>
+
+1294290504 /home/cruxic/Programming/AwareEngine/native/misc/ArrayList.h
+	<string.h>
+
+1296452277 source:/home/cruxic/Programming/AwareEngine/native/misc/Rect4i.cpp
+	"Rect4i.hpp"
+	<stdio.h>
+
+1296451659 /home/cruxic/Programming/AwareEngine/native/misc/Rect4i.hpp
+
+1289082166 source:/home/cruxic/Programming/AwareEngine/native/misc/libtarga.c
+	<stdio.h>
+	<malloc.h>
+	"libtarga.h"
+
+1269831708 /home/cruxic/Programming/AwareEngine/native/misc/libtarga.h
+
+1292998866 source:/home/cruxic/Programming/AwareEngine/native/misc/noise1234.cpp
+	"noise1234.h"
+
+1293072724 /home/cruxic/Programming/AwareEngine/native/misc/noise1234.h
+
+1296882429 source:/home/cruxic/Programming/AwareEngine/native/GLImage.cpp
+	"GLImage.h"
+	<stdlib.h>
+	<string.h>
+	<ctype.h>
+	"aware_util.h"
+	"misc/libtarga.h"
+	<png.h>
+	<jpeglib.h>
+	<setjmp.h>
+	"misc/Rect4i.hpp"
+
+1296881772 /home/cruxic/Programming/AwareEngine/native/GLImage.h
+	<GL/gl.h>
+	"jni/GLImage_jni.h"
+	"misc/Rect4i.hpp"
+
+1296794559 /home/cruxic/Programming/AwareEngine/native/jni/GLImage_jni.h
+	<jni.h>
+
+1284539701 /usr/lib/jvm/java-6-sun/include/jni.h
+	<stdio.h>
+	<stdarg.h>
+	"jni_md.h"
+
+1284539701 /usr/lib/jvm/java-6-sun/include/linux/jni_md.h
+
+1289175164 /home/cruxic/Programming/AwareEngine/native/aware_util.h
+	<GL/gl.h>
+	<jni.h>
+
+1296279924 source:/home/cruxic/Programming/AwareEngine/native/GLImageUpload.cpp
+	"jni/GLImageUpload_jni.h"
+	<string.h>
+	<stdlib.h>
+	"GLImage.h"
+	"aware_util.h"
+
+1296794560 /home/cruxic/Programming/AwareEngine/native/jni/GLImageUpload_jni.h
+	<jni.h>
+
+1296318486 source:/home/cruxic/Programming/AwareEngine/native/HeightMap.cpp
+	"HeightMap.hpp"
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
+
+1293474040 /home/cruxic/Programming/AwareEngine/native/HeightMap.h
+
+1296446800 source:/home/cruxic/Programming/AwareEngine/native/aware_util.cpp
+	"aware_util.h"
+	<string.h>
+	<stdlib.h>
+	<stdio.h>
+	<errno.h>
+
+1296280370 source:/home/cruxic/Programming/AwareEngine/native/jni/Liquid_StaticNoiseOverlay_jni.cpp
+	"Liquid_StaticNoiseOverlay_jni.h"
+
+1296534024 /home/cruxic/Programming/AwareEngine/native/jni/Liquid_StaticNoiseOverlay_jni.h
+	<jni.h>
+
+1299912897 source:/home/cruxic/Programming/AwareEngine/native/ImageMask.cpp
+	"ImageMask.hpp"
+
+1296710842 /home/cruxic/Programming/AwareEngine/native/ImageMask.hpp
+	"misc/Rect4i.hpp"
+	"misc/ArrayList.hpp"
+	"GLImage.h"
+
+1296319906 /home/cruxic/Programming/AwareEngine/native/misc/ArrayList.hpp
+	<string.h>
+
+1296275141 source:/home/cruxic/Programming/AwareEngine/native/Liquid_StaticNoiseOverlay.cpp
+	"Liquid_StaticNoiseOverlay.hpp"
+
+1296321732 /home/cruxic/Programming/AwareEngine/native/Liquid_StaticNoiseOverlay.hpp
+
+1296321011 source:/home/cruxic/Programming/AwareEngine/native/MaskRect.cpp
+	"MaskRect.hpp"
+	<stdlib.h>
+
+1296321723 /home/cruxic/Programming/AwareEngine/native/MaskRect.hpp
+	"misc/Rect4i.hpp"
+	"GLImage.h"
+	"ImageMask.hpp"
+
+1293474040 /home/cruxic/Programming/AwareEngine/native/HeightMap.hpp
+
+1296882742 source:/home/cruxic/Programming/AwareEngine/native/StaticNoiseLiquidRefactionRenderer.cpp
+	"StaticNoiseLiquidRefactionRenderer.hpp"
+	<math.h>
+
+1296711579 /home/cruxic/Programming/AwareEngine/native/StaticNoiseLiquidRefactionRenderer.hpp
+	"HeightMap.hpp"
+	"misc/ArrayList.hpp"
+	"GLImage.h"
+
+1297543605 source:/home/cruxic/Programming/AwareEngine/native/Liquid_StaticNoiseOverlay_Impl.cpp
+	"Liquid_StaticNoiseOverlay_Impl.hpp"
+	<stdio.h>
+	"ImageMask.hpp"
+
+1296795808 /home/cruxic/Programming/AwareEngine/native/Liquid_StaticNoiseOverlay_Impl.hpp
+	"StaticNoiseLiquidRefactionRenderer.hpp"
+	"GLImage.h"
+	"misc/ArrayList.hpp"
+
+1296796619 source:/home/cruxic/Programming/AwareEngine/native/jni/Liquid_StaticNoiseOverlay_Impl_jni.cpp
+	"Liquid_StaticNoiseOverlay_Impl_jni.h"
+	"../Liquid_StaticNoiseOverlay_Impl.hpp"
+	"../aware_util.h"
+
+1296794561 /home/cruxic/Programming/AwareEngine/native/jni/Liquid_StaticNoiseOverlay_Impl_jni.h
+	<jni.h>
+

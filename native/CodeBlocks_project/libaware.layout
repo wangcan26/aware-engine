@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_layout_file>
+	<ActiveTarget name="Release" />
+	<File name="../GLImage.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="459" topLine="20" />
+	</File>
+	<File name="../GLImage.h" open="0" top="0" tabpos="0">
+		<Cursor position="579" topLine="29" />
+	</File>
+	<File name="../GLImageUpload.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="364" topLine="6" />
+	</File>
+	<File name="../ImageMask.cpp" open="0" top="0" tabpos="4">
+		<Cursor position="288" topLine="0" />
+	</File>
+	<File name="../ImageMask.hpp" open="0" top="0" tabpos="3">
+		<Cursor position="554" topLine="13" />
+	</File>
+	<File name="../Liquid_StaticNoiseOverlay_Impl.cpp" open="0" top="0" tabpos="2">
+		<Cursor position="3354" topLine="105" />
+	</File>
+	<File name="../Liquid_StaticNoiseOverlay_Impl.hpp" open="0" top="0" tabpos="1">
+		<Cursor position="639" topLine="1" />
+	</File>
+	<File name="../StaticNoiseLiquidRefactionRenderer.cpp" open="0" top="0" tabpos="1">
+		<Cursor position="6806" topLine="229" />
+	</File>
+	<File name="../StaticNoiseLiquidRefactionRenderer.hpp" open="0" top="0" tabpos="0">
+		<Cursor position="166" topLine="0" />
+	</File>
+	<File name="../jni/Liquid_StaticNoiseOverlay_Impl_jni.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="2945" topLine="82" />
+	</File>
+	<File name="../misc/ArrayList.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="26" topLine="0" />
+	</File>
+</CodeBlocks_layout_file>
