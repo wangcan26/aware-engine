@@ -1,4 +1,22 @@
-#include "GLImage.h"
+/*
+*	AwareEngine
+*	Copyright (C) 2011  Adam Bennett <cruxicATgmailDOTcom>
+*
+*	This program is free software; you can redistribute it and/or
+*	modify it under the terms of the GNU General Public License
+*	as published by the Free Software Foundation; either version 2
+*	of the License, or (at your option) any later version.
+*
+*	This program is distributed in the hope that it will be useful,
+*	but WITHOUT ANY WARRANTY; without even the implied warranty of
+*	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+*	GNU General Public License for more details.
+*
+*	You should have received a copy of the GNU General Public License
+*	along with this program; if not, write to the Free Software
+*	Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+*/
+#include "GLImage.hpp"
 
 #include <stdlib.h>
 #include <string.h>
@@ -259,10 +277,10 @@ GLboolean readPNGFromFile(const char * filename, GLImage * texinfo, int metaData
 	}
 
 	/* read magic number */
-	fread(magic, 1, sizeof (magic), fp);
+	size_t nread = fread(magic, 1, sizeof (magic), fp);
 
 	/* check for valid magic number */
-	if (!png_check_sig(magic, sizeof (magic)))
+	if (nread < sizeof (magic) || !png_check_sig(magic, sizeof (magic)))
 	{
 		aw_setLastError_s(AW_ERR_TYPE_PNG, "\"%s\" is not a valid PNG image!", filename);
 		fclose (fp);

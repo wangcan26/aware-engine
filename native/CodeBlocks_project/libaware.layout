@@ -2,9 +2,9 @@
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Release" />
 	<File name="../GLImage.cpp" open="0" top="0" tabpos="0">
-		<Cursor position="459" topLine="20" />
+		<Cursor position="7312" topLine="271" />
 	</File>
-	<File name="../GLImage.h" open="0" top="0" tabpos="0">
+	<File name="../GLImage.hpp" open="0" top="0" tabpos="0">
 		<Cursor position="579" topLine="29" />
 	</File>
 	<File name="../GLImageUpload.cpp" open="0" top="0" tabpos="0">

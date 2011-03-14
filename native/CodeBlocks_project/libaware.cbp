@@ -53,7 +53,7 @@
 			<Add library="GL" />
 		</Linker>
 		<Unit filename="../GLImage.cpp" />
-		<Unit filename="../GLImage.h" />
+		<Unit filename="../GLImage.hpp" />
 		<Unit filename="../GLImageUpload.cpp" />
 		<Unit filename="../HeightMap.cpp" />
 		<Unit filename="../HeightMap.hpp" />
