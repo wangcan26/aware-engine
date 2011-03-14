@@ -7,7 +7,7 @@
         <attribute name="URI" value="/" />
       </containerElement>
     </containerInfo>
-    <setting name="jarUrl" value="file://$MODULE_DIR$/../dist/aware.jar" />
+    <setting name="jarUrl" value="file://$MODULE_DIR$/../aware.jar" />
     <setting name="buildJar" value="true" />
     <setting name="mainClass" value="cruxic.aware.Main" />
   </component>
@@ -18,8 +18,8 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="LWJGL2x" level="application" />
-    <orderEntry type="library" name="json_simple" level="application" />
+    <orderEntry type="library" name="Libs-LWJGL" level="project" />
+    <orderEntry type="library" name="Libs-json-simple" level="project" />
     <orderEntryProperties />
   </component>
 </module>

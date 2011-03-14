@@ -59,11 +59,14 @@ public class Engine
 
 	public final Map<String, Object> params;
 
-	public Engine(OpenGLContext glCtx)
+	private final File gameSpecFile;
+
+	public Engine(OpenGLContext glCtx, File gameSpecFile)
 	{
 		assert instance == null;
 		instance = this;
 		stop = false;
+		this.gameSpecFile = gameSpecFile;
 
 		params = new HashMap<String, Object>();
 		params.put("renderer.show_fps", Boolean.FALSE);
@@ -404,7 +407,7 @@ public class Engine
 	{
 		if (!alreadyLoaded)  //ToDo: ask the engine if it's already loaded instead of this flag
 		{
-			loadGameWorld(GameWorld.loadSpec(new File("bc/game.aware")));
+			loadGameWorld(GameWorld.loadSpec(gameSpecFile));
 			alreadyLoaded = true;
 		}
 	}

@@ -341,5 +341,28 @@
     </GetOptions>
   </component>
   <component name="WebServicesPlugin" addRequiredLibraries="true" />
+  <component name="libraryTable">
+    <library name="Libs-LWJGL">
+      <CLASSES>
+        <root url="jar://$PROJECT_DIR$/../Libs/lwjgl_util.jar!/" />
+        <root url="jar://$PROJECT_DIR$/../Libs/jinput.jar!/" />
+        <root url="jar://$PROJECT_DIR$/../Libs/lwjgl.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$PROJECT_DIR$/../Libs/sources/lwjgl-source-2.5.zip!/src/generated" />
+        <root url="jar://$PROJECT_DIR$/../Libs/sources/lwjgl-source-2.5.zip!/src/java" />
+      </SOURCES>
+    </library>
+    <library name="Libs-json-simple">
+      <CLASSES>
+        <root url="jar://$PROJECT_DIR$/../Libs/json_simple-1.1.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$PROJECT_DIR$/../Libs/sources/json_simple-1.1-all.zip!/json_simple-1.1-all/src" />
+      </SOURCES>
+    </library>
+  </component>
 </project>
 

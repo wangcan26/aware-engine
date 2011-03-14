@@ -40,7 +40,7 @@ public class Main
 			{
 				//ensure assertions are enabled (java -ea)
 				boolean assertionsEnabled = false;
-				assert (assertionsEnabled = true);
+				assert (assertionsEnabled == true);
 				if (!assertionsEnabled)
 					throw new AssertionError("please enable assertions (java -ea)");
 
@@ -50,6 +50,16 @@ public class Main
 				SizeBasedCache.unit_test();
 				return;
 			}
+
+			//make sure we have an argument
+			if (args.length == 0)
+			{
+				System.err.println("Missing argument!");
+				System.err.println("USAGE: <path/to/game.aware>");
+				System.exit(1);
+			}
+
+			File gameSpecFile = new File(args[0]);
 
 			//Expose UnsatisfiedLinkErrors immediately
 			GLImage.allocateBlank(1, 1, (byte)0).dispose();
@@ -62,7 +72,7 @@ public class Main
 			glCtx.init();
 
 			//setup the game engine
-			Engine engine = new Engine(glCtx);
+			Engine engine = new Engine(glCtx, gameSpecFile);
 
 			//start on the menu
 			engine.menu.setVisible(true);
