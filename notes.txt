@@ -16,6 +16,10 @@ EDITING TODO
 * images should be arranged in folders instead of long names
 * Support exporting camera locations from blender and importing them as viewpoints
 
+COMPILING NOTES:
+* On Linux 64 I cannot build a libaware.so unless all the static libraries it links in use -fPIC also.  Apparently this is allowed on Linux 32.
+* On Linux I was getting a runtime "undefined symbol: png_zfree".  I think this was because the java executable itself links in the system png library which is a slightly different version and lacks a few functions.  The only solution I see is to make libaware also link the system libpng and libz.
+
 
 [What Darn language should I use!?]
 Requirements:

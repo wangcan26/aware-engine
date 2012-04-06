@@ -48,8 +48,6 @@ public class Renderer
 	private TransitionState transitionState;
 	//used for the fade effect from old viewpoint to the new one
 	IPOCurve viewpointFadeTransitionAlpha;
-	private boolean showWireframe;
-	private boolean drawHotspots;
 	private int sphereResolution;
 
 	//private TrueTypeFont ttf;
@@ -60,8 +58,6 @@ public class Renderer
 		this.engine = engine;
 
 		sphereResolution = 128;
-		showWireframe = false;
-		drawHotspots = false;
 		transitionState = TransitionState.NONE;
 		viewpointFadeTransitionAlpha = new LinearIPO(0.0f, 1.0f, 0.5f, engine.newTimeSource());
 
@@ -145,7 +141,7 @@ public class Renderer
 		//drawQuad(0.5f);
 
 		//draw the sphere wireframe (for debuggging)
-		if (showWireframe)
+		if ((Boolean)engine.params.get("renderer.show_geom"))
 		{
 			glDisable(GL_TEXTURE_2D);
 			glColor3f(0.5f, 0.5f, 0.5f);
@@ -154,7 +150,7 @@ public class Renderer
 		}
 
 		//draw the hotspots
-		if (drawHotspots)
+		if ((Boolean)engine.params.get("renderer.show_hotspots"))
 		{
 			PanoViewpoint vp = (PanoViewpoint)activeVP;
 			SphereCoord3f lookRay = engine.cameraInput.getLookRay();

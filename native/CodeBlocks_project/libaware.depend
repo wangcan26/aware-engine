@@ -140,7 +140,7 @@
 1296794561 /home/cruxic/Programming/AwareEngine/native/jni/Liquid_StaticNoiseOverlay_Impl_jni.h
 	<jni.h>
 
-1300077795 source:/home/cruxic/Programming/aware-engine/native/GLImage.cpp
+1300078497 source:/home/cruxic/Programming/aware-engine/native/GLImage.cpp
 	"GLImage.hpp"
 	<stdlib.h>
 	<string.h>
@@ -248,4 +248,29 @@
 	"noise1234.h"
 
 1293072724 /home/cruxic/Programming/aware-engine/native/misc/noise1234.h
+
+1329595521 /home/cruxic/Programming/aware-engine/native/Dependencies/lpng1.2.x/png.h
+	"zlib.h"
+	"pngconf.h"
+	<crtdbg.h>
+
+1329595521 /home/cruxic/Programming/aware-engine/native/Dependencies/lpng1.2.x/pngconf.h
+	"pngusr.h"
+	"config.h"
+	<windows.h>
+	<stdio.h>
+	<stdio.h>
+	<sys/types.h>
+	<setjmp.h>
+	<strings.h>
+	<string.h>
+	<stdlib.h>
+	<fp.h>
+	<math.h>
+	<m68881.h>
+	<mem.h>
+	<alloc.h>
+	<malloc.h>
+	<time.h>
+	<dos.h>
 

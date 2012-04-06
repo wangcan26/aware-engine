@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_workspace_file>
+	<Workspace title="Workspace">
+		<Project filename="libaware.cbp" active="1">
+			<Depends filename="../Dependencies/Project/png/png.cbp" />
+			<Depends filename="../Dependencies/Project/zlib/zlib.cbp" />
+		</Project>
+		<Project filename="../Dependencies/Project/png/png.cbp">
+			<Depends filename="../Dependencies/Project/zlib/zlib.cbp" />
+		</Project>
+		<Project filename="../Dependencies/Project/zlib/zlib.cbp" />
+	</Workspace>
+</CodeBlocks_workspace_file>

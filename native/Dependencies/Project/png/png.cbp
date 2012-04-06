@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="png" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="../libpng_aware" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="obj/Debug/" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-Wall" />
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="../libpng_aware" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="obj/Release/" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-O2" />
+					<Add option="-Wall" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-fPIC" />
+			<Add directory="../../zlib-1.2.x" />
+		</Compiler>
+		<Unit filename="../../lpng1.2.x/png.h" />
+		<Unit filename="../../lpng1.2.x/pngconf.h" />
+		<Unit filename="../../lpng1.2.x/pngerror.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../lpng1.2.x/pnggccrd.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../lpng1.2.x/pngget.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../lpng1.2.x/pngmem.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../lpng1.2.x/pngpread.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../lpng1.2.x/pngread.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../lpng1.2.x/pngrio.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../lpng1.2.x/pngrtran.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../lpng1.2.x/pngrutil.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../lpng1.2.x/pngset.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../lpng1.2.x/pngtest.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../lpng1.2.x/pngtrans.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../lpng1.2.x/pngvcrd.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../lpng1.2.x/pngwio.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../lpng1.2.x/pngwrite.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../lpng1.2.x/pngwtran.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../lpng1.2.x/pngwutil.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Extensions>
+			<code_completion />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

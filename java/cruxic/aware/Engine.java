@@ -70,6 +70,8 @@ public class Engine
 
 		params = new HashMap<String, Object>();
 		params.put("renderer.show_fps", Boolean.FALSE);
+		params.put("renderer.show_geom", Boolean.FALSE);
+		params.put("renderer.show_hotspots", Boolean.FALSE);
 
 		frameTimer = new EngineTimer();
 		nextFPSValue = 0;

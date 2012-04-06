@@ -37,7 +37,10 @@ public class MenuHandler
 		MQuit,
 		MToggleMusic,
 		MToggleFullscreen,
-		MToggle_showFPS,
+		MToggle_show_fps,
+		MToggle_show_geom,
+		MToggle_show_hotspots,
+
 	}
 
 	public MenuHandler(Engine engine)

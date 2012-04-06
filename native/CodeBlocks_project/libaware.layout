@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
-	<ActiveTarget name="Release" />
+	<ActiveTarget name="Linux 64 - Release" />
 	<File name="../GLImage.cpp" open="0" top="0" tabpos="0">
 		<Cursor position="7312" topLine="271" />
 	</File>

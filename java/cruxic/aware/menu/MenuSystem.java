@@ -121,7 +121,10 @@ public class MenuSystem
 		root.addMenu(new LeafMenu(MPlay, "Play"));
 		SubMenu settings = root.addMenu(new SubMenu(null, "Settings"));
 		{
-			settings.addMenu(new ToggleMenu(MToggle_showFPS, "Show FPS", "renderer.show_fps"));
+			settings.addMenu(new ToggleMenu(MToggle_show_fps, "Show FPS", "renderer.show_fps"));
+			settings.addMenu(new ToggleMenu(MToggle_show_geom, "Show Geometry", "renderer.show_geom"));
+			settings.addMenu(new ToggleMenu(MToggle_show_hotspots, "Show Hotspots", "renderer.show_hotspots"));
+
 			//settings.addMenu(new ToggleMenu(MToggleMusic, "Music"));
 			//settings.addMenu(new ToggleMenu(MToggleFullscreen, "Full Screen"));
 			//SubMenu numbers = settings.addMenu(new SubMenu(null, "Numbers"));
