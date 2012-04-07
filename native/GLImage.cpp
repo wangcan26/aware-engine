@@ -26,7 +26,9 @@
 
 #include "misc/libtarga.h"
 #include <png.h>
-#include <jpeglib.h>
+#ifdef SUPPORT_JPEG
+	#include <jpeglib.h>
+#endif
 #include <setjmp.h>  //for jpeg error recovery
 
 #include "misc/Rect4i.hpp"
@@ -394,6 +396,7 @@ GLboolean readPNGFromFile(const char * filename, GLImage * texinfo, int metaData
 	return GL_TRUE;
 }
 
+#ifdef SUPPORT_JPEG
 typedef struct
 {
     struct jpeg_error_mgr pub;
@@ -468,7 +471,7 @@ GLboolean readJPEGFromFile(const char * filename, GLImage * tex)
     fclose(infile);
     return GL_TRUE;
 }
-
+#endif
 
 /**return GL_TRUE if 'fn' ends with the given suffix (case insensitive)*/
 GLboolean strEndsWithCI(const char * fn, const char * suffix)
@@ -504,11 +507,13 @@ GLImage * GLImage_loadFromFile(const char * fileName, int metaDataOnly)
 		if (readPNGFromFile(fileName, img, metaDataOnly))
 			return img;
     }
+#ifdef SUPPORT_JPEG
     else if (strEndsWithCI(fileName, ".jpg") || strEndsWithCI(fileName, ".jpeg"))
     {
 		if (readJPEGFromFile(fileName, img))
 			return img;
     }
+#endif
     else if (strEndsWithCI(fileName, ".tga"))
     {
 		if (readTGAFromFile(fileName, img))
