@@ -274,3 +274,173 @@
 	<time.h>
 	<dos.h>
 
+1329595521 source:/home/cruxic/Programming/aware-engine/native/Dependencies/lpng1.2.x/png.c
+	"png.h"
+
+1327860794 /home/cruxic/Programming/aware-engine/native/Dependencies/zlib-1.2.x/zlib.h
+	"zconf.h"
+
+1323332032 /home/cruxic/Programming/aware-engine/native/Dependencies/zlib-1.2.x/zconf.h
+	<windows.h>
+	<sys/types.h>
+	<unistd.h>
+	<unixio.h>
+
+1329595521 source:/home/cruxic/Programming/aware-engine/native/Dependencies/lpng1.2.x/pngerror.c
+	"png.h"
+
+1329595521 source:/home/cruxic/Programming/aware-engine/native/Dependencies/lpng1.2.x/pnggccrd.c
+
+1329595521 source:/home/cruxic/Programming/aware-engine/native/Dependencies/lpng1.2.x/pngget.c
+	"png.h"
+
+1329595521 source:/home/cruxic/Programming/aware-engine/native/Dependencies/lpng1.2.x/pngmem.c
+	"png.h"
+
+1329595521 source:/home/cruxic/Programming/aware-engine/native/Dependencies/lpng1.2.x/pngpread.c
+	"png.h"
+
+1329595521 source:/home/cruxic/Programming/aware-engine/native/Dependencies/lpng1.2.x/pngread.c
+	"png.h"
+
+1329595521 source:/home/cruxic/Programming/aware-engine/native/Dependencies/lpng1.2.x/pngrio.c
+	"png.h"
+
+1329595521 source:/home/cruxic/Programming/aware-engine/native/Dependencies/lpng1.2.x/pngrtran.c
+	"png.h"
+
+1329595521 source:/home/cruxic/Programming/aware-engine/native/Dependencies/lpng1.2.x/pngrutil.c
+	"png.h"
+
+1329595521 source:/home/cruxic/Programming/aware-engine/native/Dependencies/lpng1.2.x/pngset.c
+	"png.h"
+
+1329595521 source:/home/cruxic/Programming/aware-engine/native/Dependencies/lpng1.2.x/pngtest.c
+	"png.h"
+	<windows.h>
+	<stdlib.h>
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<mem.h>
+
+1329595521 source:/home/cruxic/Programming/aware-engine/native/Dependencies/lpng1.2.x/pngtrans.c
+	"png.h"
+
+1329595521 source:/home/cruxic/Programming/aware-engine/native/Dependencies/lpng1.2.x/pngvcrd.c
+
+1329595521 source:/home/cruxic/Programming/aware-engine/native/Dependencies/lpng1.2.x/pngwio.c
+	"png.h"
+
+1329595521 source:/home/cruxic/Programming/aware-engine/native/Dependencies/lpng1.2.x/pngwrite.c
+	"png.h"
+
+1329595521 source:/home/cruxic/Programming/aware-engine/native/Dependencies/lpng1.2.x/pngwtran.c
+	"png.h"
+
+1329595522 source:/home/cruxic/Programming/aware-engine/native/Dependencies/lpng1.2.x/pngwutil.c
+	"png.h"
+
+1315692950 source:/home/cruxic/Programming/aware-engine/native/Dependencies/zlib-1.2.x/adler32.c
+	"zutil.h"
+
+1324233584 /home/cruxic/Programming/aware-engine/native/Dependencies/zlib-1.2.x/zutil.h
+	"zlib.h"
+	<stddef.h>
+	<string.h>
+	<stdlib.h>
+	<alloc.h>
+	<malloc.h>
+	<malloc.h>
+	<unix.h>
+	<stdio.h>
+
+1134325650 source:/home/cruxic/Programming/aware-engine/native/Dependencies/zlib-1.2.x/compress.c
+	"zlib.h"
+
+1313288474 source:/home/cruxic/Programming/aware-engine/native/Dependencies/zlib-1.2.x/crc32.c
+	<stdio.h>
+	"zutil.h"
+	<limits.h>
+	"crc32.h"
+
+1312377984 /home/cruxic/Programming/aware-engine/native/Dependencies/zlib-1.2.x/crc32.h
+
+1326761068 source:/home/cruxic/Programming/aware-engine/native/Dependencies/zlib-1.2.x/deflate.c
+	"deflate.h"
+
+1326520480 /home/cruxic/Programming/aware-engine/native/Dependencies/zlib-1.2.x/deflate.h
+	"zutil.h"
+
+1266106368 source:/home/cruxic/Programming/aware-engine/native/Dependencies/zlib-1.2.x/gzclose.c
+	"gzguts.h"
+
+1327860794 /home/cruxic/Programming/aware-engine/native/Dependencies/zlib-1.2.x/gzguts.h
+	<stdio.h>
+	"zlib.h"
+	<string.h>
+	<stdlib.h>
+	<limits.h>
+	<fcntl.h>
+	<io.h>
+	<io.h>
+	<windows.h>
+	<errno.h>
+
+1324275470 source:/home/cruxic/Programming/aware-engine/native/Dependencies/zlib-1.2.x/gzlib.c
+	"gzguts.h"
+
+1324248428 source:/home/cruxic/Programming/aware-engine/native/Dependencies/zlib-1.2.x/gzread.c
+	"gzguts.h"
+
+1327860794 source:/home/cruxic/Programming/aware-engine/native/Dependencies/zlib-1.2.x/gzwrite.c
+	"gzguts.h"
+	<stdarg.h>
+
+1324233584 source:/home/cruxic/Programming/aware-engine/native/Dependencies/zlib-1.2.x/infback.c
+	"zutil.h"
+	"inftrees.h"
+	"inflate.h"
+	"inffast.h"
+	"inffixed.h"
+
+1271646926 /home/cruxic/Programming/aware-engine/native/Dependencies/zlib-1.2.x/inftrees.h
+
+1261787528 /home/cruxic/Programming/aware-engine/native/Dependencies/zlib-1.2.x/inflate.h
+
+1271646960 /home/cruxic/Programming/aware-engine/native/Dependencies/zlib-1.2.x/inffast.h
+
+1317868352 /home/cruxic/Programming/aware-engine/native/Dependencies/zlib-1.2.x/inffixed.h
+
+1271646982 source:/home/cruxic/Programming/aware-engine/native/Dependencies/zlib-1.2.x/inffast.c
+	"zutil.h"
+	"inftrees.h"
+	"inflate.h"
+	"inffast.h"
+
+1324233584 source:/home/cruxic/Programming/aware-engine/native/Dependencies/zlib-1.2.x/inflate.c
+	"zutil.h"
+	"inftrees.h"
+	"inflate.h"
+	"inffast.h"
+	"inffixed.h"
+	<stdio.h>
+
+1326761068 source:/home/cruxic/Programming/aware-engine/native/Dependencies/zlib-1.2.x/inftrees.c
+	"zutil.h"
+	"inftrees.h"
+
+1325974082 source:/home/cruxic/Programming/aware-engine/native/Dependencies/zlib-1.2.x/trees.c
+	"deflate.h"
+	<ctype.h>
+	"trees.h"
+	<stdio.h>
+
+1271608358 /home/cruxic/Programming/aware-engine/native/Dependencies/zlib-1.2.x/trees.h
+
+1263749660 source:/home/cruxic/Programming/aware-engine/native/Dependencies/zlib-1.2.x/uncompr.c
+	"zlib.h"
+
+1317975116 source:/home/cruxic/Programming/aware-engine/native/Dependencies/zlib-1.2.x/zutil.c
+	"zutil.h"
+

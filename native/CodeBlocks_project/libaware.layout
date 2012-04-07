@@ -1,8 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Linux 64 - Release" />
+	<File name="../Dependencies/lpng1.2.x/png.h" open="0" top="0" tabpos="0">
+		<Cursor position="166" topLine="0" />
+	</File>
+	<File name="../Dependencies/lpng1.2.x/pngconf.h" open="0" top="0" tabpos="0">
+		<Cursor position="42979" topLine="1377" />
+	</File>
+	<File name="../Dependencies/lpng1.2.x/pngread.c" open="0" top="0" tabpos="0">
+		<Cursor position="10930" topLine="340" />
+	</File>
 	<File name="../GLImage.cpp" open="0" top="0" tabpos="0">
-		<Cursor position="7312" topLine="271" />
+		<Cursor position="8725" topLine="328" />
 	</File>
 	<File name="../GLImage.hpp" open="0" top="0" tabpos="0">
 		<Cursor position="579" topLine="29" />

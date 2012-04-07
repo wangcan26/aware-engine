@@ -18,11 +18,11 @@
 				<Option createStaticLib="1" />
 				<Compiler>
 					<Add option="-g" />
+					<Add option="-fPIC" />
 					<Add option="-DGLIMAGE_SAFE" />
 				</Compiler>
 				<Linker>
 					<Add library="GL" />
-					<Add library="png" />
 				</Linker>
 			</Target>
 			<Target title="Linux 64 - Release">
@@ -35,11 +35,11 @@
 				<Option createStaticLib="1" />
 				<Compiler>
 					<Add option="-O1" />
+					<Add option="-fPIC" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
 					<Add library="GL" />
-					<Add library="png" />
 				</Linker>
 			</Target>
 			<Target title="Win32 - Debug">
@@ -57,9 +57,7 @@
 					<Add option="-DGLIMAGE_SAFE" />
 				</Compiler>
 				<Linker>
-					<Add library="GL" />
-					<Add library="zlib_aware" />
-					<Add library="png_aware" />
+					<Add library="opengl32" />
 				</Linker>
 			</Target>
 			<Target title="Win32 - Release">
@@ -72,12 +70,12 @@
 				<Option createStaticLib="1" />
 				<Compiler>
 					<Add option="-O1" />
+					<Add directory="C:/Program Files/Java/jdk1.6.0_31/include" />
+					<Add directory="C:/Program Files/Java/jdk1.6.0_31/include/win32" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
-					<Add library="GL" />
-					<Add library="zlib_aware" />
-					<Add library="png_aware" />
+					<Add library="opengl32" />
 				</Linker>
 			</Target>
 			<Environment>
@@ -86,13 +84,123 @@
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
-			<Add option="-fPIC" />
 			<Add directory="$(JDK_HOME)/include" />
 			<Add directory="$(JDK_HOME)/include/linux" />
+			<Add directory="../Dependencies/zlib-1.2.x" />
+			<Add directory="../Dependencies/lpng1.2.x" />
 		</Compiler>
-		<Linker>
-			<Add directory="../Dependencies/Project" />
-		</Linker>
+		<Unit filename="../Dependencies/lpng1.2.x/png.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../Dependencies/lpng1.2.x/png.h" />
+		<Unit filename="../Dependencies/lpng1.2.x/pngconf.h" />
+		<Unit filename="../Dependencies/lpng1.2.x/pngerror.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../Dependencies/lpng1.2.x/pnggccrd.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../Dependencies/lpng1.2.x/pngget.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../Dependencies/lpng1.2.x/pngmem.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../Dependencies/lpng1.2.x/pngpread.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../Dependencies/lpng1.2.x/pngread.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../Dependencies/lpng1.2.x/pngrio.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../Dependencies/lpng1.2.x/pngrtran.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../Dependencies/lpng1.2.x/pngrutil.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../Dependencies/lpng1.2.x/pngset.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../Dependencies/lpng1.2.x/pngtest.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../Dependencies/lpng1.2.x/pngtrans.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../Dependencies/lpng1.2.x/pngvcrd.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../Dependencies/lpng1.2.x/pngwio.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../Dependencies/lpng1.2.x/pngwrite.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../Dependencies/lpng1.2.x/pngwtran.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../Dependencies/lpng1.2.x/pngwutil.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../Dependencies/zlib-1.2.x/adler32.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../Dependencies/zlib-1.2.x/compress.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../Dependencies/zlib-1.2.x/crc32.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../Dependencies/zlib-1.2.x/crc32.h" />
+		<Unit filename="../Dependencies/zlib-1.2.x/deflate.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../Dependencies/zlib-1.2.x/deflate.h" />
+		<Unit filename="../Dependencies/zlib-1.2.x/gzclose.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../Dependencies/zlib-1.2.x/gzguts.h" />
+		<Unit filename="../Dependencies/zlib-1.2.x/gzlib.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../Dependencies/zlib-1.2.x/gzread.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../Dependencies/zlib-1.2.x/gzwrite.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../Dependencies/zlib-1.2.x/infback.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../Dependencies/zlib-1.2.x/inffast.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../Dependencies/zlib-1.2.x/inffast.h" />
+		<Unit filename="../Dependencies/zlib-1.2.x/inffixed.h" />
+		<Unit filename="../Dependencies/zlib-1.2.x/inflate.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../Dependencies/zlib-1.2.x/inflate.h" />
+		<Unit filename="../Dependencies/zlib-1.2.x/inftrees.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../Dependencies/zlib-1.2.x/inftrees.h" />
+		<Unit filename="../Dependencies/zlib-1.2.x/trees.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../Dependencies/zlib-1.2.x/trees.h" />
+		<Unit filename="../Dependencies/zlib-1.2.x/uncompr.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../Dependencies/zlib-1.2.x/zconf.h" />
+		<Unit filename="../Dependencies/zlib-1.2.x/zlib.h" />
+		<Unit filename="../Dependencies/zlib-1.2.x/zutil.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../Dependencies/zlib-1.2.x/zutil.h" />
 		<Unit filename="../GLImage.cpp" />
 		<Unit filename="../GLImage.hpp" />
 		<Unit filename="../GLImageUpload.cpp" />
