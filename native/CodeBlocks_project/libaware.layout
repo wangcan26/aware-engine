@@ -10,14 +10,14 @@
 	<File name="../Dependencies/lpng1.2.x/pngread.c" open="0" top="0" tabpos="0">
 		<Cursor position="10930" topLine="340" />
 	</File>
-	<File name="../GLImage.cpp" open="1" top="0" tabpos="1">
+	<File name="../GLImage.cpp" open="0" top="0" tabpos="1">
 		<Cursor position="16851" topLine="645" />
 	</File>
-	<File name="../GLImage.hpp" open="1" top="0" tabpos="2">
+	<File name="../GLImage.hpp" open="0" top="0" tabpos="2">
 		<Cursor position="822" topLine="12" />
 	</File>
 	<File name="../GLImageUpload.cpp" open="0" top="0" tabpos="0">
-		<Cursor position="364" topLine="6" />
+		<Cursor position="2284" topLine="54" />
 	</File>
 	<File name="../ImageMask.cpp" open="0" top="0" tabpos="4">
 		<Cursor position="288" topLine="0" />

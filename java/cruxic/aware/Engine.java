@@ -72,6 +72,7 @@ public class Engine
 		params.put("renderer.show_fps", Boolean.FALSE);
 		params.put("renderer.show_geom", Boolean.FALSE);
 		params.put("renderer.show_hotspots", Boolean.FALSE);
+		params.put("devel.cycle_viewpoints", Boolean.TRUE);
 
 		frameTimer = new EngineTimer();
 		nextFPSValue = 0;
@@ -207,11 +208,14 @@ public class Engine
 		fpsValues[nextFPSValue] = fps;
 	}
 
+	int tickn = 0;
+
 	/**Render another frame of the game world.
 	 Usually this is called in a loop.*/
 	public void tick()
 	{
 		Display.update();
+		tickn++;
 
 		checkKeyboardInput();
 
@@ -224,7 +228,7 @@ public class Engine
 			//Left click
 			if (button == 0)
 			{
-				boolean released = Mouse.getEventButtonState();
+				boolean released = !Mouse.getEventButtonState();
 				if (released && !mouseUp)
 					mouseUp = true;
 				else if (!released && !mouseDown)
@@ -276,8 +280,10 @@ public class Engine
 		//no hotspot clicked
 		if (clickedHS == null)
 		{
+			if ((Boolean)params.get("devel.cycle_viewpoints"))
+				return gameWorld.getNextViewpointInCycle(avp);
 			//return to previous viewpoint
-			if (avp.isImplicitBackLink() && previousViewpoint != null)
+			else if (avp.isImplicitBackLink() && previousViewpoint != null)
 				return previousViewpoint;
 		}
 		else if (clickedHS.targetViewpoint != null)
@@ -399,6 +405,14 @@ public class Engine
 			&& !list.contains(previousViewpoint))
 		{
 			list.add(previousViewpoint);
+		}
+
+		//In cycle mode, add the next viewpoint in the cycle
+		if ((Boolean)params.get("devel.cycle_viewpoints"))
+		{
+			Viewpoint next = gameWorld.getNextViewpointInCycle(vp);
+			if (!list.contains(next))
+				list.add(next);
 		}
 
 		return list;

@@ -124,6 +124,7 @@ public class MenuSystem
 			settings.addMenu(new ToggleMenu(MToggle_show_fps, "Show FPS", "renderer.show_fps"));
 			settings.addMenu(new ToggleMenu(MToggle_show_geom, "Show Geometry", "renderer.show_geom"));
 			settings.addMenu(new ToggleMenu(MToggle_show_hotspots, "Show Hotspots", "renderer.show_hotspots"));
+			settings.addMenu(new ToggleMenu(MToggle_show_hotspots, "Cycle Viewpoints", "devel.cycle_viewpoints"));
 
 			//settings.addMenu(new ToggleMenu(MToggleMusic, "Music"));
 			//settings.addMenu(new ToggleMenu(MToggleFullscreen, "Full Screen"));

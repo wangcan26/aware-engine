@@ -224,4 +224,22 @@ public class GameWorld
 	{
 
 	}
+
+	public Viewpoint getNextViewpointInCycle(Viewpoint currentVp)
+	{
+		Iterator<Viewpoint> itr = viewpoints.iterator();
+		while (itr.hasNext())
+		{
+			if (itr.next() == currentVp)
+			{
+				if (itr.hasNext())
+					return itr.next();
+				else
+					return viewpoints.get(0);
+			}
+		}
+
+		//given viewpoint not found
+		return null;
+	}
 }

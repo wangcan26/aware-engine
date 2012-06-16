@@ -76,8 +76,8 @@
       <property name="field_breakpoints_groupByClasses" value="true" />
       <property name="method_breakpoints_groupByClasses" value="true" />
       <property name="exception_breakpoints_viewId" value="TABLE" />
-      <property name="exception_breakpoints_groupByClasses" value="true" />
       <property name="field_breakpoints_viewId" value="TABLE" />
+      <property name="exception_breakpoints_groupByClasses" value="true" />
       <property name="method_breakpoints_groupByMethods" value="false" />
     </ui_properties>
   </component>
@@ -91,7 +91,17 @@
     </favorites_list>
   </component>
   <component name="FileEditorManager">
-    <leaf />
+    <leaf>
+      <file leaf-file-name="Engine.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/../java/cruxic/aware/Engine.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="225" column="8" selection-start="5635" selection-end="5635" vertical-scroll-proportion="0.21724138">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -269,7 +279,7 @@
       <recent name="cruxic.aware.tex_cache" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Run">
+  <component name="RunManager" selected="Application.Run jmp-tech-demo-1">
     <configuration default="true" type="Remote" factoryName="Remote">
       <option name="USE_SOCKET_TRANSPORT" value="true" />
       <option name="SERVER_MODE" value="false" />
@@ -516,12 +526,12 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="7" />
       <window_info id="Structure" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.27597404" order="5" />
       <window_info id="Module Dependencies" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="4" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.28003246" order="0" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3068182" order="0" x="452" y="71" width="376" height="625" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="8" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" order="2" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" order="6" />
       <window_info id="Duplicates" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="8" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.8032" order="2" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3072" order="2" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" order="5" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="0" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" order="1" />
@@ -554,13 +564,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/../java/cruxic/jftgl_copy/FTFont.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="233" column="90" selection-start="6250" selection-end="6250" vertical-scroll-proportion="0.26034483">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../java/cruxic/jftgl_copy/FTGLPixmapFont.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="37" column="0" selection-start="657" selection-end="657" vertical-scroll-proportion="0.13445379">
@@ -582,33 +585,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../java/cruxic/aware/Viewpoint.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="33" column="0" selection-start="1002" selection-end="1002" vertical-scroll-proportion="0.76124567">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../java/cruxic/aware/EquirectViewpoint.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="24" column="5" selection-start="444" selection-end="444" vertical-scroll-proportion="1.2906574">
           <folding>
             <marker date="1339790705000" expanded="true" signature="219:236" placeholder="{...}" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../java/cruxic/aware/Engine.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="351" column="0" selection-start="8859" selection-end="8859" vertical-scroll-proportion="0.59786475">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../java/cruxic/aware/menu/MenuSystem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="80" column="29" selection-start="2230" selection-end="2230" vertical-scroll-proportion="0.33274022">
-          <folding />
         </state>
       </provider>
     </entry>
@@ -640,30 +622,58 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../java/cruxic/aware/Renderer.java">
+    <entry file="file://$PROJECT_DIR$/../java/cruxic/aware/PanoViewpoint.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="453" column="23" selection-start="12179" selection-end="12179" vertical-scroll-proportion="5.5915494">
+        <state line="34" column="25" selection-start="1027" selection-end="1027" vertical-scroll-proportion="0.028571429">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../native/GLImageUpload.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="72" column="8" selection-start="2889" selection-end="2889" vertical-scroll-proportion="0.5586207">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../Game-Data/jmp-tech-demo-1/game.aware">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="5" selection-start="630" selection-end="630" vertical-scroll-proportion="0.82857144">
+        <state line="16" column="7" selection-start="331" selection-end="331" vertical-scroll-proportion="0.45714286">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../java/cruxic/aware/Viewpoint.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="33" column="35" selection-start="1034" selection-end="1034" vertical-scroll-proportion="0.47563025">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../java/cruxic/aware/GameWorld.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="179" column="0" selection-start="4578" selection-end="4578" vertical-scroll-proportion="0.1362069">
+        <state line="241" column="35" selection-start="5797" selection-end="5797" vertical-scroll-proportion="0.7948276">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../java/cruxic/aware/PanoViewpoint.java">
+    <entry file="file://$PROJECT_DIR$/../java/cruxic/aware/Renderer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="34" column="25" selection-start="1027" selection-end="1027" vertical-scroll-proportion="0.028571429">
+        <state line="152" column="0" selection-start="4635" selection-end="4635" vertical-scroll-proportion="0.09827586">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../java/cruxic/aware/menu/MenuSystem.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="126" column="109" selection-start="4005" selection-end="4005" vertical-scroll-proportion="0.3913793">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../java/cruxic/aware/Engine.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="225" column="8" selection-start="5635" selection-end="5635" vertical-scroll-proportion="0.21724138">
           <folding />
         </state>
       </provider>
