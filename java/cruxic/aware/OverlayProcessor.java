@@ -104,7 +104,10 @@ public class OverlayProcessor
 		{
 			if (DEBUG) System.out.printf("OverlayProcessor: load request: %s\n", vp.getId());
 
-			Job job = new Job(ospecs, vp.getImage());
+			if (!(vp instanceof EquirectViewpoint))
+				throw new UnsupportedOperationException("OverlayProcessor currently only understands EquirectViewpoint");
+
+			Job job = new Job(ospecs, ((EquirectViewpoint)vp).getImage());
 			synchronized (jobs)
 			{
 				//don't put duplicate jobs

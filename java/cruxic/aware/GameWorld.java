@@ -140,9 +140,21 @@ public class GameWorld
 		List<JSONObject> jviewpoints = (List<JSONObject>)root.get("viewpoints");
 		for (JSONObject jvp: jviewpoints)
 		{
-			PanoViewpoint vp = new PanoViewpoint((String)jvp.get("id"));
+			PanoViewpoint vp;
+
+			boolean cubic = jvp.containsKey("type") && jvp.get("type").equals("cubic");
+			if (cubic)
+			{
+				vp = new CubicViewpoint((String)jvp.get("id"));
+			}
+			else
+			{
+				vp = new EquirectViewpoint((String)jvp.get("id"));
+			}
+
 			vp.location = parseVec3fFromJSON(jvp.get("loc"));
 			vp.implicitBackLink = (Boolean)jvp.get("implicitBackLink");
+			//vp.cubic = jvp.containsKey("type") && jvp.get("type").equals("cubic");
 
 			//Images
 			for (String imgId: (List<String>)jvp.get("images"))
@@ -191,7 +203,7 @@ public class GameWorld
 			if (target == null)
 				System.out.printf("Unable to hotspot target: \"%s\"\n", e.getValue());
 			else
-				e.getKey().targetViewpoint = (PanoViewpoint)target;
+				e.getKey().targetViewpoint = target;
 		}
 
 		return gw;

@@ -219,7 +219,7 @@ public abstract class FTFont
 	 */
 	public final float descender() // TODO
 	{
-		assert this.descender<=0:"Evil Developer.";
+		assert this.descender<=0: Float.toString(this.descender);
 		return this.descender;
 	}
 
@@ -233,6 +233,13 @@ public abstract class FTFont
 	{
 		this.ascender  = (float) this.font.getMaxCharBounds(this.fontrendercontext).getMinY();
 		this.descender = (float) this.font.getMaxCharBounds(this.fontrendercontext).getMaxY();
+
+		//hack(cruxic): the above used to work flawlessly but I just upgraded my OS and suddenly
+		//  ascender and descender are negated!?
+		if (ascender < 0.0f)
+			ascender = -ascender;
+		if (descender > 0.0f)
+			descender = -descender;
 	}
 
 	/**

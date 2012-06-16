@@ -84,8 +84,8 @@
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
-			<Add directory="$(JDK_HOME)/include" />
-			<Add directory="$(JDK_HOME)/include/linux" />
+			<Add directory="$(#JDK_HOME)/include" />
+			<Add directory="$(#JDK_HOME)/include/linux" />
 			<Add directory="../Dependencies/zlib-1.2.x" />
 			<Add directory="../Dependencies/lpng1.2.x" />
 		</Compiler>

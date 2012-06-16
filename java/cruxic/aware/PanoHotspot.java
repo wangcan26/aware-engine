@@ -30,7 +30,7 @@ public class PanoHotspot
 	something in the game*/
 	public ArrayList<SphereCoord3f> polygon;
 
-	public PanoViewpoint targetViewpoint;
+	public Viewpoint targetViewpoint;
 
 	public PanoHotspot(String id)
 	{

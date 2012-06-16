@@ -25,7 +25,7 @@ import java.util.*;
 /**
 
  */
-public class PanoViewpoint implements Viewpoint
+public abstract class PanoViewpoint implements Viewpoint
 {
 	public final String id;
 
@@ -37,8 +37,6 @@ public class PanoViewpoint implements Viewpoint
 	public List<PanoHotspot> hotspots;
 
 	public List<OverlaySpec> overlays;
-
-	private String activeImage;
 
 	public PanoViewpoint(String id)
 	{
@@ -52,16 +50,6 @@ public class PanoViewpoint implements Viewpoint
 	public String getId()
 	{
 		return id;
-	}
-
-	/**Get the current image*/
-	public String getImage()
-	{
-		//initialize activeImage if necessary
-		if (activeImage == null && !imageIds.isEmpty())
-			activeImage = imageIds.get(0);
-
-		return activeImage;
 	}
 
 	public String toString()
@@ -89,5 +77,15 @@ public class PanoViewpoint implements Viewpoint
 	public List<OverlaySpec> getOverlays()
 	{
 		return overlays;
+	}
+
+	public boolean isImplicitBackLink()
+	{
+		return implicitBackLink;
+	}
+
+	public List<PanoHotspot> hotspots()
+	{
+		return hotspots;
 	}
 }

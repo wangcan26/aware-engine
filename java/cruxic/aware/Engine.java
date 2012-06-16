@@ -95,7 +95,7 @@ public class Engine
 
 		//load an empty game world
 		GameWorld empty = new GameWorld();
-		PanoViewpoint dummy = new PanoViewpoint("dummy");
+		PanoViewpoint dummy = new EquirectViewpoint("dummy");
 		dummy.imageIds.add(ResourceManager.ID_IMAGE_NULL);
 		empty.addViewpoint(dummy);
 		//empty.addViewpoint(new PanoViewpoint("bc/ent - ladder base - hall lights off.png"));
@@ -134,9 +134,10 @@ public class Engine
 
 		//setup the initial working texture set
 		WorkingSet<String> ws = new WorkingSet<String>();
-		ws.add(gameWorld.active.getImage(), WorkingSet.PRI_HIGH);
+		gameWorld.active.addImagesToWorkingSet(ws, WorkingSet.PRI_HIGH);
+
 		for (Viewpoint vp: getSurroundingViewpoints(gameWorld.active))
-			ws.add(vp.getImage(), WorkingSet.PRI_NORM);
+			vp.addImagesToWorkingSet(ws, WorkingSet.PRI_NORM);
 		texCache.changeWorkingSet(ws);
 	}
 
@@ -267,7 +268,7 @@ public class Engine
 
 	Viewpoint getHotspotTarget(SphereCoord3f lookRay)
 	{
-		PanoViewpoint avp = (PanoViewpoint)gameWorld.getActiveViewpoint();
+		Viewpoint avp = gameWorld.getActiveViewpoint();
 
 		//Get clicked hotspot
 		PanoHotspot clickedHS = avp.findActiveHotspot(lookRay);
@@ -276,7 +277,7 @@ public class Engine
 		if (clickedHS == null)
 		{
 			//return to previous viewpoint
-			if (avp.implicitBackLink && previousViewpoint != null)
+			if (avp.isImplicitBackLink() && previousViewpoint != null)
 				return previousViewpoint;
 		}
 		else if (clickedHS.targetViewpoint != null)
@@ -340,15 +341,15 @@ public class Engine
 
 		//setup the new working texture set
 		WorkingSet<String> ws = new WorkingSet<String>();
-		ws.add(avp.getImage(), WorkingSet.PRI_HIGH);
+		avp.addImagesToWorkingSet(ws, WorkingSet.PRI_HIGH);
 		addOverlayImages(ws, avp, WorkingSet.PRI_HIGH - 1);
 
 		//bugfix: I used to assign the previous viewpoint PRI_HIGH but I'm pretty much guaranteed that it's already cached in VRAM
 		//The loop below will increase it's priority if it's still a surrounding viewpoint (likely)
-		ws.add(previousViewpoint.getImage(), WorkingSet.PRI_LOW);
+		previousViewpoint.addImagesToWorkingSet(ws, WorkingSet.PRI_LOW);
 
 		for (Viewpoint vp: getSurroundingViewpoints(avp))
-			ws.add(vp.getImage(), WorkingSet.PRI_NORM);
+			vp.addImagesToWorkingSet(ws, WorkingSet.PRI_NORM);
 
 		//start loading the images (asynchronous)
 		texCache.changeWorkingSet(ws);
@@ -385,7 +386,7 @@ public class Engine
 		//Looking at all the hotspots linked from here
 
 		List<Viewpoint> list = new ArrayList<Viewpoint>(8);
-		for (PanoHotspot hotspot: ((PanoViewpoint)vp).hotspots)
+		for (PanoHotspot hotspot: vp.hotspots())
 		{
 			if (hotspot.targetViewpoint != null)
 				list.add(hotspot.targetViewpoint);
@@ -393,7 +394,7 @@ public class Engine
 
 		//Also include implicit back links
 		if (vp == gameWorld.getActiveViewpoint()
-			&& ((PanoViewpoint)vp).implicitBackLink
+			&& vp.isImplicitBackLink()
 			&& previousViewpoint != null
 			&& !list.contains(previousViewpoint))
 		{

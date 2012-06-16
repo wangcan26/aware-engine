@@ -18,9 +18,6 @@
 */
 package cruxic.aware;
 
-import cruxic.aware.tex_cache.TextureCache;
-
-import java.util.*;
 import java.io.File;
 
 /**
@@ -112,13 +109,13 @@ public class ResourceManager
 			if (!alias.endsWith(".png"))
 				sb.append(".png");
 
-			//TODO: Correct the slashes for the platform
-			if (sb.indexOf("/") != -1 && !File.separator.equals("/"))
-			{
-				throw new UnsupportedOperationException("fix slashes");
-			}
+			String fileName = sb.toString();
 
-			return sb.toString();
+			//Correct the slashes for the platform
+			if (sb.indexOf("/") != -1 && File.separatorChar != '/')
+				fileName = fileName.replace('/', File.separatorChar);
+
+			return fileName;
 		}
 	}
 }

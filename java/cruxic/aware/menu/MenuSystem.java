@@ -78,7 +78,7 @@ public class MenuSystem
 
 	private OpenGLContext glCtx;
 
-	private PanoViewpoint menuViewpoint;
+	private EquirectViewpoint menuViewpoint;
 
 	private static final int FONT_NORMAL_POINT_SIZE = 30;
 	private float fontScaleFactor;
@@ -103,7 +103,7 @@ public class MenuSystem
 		rippleSpec.noiseIntensity = 0.85f;
 
 		//dummy Viewpoint necessary for overlayprocessor call
-		menuViewpoint = new PanoViewpoint("menu");
+		menuViewpoint = new EquirectViewpoint("menu");
 		menuViewpoint.imageIds.add("res/menu/background.png");
 		menuViewpoint.overlays.add(rippleSpec);
 

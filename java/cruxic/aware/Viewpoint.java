@@ -19,6 +19,7 @@
 package cruxic.aware;
 
 import cruxic.math.SphereCoord3f;
+import cruxic.aware.misc.WorkingSet;
 
 import java.util.List;
 
@@ -30,8 +31,7 @@ public interface Viewpoint
 	/**unique id of this viewpoint.*/
 	public String getId();
 
-	/**Get the current image*/
-	public String getImage();
+	public void addImagesToWorkingSet(WorkingSet<String> ws, int priorityGroup);
 
 	/**search all hotspots  in this viewpoint for the one which
 	is pierced by the given ray.
@@ -41,4 +41,8 @@ public interface Viewpoint
 	/**Get all overlays that this viewpoint uses.  They are
 	 sorted by layer index (the order in which they should be drawn).*/
 	public List<OverlaySpec> getOverlays();
+
+	public boolean isImplicitBackLink();
+
+	public List<PanoHotspot> hotspots();
 }

@@ -152,14 +152,14 @@ public class Renderer
 		//draw the hotspots
 		if ((Boolean)engine.params.get("renderer.show_hotspots"))
 		{
-			PanoViewpoint vp = (PanoViewpoint)activeVP;
+			Viewpoint vp = activeVP;
 			SphereCoord3f lookRay = engine.cameraInput.getLookRay();
 
 			PanoHotspot edHotSpot = null;//vp.ed_getCurrentHotSpot();
 
 			glDisable(GL_TEXTURE_2D);
 
-			for (PanoHotspot hotspot: vp.hotspots)
+			for (PanoHotspot hotspot: vp.hotspots())
 			{
 				//Setup color and style of hotspot
 
@@ -368,10 +368,10 @@ public class Renderer
 
 	private void drawViewpoint(Viewpoint vp)
 	{
-		if (vp instanceof PanoViewpoint)
+		if (vp instanceof EquirectViewpoint)
 		{
-			PanoViewpoint pv = (PanoViewpoint)vp;
-			if (!pv.getOverlays().isEmpty())
+			EquirectViewpoint evp = (EquirectViewpoint)vp;
+			if (!evp.getOverlays().isEmpty())
 			{
 //				HERE: finalize all this mess:
 //			  		3) get viewpoint cleanup working
@@ -398,21 +398,164 @@ public class Renderer
 //
 //				}
 
-				int texId = engine.texCache.getTexture(vp.getImage())[0];
+				int texId = engine.texCache.getTexture(evp.getImage())[0];
 
 				glBindTexture(GL_TEXTURE_2D, texId);
 
 				engine.overlayProcessor.upload(vp);
 
-				drawUVSphere(sphereResolution, engine.texCache.getTexture(vp.getImage()));
+				drawUVSphere(sphereResolution, engine.texCache.getTexture(evp.getImage()));
 			}
 			else
 			{
-				drawUVSphere(sphereResolution, engine.texCache.getTexture(vp.getImage()));
+				drawUVSphere(sphereResolution, engine.texCache.getTexture(evp.getImage()));
 			}
+		}
+		else if (vp instanceof CubicViewpoint)
+		{
+			CubicViewpoint cvp = (CubicViewpoint)vp;
+
+			//Get the texure IDs
+			int[] tex_fblrtb = new int[6];
+			int i = 0;
+			for (String imgId: cvp.imageIds)
+				tex_fblrtb[i++] = engine.texCache.getTexture(imgId)[0];
+
+			drawEnvCube(tex_fblrtb);
 		}
 		else
 			throw new UnsupportedOperationException();
+	}
+
+	void drawEnvCube(int[] tex_fblrtb)
+	{
+		final float SZ = 1.0f;
+
+		final float[][] VERTS =
+		{
+			{SZ, SZ, -SZ},   //1
+			{SZ, -SZ, -SZ},  //2
+			{-SZ, -SZ, -SZ}, //3
+			{-SZ, SZ, -SZ},  //4
+			{SZ, SZ, SZ},    //5
+			{SZ, -SZ, SZ},   //6
+			{-SZ, -SZ, SZ},  //7
+			{-SZ, SZ, SZ}    //8
+		};
+
+		//the verticies of each face are orderd CCW starting at the lower-left corner of the quad
+		final int[][] FACES =
+		{
+			{4, 1, 5, 8},  //Front (+Y)
+			{2, 3, 7, 6},  //Back  (-Y)
+			{3, 4, 8, 7},  //Left  (-X)
+			{1, 2, 6, 5},  //Right (+X)
+			{8, 5, 6, 7},  //Top   (+Z)
+			{3, 2, 1, 4}   //Bot   (-Z)
+		};
+
+		final float[][] TEX_COORDS =
+		{
+			{0.0f, 0.0f},
+			{1.0f, 0.0f},
+			{1.0f, 1.0f},
+			{0.0f, 1.0f},
+		};
+
+
+		for (int fi = 0; fi < 6; fi++)
+		{
+			glBindTexture(GL_TEXTURE_2D, tex_fblrtb[fi]);
+
+			glBegin(GL_QUADS);
+			for (int vi = 0; vi < 4; vi++)
+			{
+				float[] v = TEX_COORDS[vi];
+				glTexCoord2f(v[0], v[1]);
+
+				v = VERTS[FACES[fi][vi] - 1];  //indicies are 1 based
+				glVertex3f(v[0], v[1], v[2]);
+
+				//glTexCoord2fv(TEX_COORDS[TEX_FACES[fi][vi] - 1]);  //indicies are 1 based
+				//glVertex3fv(VERTS[FACES[fi][vi] - 1]);	//indicies are 1 based
+			}
+			glEnd();
+		}
+	}
+
+
+	void drawEnvCube()
+	{
+		final float SZ = 1.0f;
+
+		final float[][] VERTS =
+		{
+			{SZ, SZ, -SZ},
+			{SZ, -SZ, -SZ},
+			{-SZ, -SZ, -SZ},
+			{-SZ, SZ, -SZ},
+			{SZ, SZ, SZ},
+			{SZ, -SZ, SZ},
+			{-SZ, -SZ, SZ},
+			{-SZ, SZ, SZ}
+		};
+
+		final int[][] FACES =
+		{
+			{1, 4, 3, 2},  //Bot
+			{5, 6, 7, 8},  //Top
+			{1, 2, 6, 5},  //Right
+			{2, 3, 7, 6},  //Back
+			{3, 4, 8, 7},  //Left
+			{4, 1, 5, 8}   //Front
+		};
+
+		final float[][] TEX_COORDS =
+		{
+			//image bottom row
+			{0.0f, 0.0f},
+			{1/3.0f, 0.0f},
+			{2/3.0f, 0.0f},
+			{1.0f, 0.0f},
+			//image middle row
+			{0.0f, 0.5f},
+			{1/3.0f, 0.5f},
+			{2/3.0f, 0.5f},
+			{1.0f, 0.5f},
+			//image top row
+			{0.0f, 1.0f},
+			{1/3.0f, 1.0f},
+			{2/3.0f, 1.0f},
+			{1.0f, 1.0f},
+		};
+
+		//http://en.wikibooks.org/wiki/Blender_3D:_Noob_to_Pro/Build_a_skybox
+		final int[][] TEX_FACES =
+		{
+			{6, 5, 1, 2},  //Bot
+			{3, 7, 6, 2},  //Top
+			{7, 8, 12, 11},  //Right
+			{6, 7, 11, 10},  //Back
+			{5, 6, 10, 9},	//Left
+			{3, 4, 8, 7}	 //Front
+		};
+
+		glBegin(GL_QUADS);
+		for (int fi = 0; fi < 6; fi++)
+		{
+			for (int vi = 0; vi < 4; vi++)
+			{
+				float[] v = TEX_COORDS[TEX_FACES[fi][vi] - 1];  //indicies are 1 based
+				glTexCoord2f(v[0], v[1]);
+
+				v = VERTS[FACES[fi][vi] - 1];  //indicies are 1 based
+				glVertex3f(v[0], v[1], v[2]);
+
+				//glTexCoord2fv(TEX_COORDS[TEX_FACES[fi][vi] - 1]);  //indicies are 1 based
+				//glVertex3fv(VERTS[FACES[fi][vi] - 1]);	//indicies are 1 based
+			}
+		}
+		glEnd();
 	}
 
 	/**

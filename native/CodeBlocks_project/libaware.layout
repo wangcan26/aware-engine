@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
-	<ActiveTarget name="Linux 64 - Release" />
+	<ActiveTarget name="Linux 64 - Debug" />
 	<File name="../Dependencies/lpng1.2.x/png.h" open="0" top="0" tabpos="0">
 		<Cursor position="166" topLine="0" />
 	</File>
@@ -10,11 +10,11 @@
 	<File name="../Dependencies/lpng1.2.x/pngread.c" open="0" top="0" tabpos="0">
 		<Cursor position="10930" topLine="340" />
 	</File>
-	<File name="../GLImage.cpp" open="0" top="0" tabpos="0">
-		<Cursor position="8725" topLine="328" />
+	<File name="../GLImage.cpp" open="1" top="0" tabpos="1">
+		<Cursor position="16851" topLine="645" />
 	</File>
-	<File name="../GLImage.hpp" open="0" top="0" tabpos="0">
-		<Cursor position="579" topLine="29" />
+	<File name="../GLImage.hpp" open="1" top="0" tabpos="2">
+		<Cursor position="822" topLine="12" />
 	</File>
 	<File name="../GLImageUpload.cpp" open="0" top="0" tabpos="0">
 		<Cursor position="364" topLine="6" />
