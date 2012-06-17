@@ -25,7 +25,6 @@ import cruxic.aware.ipo.*;
 import cruxic.math.*;
 
 import java.awt.*;
-import java.util.*;
 
 import cruxic.jftgl_copy.FTGLPixmapFont;
 
@@ -427,42 +426,43 @@ public class Renderer
 			throw new UnsupportedOperationException();
 	}
 
+	/**Used by drawEnvCube*/
+	private static final float[][] CUBE_VERTS =
+	{
+		{1.0f, 1.0f, -1.0f},   //1
+		{1.0f, -1.0f, -1.0f},  //2
+		{-1.0f, -1.0f, -1.0f}, //3
+		{-1.0f, 1.0f, -1.0f},  //4
+		{1.0f, 1.0f, 1.0f},    //5
+		{1.0f, -1.0f, 1.0f},   //6
+		{-1.0f, -1.0f, 1.0f},  //7
+		{-1.0f, 1.0f, 1.0f}    //8
+	};
+
+	/**Used by drawEnvCube.
+	 the verticies of each face are orderd CCW starting at the lower-left corner of the quad
+	 */
+	private static final int[][] CUBE_FACES =
+	{
+		{4, 1, 5, 8},  //Front (+Y)
+		{2, 3, 7, 6},  //Back  (-Y)
+		{3, 4, 8, 7},  //Left  (-X)
+		{1, 2, 6, 5},  //Right (+X)
+		{8, 5, 6, 7},  //Top   (+Z)
+		{3, 2, 1, 4}   //Bot   (-Z)
+	};
+
+	/**Used by drawEnvCube*/
+	private static final float[][] CUBE_TEX_COORDS =
+	{
+		{0.0f, 0.0f},
+		{1.0f, 0.0f},
+		{1.0f, 1.0f},
+		{0.0f, 1.0f},
+	};
+
 	void drawEnvCube(int[] tex_fblrtb)
 	{
-		final float SZ = 1.0f;
-
-		final float[][] VERTS =
-		{
-			{SZ, SZ, -SZ},   //1
-			{SZ, -SZ, -SZ},  //2
-			{-SZ, -SZ, -SZ}, //3
-			{-SZ, SZ, -SZ},  //4
-			{SZ, SZ, SZ},    //5
-			{SZ, -SZ, SZ},   //6
-			{-SZ, -SZ, SZ},  //7
-			{-SZ, SZ, SZ}    //8
-		};
-
-		//the verticies of each face are orderd CCW starting at the lower-left corner of the quad
-		final int[][] FACES =
-		{
-			{4, 1, 5, 8},  //Front (+Y)
-			{2, 3, 7, 6},  //Back  (-Y)
-			{3, 4, 8, 7},  //Left  (-X)
-			{1, 2, 6, 5},  //Right (+X)
-			{8, 5, 6, 7},  //Top   (+Z)
-			{3, 2, 1, 4}   //Bot   (-Z)
-		};
-
-		final float[][] TEX_COORDS =
-		{
-			{0.0f, 0.0f},
-			{1.0f, 0.0f},
-			{1.0f, 1.0f},
-			{0.0f, 1.0f},
-		};
-
-
 		for (int fi = 0; fi < 6; fi++)
 		{
 			glBindTexture(GL_TEXTURE_2D, tex_fblrtb[fi]);
@@ -470,10 +470,10 @@ public class Renderer
 			glBegin(GL_QUADS);
 			for (int vi = 0; vi < 4; vi++)
 			{
-				float[] v = TEX_COORDS[vi];
+				float[] v = CUBE_TEX_COORDS[vi];
 				glTexCoord2f(v[0], v[1]);
 
-				v = VERTS[FACES[fi][vi] - 1];  //indicies are 1 based
+				v = CUBE_VERTS[CUBE_FACES[fi][vi] - 1];  //indicies are 1 based
 				glVertex3f(v[0], v[1], v[2]);
 
 				//glTexCoord2fv(TEX_COORDS[TEX_FACES[fi][vi] - 1]);  //indicies are 1 based
@@ -483,7 +483,7 @@ public class Renderer
 		}
 	}
 
-
+/*
 	void drawEnvCube()
 	{
 		final float SZ = 1.0f;
@@ -557,7 +557,7 @@ public class Renderer
 		}
 		glEnd();
 	}
-
+*/
 	/**
 		Draw a textured UV sphere (look at Blender "UVsphere" object if you don't know what that is).
 		The sphere drawn is identical to gluSphere(myQuadric, 1.0, N, N) except that, if multiple textures

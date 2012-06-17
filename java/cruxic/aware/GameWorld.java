@@ -124,6 +124,8 @@ public class GameWorld
 	public static GameWorld loadSpec(File specFile)
 		throws IOExceptionRt
 	{
+		//convertSpec(specFile);
+
 		JSONObject root = parseJSONFile(specFile);
 
 		String baseDir = getRelativeBaseDir(specFile);
@@ -154,13 +156,15 @@ public class GameWorld
 
 			vp.location = parseVec3fFromJSON(jvp.get("loc"));
 			vp.implicitBackLink = (Boolean)jvp.get("implicitBackLink");
-			//vp.cubic = jvp.containsKey("type") && jvp.get("type").equals("cubic");
 
 			//Images
 			for (String imgId: (List<String>)jvp.get("images"))
 			{
 				vp.imageIds.add(fileResolver.resolveImageId(imgId));
 			}
+
+			if (vp instanceof CubicViewpoint)
+				((CubicViewpoint)vp).sortCubeImages_FBLRTB();
 
 			//Hotspots
 			List<JSONObject> jhss = (List<JSONObject>)jvp.get("hotspots");
@@ -207,6 +211,125 @@ public class GameWorld
 		}
 
 		return gw;
+	}
+
+	public static void copyFile(File sourceFile, File destFile) throws IOException {
+    if(!destFile.exists()) {
+        destFile.createNewFile();
+    }
+
+    java.nio.channels.FileChannel source = null;
+    java.nio.channels.FileChannel destination = null;
+
+    try {
+        source = new FileInputStream(sourceFile).getChannel();
+        destination = new FileOutputStream(destFile).getChannel();
+        destination.transferFrom(source, 0, source.size());
+    }
+    finally {
+        if(source != null) {
+            source.close();
+        }
+        if(destination != null) {
+            destination.close();
+        }
+    }
+}
+
+	public static void convertSpec(File specFile)
+		throws IOExceptionRt
+	{
+		JSONObject root = parseJSONFile(specFile);
+
+		File newDir = new File(specFile.getParentFile(), "converted");
+
+		String baseDir = getRelativeBaseDir(specFile);
+
+		List<JSONObject> jviewpoints = (List<JSONObject>)root.get("viewpoints");
+		for (JSONObject jvp: jviewpoints)
+		{
+			Properties props = new Properties();
+
+			File vpDir = new File(newDir, (String)jvp.get("id"));
+			vpDir.mkdirs();
+
+			System.out.println(vpDir);
+
+			PanoViewpoint vp = new EquirectViewpoint((String)jvp.get("id"));
+
+			if ((Boolean)jvp.get("implicitBackLink"))
+				props.put("implicitBackLink", "true");
+
+			//Images
+			for (String imgId: (List<String>)jvp.get("images"))
+			{
+				File imageFile = new File(specFile.getParent(), imgId + ".png");
+				if (!imageFile.exists())
+					throw new RuntimeException(imageFile.getPath());
+
+				File target = new File(vpDir, "eqr_pano.png");
+				target.delete();
+
+				try
+				{
+					copyFile(imageFile, target);
+				}
+				catch (IOException e)
+				{
+					throw new IOExceptionRt(e);
+				}
+			}
+
+			//Hotspots
+			List<JSONObject> jhss = (List<JSONObject>)jvp.get("hotspots");
+			int n = 1;
+			for (JSONObject jhs: jhss)
+			{
+				StringBuilder sb = new StringBuilder();
+
+				String targetViewpoint = (String)jhs.get("targetViewpoint");
+				sb.append("../");
+				sb.append(targetViewpoint);
+				sb.append(" [");
+
+
+				List<List<Double>> jpolygon = (List<List<Double>>)jhs.get("polygon");
+				boolean first = true;
+				for (List<Double> point: jpolygon)
+				{
+					double yaw = point.get(0);
+					double pitch = point.get(1);
+
+					if (first)
+						first = false;
+					else
+						sb.append(", ");
+
+					sb.append(yaw);
+					sb.append(',');
+					sb.append(pitch);
+				}
+				sb.append(']');
+
+				props.put("hotspot_" + n, sb.toString());
+
+				n++;
+			}
+
+
+
+			File propFile = new File(vpDir, "viewpoint.properties");
+			try
+			{
+				FileOutputStream fos = new FileOutputStream(propFile);
+				props.store(fos, null);
+				fos.close();
+			}
+			catch (IOException ioe)
+			{
+				throw new IOExceptionRt(ioe);
+			}
+		}
 	}
 
 	public void saveSpec(File specFile)
