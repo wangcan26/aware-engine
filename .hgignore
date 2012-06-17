@@ -1,6 +1,5 @@
 syntax: glob
 libaware.so
-aware.jar
 res
 native/CodeBlocks_project/obj
 IntelliJ/out
