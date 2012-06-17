@@ -24,6 +24,11 @@
 #include "GLImage.hpp"
 #include "aware_util.h"
 
+//Make GL_CLAMP_TO_EDGE available on Windows (Microsoft OpenGL header is very old)
+#ifdef WIN32
+#define GL_CLAMP_TO_EDGE 0x812F
+#endif
+
 static GLuint * loadSlicedTexture(GLImage * unsliced, int numSlices)
 {
 	//generate some opengl texture objects
