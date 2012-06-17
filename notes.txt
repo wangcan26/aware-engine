@@ -1,0 +1,100 @@
+SMOKE Ideas:
+1) Create 2 or more perlin noise textures layered on top of eachother moving at different speeds in very slightly different directions.
+	http://www.xdude.com/forums/smoke2.html
+2) 
+
+GAME TODO
+* query RAM and VRAM size?
+* use vertex buffer for sphere
+* use pixel buffer for pano images?  faster upload to graphics card?
+* Fade in the music over 5 seconds or so
+
+EDITING TODO
+* make editing be windowed with standard GUI controls surrounding
+* when hovering a hotspot show the name where it links to
+* have an option to import viewpoints from image files
+* images should be arranged in folders instead of long names
+* Support exporting camera locations from blender and importing them as viewpoints
+
+COMPILING NOTES:
+* On Linux 64 I cannot build a libaware.so unless all the static libraries it links in use -fPIC also.  Apparently this is allowed on Linux 32.
+* On Linux I was getting a runtime "undefined symbol: png_zfree".  I think this was because the java executable itself links in the system png library which is a slightly different version and lacks a few functions.  The only solution I see is to make libaware also link the system libpng and libz.
+
+
+[What Darn language should I use!?]
+Requirements:
+	* Automatic memory management: code gets contrived without it
+	* Exceptions
+	* Ability to call C: every language can do that
+	* Fast enough that I can write the vast majority of the application in it
+	* Doesn't drive me nuts (eg: C/C++ with double declaration of functions.  Obj C with super long function names)
+	* Run on 64bit systems
+	* Language has good long-term support (I don't want to rewrite it yet again)
+
+Evaluation of Vala
+Pros:
+	* Easy C interface
+	* Good syntax (auto, generics)
+	* Reference counting works fairly well 90% of the time
+	* No GC pauses!!!  Reference counting keeps up where a GC procrastinates
+Cons:
+	* Reference loops get created accidentally.  Also a little bit of a hassle messing around with 'weak' and 'unowned'.
+	* No exception stack trace!
+	* Segfault (although not terribly difficult to isolate using GDB)
+	* Standard libraries generally felt marginal in quality and you could tell they were designed as C libraries.
+	* Poor thread synchronization tools:
+		- 'lock' keyword does not integrate with condition variables (wait/signal)
+		- api oversight prevents me from using a recursive mutex with condition variable
+	* MUCH more difficult to compile on Windows (although I was able to find precompiled valac toolchain for windows)
+	* Not optimistic about compiling on Mac
+	* You have to know C to deal with some of it's compiler errors (which involves looking at the scary generated C code)
+	
+Conclusion: Better than straight C/C++ but frequent quirks on top of portability concerns errode the positives.
+
+Evaluation of D (very little experience):
+Pros:
+	* GC! :)
+	* Easy C interface (even easier than Vala)
+	* Good syntax
+	* Fast compile
+	* Close to raw C speed
+	* Safe threading model (I hear)
+	* Powerful array features
+
+Cons:
+	* Segfault on null pointers
+	* No debugger yet?  (I can find no links)
+	* No 64bit compiler!
+	* Compiler implementation is partially closed
+	* Documentation is often outdated
+	* Two standard libraries!?
+	* Immature GC (slower than Python in worse case!)
+	* Not yet a "mainstream" language
+	* Array sytax can get pretty complex
+	* Module system is kind of cumbersome if you want one class per module (no import *)
+
+Conclusion: converting from Vala is a hassle and does not put D in a positive light.  I want alternative to C/C++ that's faster than Java.
+
+Evaluation of Java:
+Pros:
+	* Mature GC (you can choose different GC engines)
+	* Quite fast at general purpose program excection
+	* No learning curve
+	* Fast development time
+	* Supported on all platforms
+
+Cons:
+	* Slow load
+	* Memory hog
+	* Fixed heap size
+	* Interfacing to C is a hassle
+	* Some API's are overly complex
+	* Have to be clever to avoid GC pauses
+	* No type inference what so ever
+
+Conclusion: It's enticing but I'm concerned that all the necessary performance considerations will steal my productivity.
+
+
+
+
+	

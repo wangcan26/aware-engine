@@ -1,0 +1,8 @@
+syntax: glob
+libaware.so
+aware.jar
+res
+native/CodeBlocks_project/obj
+IntelliJ/out
+Libs/sources
+demos

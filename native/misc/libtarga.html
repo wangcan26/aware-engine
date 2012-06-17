@@ -1,0 +1,149 @@
+<html>
+
+
+<head>
+<title>Using the LibTarga Files</title>
+</head>
+
+<body>
+<h1 align="center">Using the LibTarga library<br>
+  CS 559<br>
+  Mark Pingel</h1>
+
+<h3 align="center">updated for FlTk 1.11 by Mike Gleicher,<br>
+  September 20, 2001 </h3>
+<h3 align="center">updated by Chi Man Liu,<br>
+  September 11, 2007 </h3>
+
+
+<p align=center style='text-align:center'><b>&nbsp</b></p>
+
+<p>LibTarga is a library for reading and writing images in the TARGA image file 
+  format. It was written by Alex Mohr for use by students in CS559, and for other 
+  graphics projects.</p>
+<p>If you want to get your own copy of LibTarga, it actually only consists of</p>
+<ul>
+  <li>A single C source file, <a href="libtarga.c">libtarga.c</a></li>
+
+  <li>A single C or C++ header file, <a href="libtarga.h">libtarga.h</a></li>
+<!--  <li>A project and workspace file for Microsoft Visual Studio, <a href="libtarga.dsp">libtarga.dsp</a> 
+    and <a href="LIBTARGA.DSW">libtarga.dsw</a> </li>
+  <li>The compiled libraries<a href="libtarga_st.lib"> libtarga_st.lib</a>,<a href="libtargad_st.lib"> 
+    libtargad_st.lib</a>, <a href="libtarga_mtd.lib">libtarga_mtd.lib</a>, <a href="libtargad_mtd.lib">libtargad_mtd.lib</a> 
+  </li>
+-->
+</ul>
+
+<p>LibTarga stores TARGA images as 1-dimensional arrays of unsigned bytes (unsigned char*). Each pixel is
+represented by either 3 or 4 bytes, depending on whether we want to support an alpha channel.
+For 3 bytes per pixel, the bytes represent the R, G, B values (in that order) of the pixel. For 4 bytes, they
+are RGBA (<b>premultiplied</b>).
+
+<p>IMPORTANT: When reading and writing images using the LibTarga functions,
+the lower-left hand corner of an image is treated as location 0,0.
+The image array is loaded left to right from bottom to top. However, image handling functions of other libraries may
+use a different coordinate system (e.g. FLTK uses the upper-left hand corner as 0,0). In that case, the image array should
+be flipped to match the target coordinate system.
+
+<p>Note: LibTarga does not deal with premultiplied TGA files correctly.</p>
+
+<h2>List of Functions</h2>
+
+
+<p><code><b>void* tga_create(int width, int height, unsigned int format);</b></code><br/>
+Creates a new image (with uninitialized pixel values) with specified width and height. <code>format</code> specifies the
+number of bits used by each pixel, which can be <code>TGA_TRUECOLOR_24</code> or <code>TGA_TRUECOLOR_32</code>. <code>NULL</code> is returned if there was an error.
+</p>
+
+<p><code><b>void* tga_load(const char* file, int* width, int* height, unsigned int format);</b></code><br/>
+Loads an image from a file. <code>width</code> and <code>height</code> are pointers to integers whose values will be filled
+in appropriately by the function. <code>format</code> is the format we wish it being loaded. Possible values are <code>TGA_TRUECOLOR_24</code> and <code>TGA_TRUECOLOR_32</code>.
+<code>NULL</code> is returned if there was an error.
+</p>
+
+<p><code><b>int tga_write_raw(const char* file, int width, int height, unsigned char* dat, unsigned int format);</b></code><br/>
+Writes an image to a TGA file. <code>dat</code> is the array holding the image data. <code>width</code> and <code>height</code> are the known dimensions of the
+image. "format" is the format we wish it being stored. Possible values are <code>TGA_TRUECOLOR_24</code> and <code>TGA_TRUECOLOR_32</code>. The output file is
+always non-premultiplied.
+This function returns 1 if successful and 0 otherwise.
+</p>
+
+<p><code><b>int tga_write_rle(const char* file, int width, int height, unsigned char* dat, unsigned int format);</b></code><br/>
+Writes an image to TGA file. This function is the same as <code>tga_write_raw</code> except that the image is written out in run-length encoded format.
+</p>
+
+<p><code><b>int tga_get_last_error();</b></code><br/>
+Returns the error code of the last error occurred when calling the above functions.
+</p>
+
+<p><code><b>const char* tga_error_string(int error_code);</b></code><br/>
+Returns the string description of an error code.
+</p>
+
+
+<h2>Examples</h2>
+
+<h3>Reading a TARGA image</h3>
+
+<p>The following sample code reads an image from a file.
+
+<p>
+<code>
+unsigned char* targaimage;<br/>
+int wdt, hgt;<br/>
+targaimage = (unsigned char*)tga_load("input.tga", &wdt, &hgt, TGA_TRUECOLOR_32);</code>
+
+<p>To check for errors, we can write:
+
+<p>
+<code>
+if (targaimage == NULL)<br/>
+{<br/>
+&nbsp;&nbsp;printf("Failed to read image!\n");<br/>
+&nbsp;&nbsp;printf(tga_error_string(tga_get_last_error()));<br/>
+}<br/>
+</code>
+
+<p>Remember to deallocate the memory that tga_load allocates:
+
+<p><code>free(targaiamge);</code>
+
+<h3>Writing a TARGA iamge</h3>
+
+<p>The following sample code writes an image to a file.
+
+<p>
+<code>
+if (!tga_write_raw("output.tga", wdt, hgt, targaimage, TGA_TRUECOLOR_32)) {<br/>
+&nbsp;&nbsp;printf("Failed to write image!\n");<br/>
+&nbsp;&nbsp;printf(tga_error_string(tga_get_last_error()));<br/>
+}<br/>
+</code>
+
+<h3>Flipping an image</h3>
+
+<p>We mentioned that some libraries (e.g. FLTK) handle images using a different coordinate system. The following
+sample code flips an image upside down. Assume that the image's format is <code>TGA_TRUECOLOR_32</code>.
+
+<p><code>
+unsigned char *tmp = new unsigned char[wdt * hgt * 4];<br/>
+<br/>
+for (unsigned int i = 0; i < hgt; i++)<br/>
+{<br/>
+&nbsp;&nbsp;for (unsigned int j = 0; j < wdt; j++)<br/>
+&nbsp;&nbsp;{<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;tmp[(i*wdt+j)*4] = targaimage[((hgt-i-1)*wdt+j)*4];<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;tmp[(i*wdt+j)*4+1] = targaimage[((hgt-i-1)*wdt+j)*4+1];<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;tmp[(i*wdt+j)*4+2] = targaimage[((hgt-i-1)*wdt+j)*4+2];<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;tmp[(i*wdt+j)*4+3] = targaimage[((hgt-i-1)*wdt+j)*4+3];<br/>
+&nbsp;&nbsp;}<br/>
+}<br/>
+<br/>
+delete [] targaimage;<br/>
+targaimage = tmp;<br/>
+</code>
+
+</body>
+
+</html>
+

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_layout_file>
+	<ActiveTarget name="Release" />
+	<File name="../../lpng1.2.x/png.h" open="0" top="0" tabpos="0">
+		<Cursor position="24898" topLine="471" />
+	</File>
+	<File name="../../lpng1.2.x/pngconf.h" open="0" top="0" tabpos="0">
+		<Cursor position="43802" topLine="1414" />
+	</File>
+	<File name="../../lpng1.2.x/pngread.c" open="0" top="0" tabpos="1">
+		<Cursor position="39864" topLine="1230" />
+	</File>
+</CodeBlocks_layout_file>

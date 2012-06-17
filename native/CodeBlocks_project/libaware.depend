@@ -1,0 +1,764 @@
+# depslib dependency file v1.0
+1296317497 source:/home/cruxic/Programming/AwareEngine/native/misc/ArrayList.cpp
+	"ArrayList.hpp"
+	<stdio.h>
+
+1294290504 /home/cruxic/Programming/AwareEngine/native/misc/ArrayList.h
+	<string.h>
+
+1296452277 source:/home/cruxic/Programming/AwareEngine/native/misc/Rect4i.cpp
+	"Rect4i.hpp"
+	<stdio.h>
+
+1296451659 /home/cruxic/Programming/AwareEngine/native/misc/Rect4i.hpp
+
+1289082166 source:/home/cruxic/Programming/AwareEngine/native/misc/libtarga.c
+	<stdio.h>
+	<malloc.h>
+	"libtarga.h"
+
+1269831708 /home/cruxic/Programming/AwareEngine/native/misc/libtarga.h
+
+1292998866 source:/home/cruxic/Programming/AwareEngine/native/misc/noise1234.cpp
+	"noise1234.h"
+
+1293072724 /home/cruxic/Programming/AwareEngine/native/misc/noise1234.h
+
+1296882429 source:/home/cruxic/Programming/AwareEngine/native/GLImage.cpp
+	"GLImage.h"
+	<stdlib.h>
+	<string.h>
+	<ctype.h>
+	"aware_util.h"
+	"misc/libtarga.h"
+	<png.h>
+	<jpeglib.h>
+	<setjmp.h>
+	"misc/Rect4i.hpp"
+
+1296881772 /home/cruxic/Programming/AwareEngine/native/GLImage.h
+	<GL/gl.h>
+	"jni/GLImage_jni.h"
+	"misc/Rect4i.hpp"
+
+1296794559 /home/cruxic/Programming/AwareEngine/native/jni/GLImage_jni.h
+	<jni.h>
+
+1284539701 /usr/lib/jvm/java-6-sun/include/jni.h
+	<stdio.h>
+	<stdarg.h>
+	"jni_md.h"
+
+1284539701 /usr/lib/jvm/java-6-sun/include/linux/jni_md.h
+
+1289175164 /home/cruxic/Programming/AwareEngine/native/aware_util.h
+	<GL/gl.h>
+	<jni.h>
+
+1296279924 source:/home/cruxic/Programming/AwareEngine/native/GLImageUpload.cpp
+	"jni/GLImageUpload_jni.h"
+	<string.h>
+	<stdlib.h>
+	"GLImage.h"
+	"aware_util.h"
+
+1296794560 /home/cruxic/Programming/AwareEngine/native/jni/GLImageUpload_jni.h
+	<jni.h>
+
+1296318486 source:/home/cruxic/Programming/AwareEngine/native/HeightMap.cpp
+	"HeightMap.hpp"
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
+
+1293474040 /home/cruxic/Programming/AwareEngine/native/HeightMap.h
+
+1296446800 source:/home/cruxic/Programming/AwareEngine/native/aware_util.cpp
+	"aware_util.h"
+	<string.h>
+	<stdlib.h>
+	<stdio.h>
+	<errno.h>
+
+1296280370 source:/home/cruxic/Programming/AwareEngine/native/jni/Liquid_StaticNoiseOverlay_jni.cpp
+	"Liquid_StaticNoiseOverlay_jni.h"
+
+1296534024 /home/cruxic/Programming/AwareEngine/native/jni/Liquid_StaticNoiseOverlay_jni.h
+	<jni.h>
+
+1299912897 source:/home/cruxic/Programming/AwareEngine/native/ImageMask.cpp
+	"ImageMask.hpp"
+
+1296710842 /home/cruxic/Programming/AwareEngine/native/ImageMask.hpp
+	"misc/Rect4i.hpp"
+	"misc/ArrayList.hpp"
+	"GLImage.h"
+
+1296319906 /home/cruxic/Programming/AwareEngine/native/misc/ArrayList.hpp
+	<string.h>
+
+1296275141 source:/home/cruxic/Programming/AwareEngine/native/Liquid_StaticNoiseOverlay.cpp
+	"Liquid_StaticNoiseOverlay.hpp"
+
+1296321732 /home/cruxic/Programming/AwareEngine/native/Liquid_StaticNoiseOverlay.hpp
+
+1296321011 source:/home/cruxic/Programming/AwareEngine/native/MaskRect.cpp
+	"MaskRect.hpp"
+	<stdlib.h>
+
+1296321723 /home/cruxic/Programming/AwareEngine/native/MaskRect.hpp
+	"misc/Rect4i.hpp"
+	"GLImage.h"
+	"ImageMask.hpp"
+
+1293474040 /home/cruxic/Programming/AwareEngine/native/HeightMap.hpp
+
+1296882742 source:/home/cruxic/Programming/AwareEngine/native/StaticNoiseLiquidRefactionRenderer.cpp
+	"StaticNoiseLiquidRefactionRenderer.hpp"
+	<math.h>
+
+1296711579 /home/cruxic/Programming/AwareEngine/native/StaticNoiseLiquidRefactionRenderer.hpp
+	"HeightMap.hpp"
+	"misc/ArrayList.hpp"
+	"GLImage.h"
+
+1297543605 source:/home/cruxic/Programming/AwareEngine/native/Liquid_StaticNoiseOverlay_Impl.cpp
+	"Liquid_StaticNoiseOverlay_Impl.hpp"
+	<stdio.h>
+	"ImageMask.hpp"
+
+1296795808 /home/cruxic/Programming/AwareEngine/native/Liquid_StaticNoiseOverlay_Impl.hpp
+	"StaticNoiseLiquidRefactionRenderer.hpp"
+	"GLImage.h"
+	"misc/ArrayList.hpp"
+
+1296796619 source:/home/cruxic/Programming/AwareEngine/native/jni/Liquid_StaticNoiseOverlay_Impl_jni.cpp
+	"Liquid_StaticNoiseOverlay_Impl_jni.h"
+	"../Liquid_StaticNoiseOverlay_Impl.hpp"
+	"../aware_util.h"
+
+1296794561 /home/cruxic/Programming/AwareEngine/native/jni/Liquid_StaticNoiseOverlay_Impl_jni.h
+	<jni.h>
+
+1333777120 source:/home/cruxic/Programming/aware-engine/native/GLImage.cpp
+	"GLImage.hpp"
+	<stdlib.h>
+	<string.h>
+	<ctype.h>
+	"aware_util.h"
+	"misc/libtarga.h"
+	<png.h>
+	<jpeglib.h>
+	<setjmp.h>
+	"misc/Rect4i.hpp"
+
+1300078194 /home/cruxic/Programming/aware-engine/native/GLImage.hpp
+	<GL/gl.h>
+	"jni/GLImage_jni.h"
+	"misc/Rect4i.hpp"
+
+1296794559 /home/cruxic/Programming/aware-engine/native/jni/GLImage_jni.h
+	<jni.h>
+
+1300078291 /home/cruxic/Programming/aware-engine/native/misc/Rect4i.hpp
+
+1300078194 /home/cruxic/Programming/aware-engine/native/aware_util.h
+	<GL/gl.h>
+	<jni.h>
+
+1269831708 /home/cruxic/Programming/aware-engine/native/misc/libtarga.h
+
+1300078291 source:/home/cruxic/Programming/aware-engine/native/GLImageUpload.cpp
+	"jni/GLImageUpload_jni.h"
+	<string.h>
+	<stdlib.h>
+	"GLImage.hpp"
+	"aware_util.h"
+
+1296794560 /home/cruxic/Programming/aware-engine/native/jni/GLImageUpload_jni.h
+	<jni.h>
+
+1300078291 source:/home/cruxic/Programming/aware-engine/native/HeightMap.cpp
+	"HeightMap.hpp"
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
+
+1300078291 /home/cruxic/Programming/aware-engine/native/HeightMap.hpp
+
+1300078291 source:/home/cruxic/Programming/aware-engine/native/ImageMask.cpp
+	"ImageMask.hpp"
+
+1300078291 /home/cruxic/Programming/aware-engine/native/ImageMask.hpp
+	"misc/Rect4i.hpp"
+	"misc/ArrayList.hpp"
+	"GLImage.hpp"
+
+1300078291 /home/cruxic/Programming/aware-engine/native/misc/ArrayList.hpp
+	<string.h>
+
+1300078194 source:/home/cruxic/Programming/aware-engine/native/Liquid_StaticNoiseOverlay_Impl.cpp
+	"Liquid_StaticNoiseOverlay_Impl.hpp"
+	<stdio.h>
+	"ImageMask.hpp"
+
+1300078291 /home/cruxic/Programming/aware-engine/native/Liquid_StaticNoiseOverlay_Impl.hpp
+	"StaticNoiseLiquidRefactionRenderer.hpp"
+	"GLImage.hpp"
+	"misc/ArrayList.hpp"
+
+1300078291 /home/cruxic/Programming/aware-engine/native/StaticNoiseLiquidRefactionRenderer.hpp
+	"HeightMap.hpp"
+	"misc/ArrayList.hpp"
+	"GLImage.hpp"
+
+1300078194 source:/home/cruxic/Programming/aware-engine/native/StaticNoiseLiquidRefactionRenderer.cpp
+	"StaticNoiseLiquidRefactionRenderer.hpp"
+	<math.h>
+
+1300078291 source:/home/cruxic/Programming/aware-engine/native/aware_util.cpp
+	"aware_util.h"
+	<string.h>
+	<stdlib.h>
+	<stdio.h>
+	<errno.h>
+
+1300078291 source:/home/cruxic/Programming/aware-engine/native/jni/Liquid_StaticNoiseOverlay_Impl_jni.cpp
+	"Liquid_StaticNoiseOverlay_Impl_jni.h"
+	"../Liquid_StaticNoiseOverlay_Impl.hpp"
+	"../aware_util.h"
+
+1296794561 /home/cruxic/Programming/aware-engine/native/jni/Liquid_StaticNoiseOverlay_Impl_jni.h
+	<jni.h>
+
+1300078291 source:/home/cruxic/Programming/aware-engine/native/misc/ArrayList.cpp
+	"ArrayList.hpp"
+	<stdio.h>
+
+1300078291 source:/home/cruxic/Programming/aware-engine/native/misc/Rect4i.cpp
+	"Rect4i.hpp"
+	<stdio.h>
+
+1289082166 source:/home/cruxic/Programming/aware-engine/native/misc/libtarga.c
+	<stdio.h>
+	<malloc.h>
+	"libtarga.h"
+
+1292998866 source:/home/cruxic/Programming/aware-engine/native/misc/noise1234.cpp
+	"noise1234.h"
+
+1293072724 /home/cruxic/Programming/aware-engine/native/misc/noise1234.h
+
+1329595521 /home/cruxic/Programming/aware-engine/native/Dependencies/lpng1.2.x/png.h
+	"zlib.h"
+	"pngconf.h"
+	<crtdbg.h>
+
+1329595521 /home/cruxic/Programming/aware-engine/native/Dependencies/lpng1.2.x/pngconf.h
+	"pngusr.h"
+	"config.h"
+	<windows.h>
+	<stdio.h>
+	<stdio.h>
+	<sys/types.h>
+	<setjmp.h>
+	<strings.h>
+	<string.h>
+	<stdlib.h>
+	<fp.h>
+	<math.h>
+	<m68881.h>
+	<mem.h>
+	<alloc.h>
+	<malloc.h>
+	<time.h>
+	<dos.h>
+
+1329595521 source:/home/cruxic/Programming/aware-engine/native/Dependencies/lpng1.2.x/png.c
+	"png.h"
+
+1327860794 /home/cruxic/Programming/aware-engine/native/Dependencies/zlib-1.2.x/zlib.h
+	"zconf.h"
+
+1323332032 /home/cruxic/Programming/aware-engine/native/Dependencies/zlib-1.2.x/zconf.h
+	<windows.h>
+	<sys/types.h>
+	<unistd.h>
+	<unixio.h>
+
+1329595521 source:/home/cruxic/Programming/aware-engine/native/Dependencies/lpng1.2.x/pngerror.c
+	"png.h"
+
+1329595521 source:/home/cruxic/Programming/aware-engine/native/Dependencies/lpng1.2.x/pnggccrd.c
+
+1329595521 source:/home/cruxic/Programming/aware-engine/native/Dependencies/lpng1.2.x/pngget.c
+	"png.h"
+
+1329595521 source:/home/cruxic/Programming/aware-engine/native/Dependencies/lpng1.2.x/pngmem.c
+	"png.h"
+
+1329595521 source:/home/cruxic/Programming/aware-engine/native/Dependencies/lpng1.2.x/pngpread.c
+	"png.h"
+
+1333777142 source:/home/cruxic/Programming/aware-engine/native/Dependencies/lpng1.2.x/pngread.c
+	"png.h"
+
+1329595521 source:/home/cruxic/Programming/aware-engine/native/Dependencies/lpng1.2.x/pngrio.c
+	"png.h"
+
+1329595521 source:/home/cruxic/Programming/aware-engine/native/Dependencies/lpng1.2.x/pngrtran.c
+	"png.h"
+
+1329595521 source:/home/cruxic/Programming/aware-engine/native/Dependencies/lpng1.2.x/pngrutil.c
+	"png.h"
+
+1329595521 source:/home/cruxic/Programming/aware-engine/native/Dependencies/lpng1.2.x/pngset.c
+	"png.h"
+
+1329595521 source:/home/cruxic/Programming/aware-engine/native/Dependencies/lpng1.2.x/pngtest.c
+	"png.h"
+	<windows.h>
+	<stdlib.h>
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<mem.h>
+
+1329595521 source:/home/cruxic/Programming/aware-engine/native/Dependencies/lpng1.2.x/pngtrans.c
+	"png.h"
+
+1329595521 source:/home/cruxic/Programming/aware-engine/native/Dependencies/lpng1.2.x/pngvcrd.c
+
+1329595521 source:/home/cruxic/Programming/aware-engine/native/Dependencies/lpng1.2.x/pngwio.c
+	"png.h"
+
+1329595521 source:/home/cruxic/Programming/aware-engine/native/Dependencies/lpng1.2.x/pngwrite.c
+	"png.h"
+
+1329595521 source:/home/cruxic/Programming/aware-engine/native/Dependencies/lpng1.2.x/pngwtran.c
+	"png.h"
+
+1329595522 source:/home/cruxic/Programming/aware-engine/native/Dependencies/lpng1.2.x/pngwutil.c
+	"png.h"
+
+1315692950 source:/home/cruxic/Programming/aware-engine/native/Dependencies/zlib-1.2.x/adler32.c
+	"zutil.h"
+
+1324233584 /home/cruxic/Programming/aware-engine/native/Dependencies/zlib-1.2.x/zutil.h
+	"zlib.h"
+	<stddef.h>
+	<string.h>
+	<stdlib.h>
+	<alloc.h>
+	<malloc.h>
+	<malloc.h>
+	<unix.h>
+	<stdio.h>
+
+1134325650 source:/home/cruxic/Programming/aware-engine/native/Dependencies/zlib-1.2.x/compress.c
+	"zlib.h"
+
+1313288474 source:/home/cruxic/Programming/aware-engine/native/Dependencies/zlib-1.2.x/crc32.c
+	<stdio.h>
+	"zutil.h"
+	<limits.h>
+	"crc32.h"
+
+1312377984 /home/cruxic/Programming/aware-engine/native/Dependencies/zlib-1.2.x/crc32.h
+
+1326761068 source:/home/cruxic/Programming/aware-engine/native/Dependencies/zlib-1.2.x/deflate.c
+	"deflate.h"
+
+1326520480 /home/cruxic/Programming/aware-engine/native/Dependencies/zlib-1.2.x/deflate.h
+	"zutil.h"
+
+1266106368 source:/home/cruxic/Programming/aware-engine/native/Dependencies/zlib-1.2.x/gzclose.c
+	"gzguts.h"
+
+1327860794 /home/cruxic/Programming/aware-engine/native/Dependencies/zlib-1.2.x/gzguts.h
+	<stdio.h>
+	"zlib.h"
+	<string.h>
+	<stdlib.h>
+	<limits.h>
+	<fcntl.h>
+	<io.h>
+	<io.h>
+	<windows.h>
+	<errno.h>
+
+1324275470 source:/home/cruxic/Programming/aware-engine/native/Dependencies/zlib-1.2.x/gzlib.c
+	"gzguts.h"
+
+1324248428 source:/home/cruxic/Programming/aware-engine/native/Dependencies/zlib-1.2.x/gzread.c
+	"gzguts.h"
+
+1327860794 source:/home/cruxic/Programming/aware-engine/native/Dependencies/zlib-1.2.x/gzwrite.c
+	"gzguts.h"
+	<stdarg.h>
+
+1324233584 source:/home/cruxic/Programming/aware-engine/native/Dependencies/zlib-1.2.x/infback.c
+	"zutil.h"
+	"inftrees.h"
+	"inflate.h"
+	"inffast.h"
+	"inffixed.h"
+
+1271646926 /home/cruxic/Programming/aware-engine/native/Dependencies/zlib-1.2.x/inftrees.h
+
+1261787528 /home/cruxic/Programming/aware-engine/native/Dependencies/zlib-1.2.x/inflate.h
+
+1271646960 /home/cruxic/Programming/aware-engine/native/Dependencies/zlib-1.2.x/inffast.h
+
+1317868352 /home/cruxic/Programming/aware-engine/native/Dependencies/zlib-1.2.x/inffixed.h
+
+1271646982 source:/home/cruxic/Programming/aware-engine/native/Dependencies/zlib-1.2.x/inffast.c
+	"zutil.h"
+	"inftrees.h"
+	"inflate.h"
+	"inffast.h"
+
+1324233584 source:/home/cruxic/Programming/aware-engine/native/Dependencies/zlib-1.2.x/inflate.c
+	"zutil.h"
+	"inftrees.h"
+	"inflate.h"
+	"inffast.h"
+	"inffixed.h"
+	<stdio.h>
+
+1326761068 source:/home/cruxic/Programming/aware-engine/native/Dependencies/zlib-1.2.x/inftrees.c
+	"zutil.h"
+	"inftrees.h"
+
+1325974082 source:/home/cruxic/Programming/aware-engine/native/Dependencies/zlib-1.2.x/trees.c
+	"deflate.h"
+	<ctype.h>
+	"trees.h"
+	<stdio.h>
+
+1271608358 /home/cruxic/Programming/aware-engine/native/Dependencies/zlib-1.2.x/trees.h
+
+1263749660 source:/home/cruxic/Programming/aware-engine/native/Dependencies/zlib-1.2.x/uncompr.c
+	"zlib.h"
+
+1317975116 source:/home/cruxic/Programming/aware-engine/native/Dependencies/zlib-1.2.x/zutil.c
+	"zutil.h"
+
+1334974165 /usr/lib/jvm/java-6-openjdk-amd64/include/jni.h
+	<stdio.h>
+	<stdarg.h>
+	"jni_md.h"
+
+1334974165 /usr/lib/jvm/java-6-openjdk-amd64/include/jni_md.h
+
+1339924612 source:c:\users\cruxic\dev\aware-engine\native\dependencies\lpng1.2.x\png.c
+	"png.h"
+
+1339924612 c:\users\cruxic\dev\aware-engine\native\dependencies\lpng1.2.x\png.h
+	"zlib.h"
+	"pngconf.h"
+	<crtdbg.h>
+
+1339924613 c:\users\cruxic\dev\aware-engine\native\dependencies\zlib-1.2.x\zlib.h
+	"zconf.h"
+
+1339924613 c:\users\cruxic\dev\aware-engine\native\dependencies\zlib-1.2.x\zconf.h
+	<windows.h>
+	<sys/types.h>
+	<unistd.h>
+	<unixio.h>
+
+1339924612 c:\users\cruxic\dev\aware-engine\native\dependencies\lpng1.2.x\pngconf.h
+	"pngusr.h"
+	"config.h"
+	<windows.h>
+	<stdio.h>
+	<stdio.h>
+	<sys/types.h>
+	<setjmp.h>
+	<strings.h>
+	<string.h>
+	<stdlib.h>
+	<fp.h>
+	<math.h>
+	<m68881.h>
+	<mem.h>
+	<alloc.h>
+	<malloc.h>
+	<time.h>
+	<dos.h>
+
+1339924612 source:c:\users\cruxic\dev\aware-engine\native\dependencies\lpng1.2.x\pngerror.c
+	"png.h"
+
+1339924612 source:c:\users\cruxic\dev\aware-engine\native\dependencies\lpng1.2.x\pnggccrd.c
+
+1339924612 source:c:\users\cruxic\dev\aware-engine\native\dependencies\lpng1.2.x\pngget.c
+	"png.h"
+
+1339924612 source:c:\users\cruxic\dev\aware-engine\native\dependencies\lpng1.2.x\pngmem.c
+	"png.h"
+
+1339924612 source:c:\users\cruxic\dev\aware-engine\native\dependencies\lpng1.2.x\pngpread.c
+	"png.h"
+
+1339924612 source:c:\users\cruxic\dev\aware-engine\native\dependencies\lpng1.2.x\pngread.c
+	"png.h"
+
+1339924612 source:c:\users\cruxic\dev\aware-engine\native\dependencies\lpng1.2.x\pngrio.c
+	"png.h"
+
+1339924612 source:c:\users\cruxic\dev\aware-engine\native\dependencies\lpng1.2.x\pngrtran.c
+	"png.h"
+
+1339924612 source:c:\users\cruxic\dev\aware-engine\native\dependencies\lpng1.2.x\pngrutil.c
+	"png.h"
+
+1339924612 source:c:\users\cruxic\dev\aware-engine\native\dependencies\lpng1.2.x\pngset.c
+	"png.h"
+
+1339924612 source:c:\users\cruxic\dev\aware-engine\native\dependencies\lpng1.2.x\pngtest.c
+	"png.h"
+	<windows.h>
+	<stdlib.h>
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<mem.h>
+
+1339924612 source:c:\users\cruxic\dev\aware-engine\native\dependencies\lpng1.2.x\pngtrans.c
+	"png.h"
+
+1339924612 source:c:\users\cruxic\dev\aware-engine\native\dependencies\lpng1.2.x\pngvcrd.c
+
+1339924612 source:c:\users\cruxic\dev\aware-engine\native\dependencies\lpng1.2.x\pngwio.c
+	"png.h"
+
+1339924612 source:c:\users\cruxic\dev\aware-engine\native\dependencies\lpng1.2.x\pngwrite.c
+	"png.h"
+
+1339924612 source:c:\users\cruxic\dev\aware-engine\native\dependencies\lpng1.2.x\pngwtran.c
+	"png.h"
+
+1339924612 source:c:\users\cruxic\dev\aware-engine\native\dependencies\lpng1.2.x\pngwutil.c
+	"png.h"
+
+1339924613 source:c:\users\cruxic\dev\aware-engine\native\dependencies\zlib-1.2.x\adler32.c
+	"zutil.h"
+
+1339924613 c:\users\cruxic\dev\aware-engine\native\dependencies\zlib-1.2.x\zutil.h
+	"zlib.h"
+	<stddef.h>
+	<string.h>
+	<stdlib.h>
+	<alloc.h>
+	<malloc.h>
+	<malloc.h>
+	<unix.h>
+	<stdio.h>
+
+1339924613 source:c:\users\cruxic\dev\aware-engine\native\dependencies\zlib-1.2.x\compress.c
+	"zlib.h"
+
+1339924613 source:c:\users\cruxic\dev\aware-engine\native\dependencies\zlib-1.2.x\crc32.c
+	<stdio.h>
+	"zutil.h"
+	<limits.h>
+	"crc32.h"
+
+1339924613 c:\users\cruxic\dev\aware-engine\native\dependencies\zlib-1.2.x\crc32.h
+
+1339924613 source:c:\users\cruxic\dev\aware-engine\native\dependencies\zlib-1.2.x\deflate.c
+	"deflate.h"
+
+1339924613 c:\users\cruxic\dev\aware-engine\native\dependencies\zlib-1.2.x\deflate.h
+	"zutil.h"
+
+1339924613 source:c:\users\cruxic\dev\aware-engine\native\dependencies\zlib-1.2.x\gzclose.c
+	"gzguts.h"
+
+1339924613 c:\users\cruxic\dev\aware-engine\native\dependencies\zlib-1.2.x\gzguts.h
+	<stdio.h>
+	"zlib.h"
+	<string.h>
+	<stdlib.h>
+	<limits.h>
+	<fcntl.h>
+	<io.h>
+	<io.h>
+	<windows.h>
+	<errno.h>
+
+1339924613 source:c:\users\cruxic\dev\aware-engine\native\dependencies\zlib-1.2.x\gzlib.c
+	"gzguts.h"
+
+1339924613 source:c:\users\cruxic\dev\aware-engine\native\dependencies\zlib-1.2.x\gzread.c
+	"gzguts.h"
+
+1339924613 source:c:\users\cruxic\dev\aware-engine\native\dependencies\zlib-1.2.x\gzwrite.c
+	"gzguts.h"
+	<stdarg.h>
+
+1339924613 source:c:\users\cruxic\dev\aware-engine\native\dependencies\zlib-1.2.x\infback.c
+	"zutil.h"
+	"inftrees.h"
+	"inflate.h"
+	"inffast.h"
+	"inffixed.h"
+
+1339924613 c:\users\cruxic\dev\aware-engine\native\dependencies\zlib-1.2.x\inftrees.h
+
+1339924613 c:\users\cruxic\dev\aware-engine\native\dependencies\zlib-1.2.x\inflate.h
+
+1339924613 c:\users\cruxic\dev\aware-engine\native\dependencies\zlib-1.2.x\inffast.h
+
+1339924613 c:\users\cruxic\dev\aware-engine\native\dependencies\zlib-1.2.x\inffixed.h
+
+1339924613 source:c:\users\cruxic\dev\aware-engine\native\dependencies\zlib-1.2.x\inffast.c
+	"zutil.h"
+	"inftrees.h"
+	"inflate.h"
+	"inffast.h"
+
+1339924613 source:c:\users\cruxic\dev\aware-engine\native\dependencies\zlib-1.2.x\inflate.c
+	"zutil.h"
+	"inftrees.h"
+	"inflate.h"
+	"inffast.h"
+	"inffixed.h"
+	<stdio.h>
+
+1339924613 source:c:\users\cruxic\dev\aware-engine\native\dependencies\zlib-1.2.x\inftrees.c
+	"zutil.h"
+	"inftrees.h"
+
+1339924613 source:c:\users\cruxic\dev\aware-engine\native\dependencies\zlib-1.2.x\trees.c
+	"deflate.h"
+	<ctype.h>
+	"trees.h"
+	<stdio.h>
+
+1339924613 c:\users\cruxic\dev\aware-engine\native\dependencies\zlib-1.2.x\trees.h
+
+1339924613 source:c:\users\cruxic\dev\aware-engine\native\dependencies\zlib-1.2.x\uncompr.c
+	"zlib.h"
+
+1339924613 source:c:\users\cruxic\dev\aware-engine\native\dependencies\zlib-1.2.x\zutil.c
+	"zutil.h"
+
+1339924613 source:c:\users\cruxic\dev\aware-engine\native\glimage.cpp
+	"GLImage.hpp"
+	<stdlib.h>
+	<string.h>
+	<ctype.h>
+	"aware_util.h"
+	"misc/libtarga.h"
+	<png.h>
+	<jpeglib.h>
+	<setjmp.h>
+	"misc/Rect4i.hpp"
+
+1339924613 c:\users\cruxic\dev\aware-engine\native\glimage.hpp
+	<GL/gl.h>
+	"jni/GLImage_jni.h"
+	"misc/Rect4i.hpp"
+
+1339924613 c:\users\cruxic\dev\aware-engine\native\jni\glimage_jni.h
+	<jni.h>
+
+1339925688 c:\program files\java\jdk1.6.0_33\include\jni.h
+	<stdio.h>
+	<stdarg.h>
+	"jni_md.h"
+
+1339925688 c:\program files\java\jdk1.6.0_33\include\win32\jni_md.h
+
+1339924613 c:\users\cruxic\dev\aware-engine\native\misc\rect4i.hpp
+
+1339924613 c:\users\cruxic\dev\aware-engine\native\aware_util.h
+	<GL/gl.h>
+	<jni.h>
+
+1339924614 c:\users\cruxic\dev\aware-engine\native\misc\libtarga.h
+
+1339926308 source:c:\users\cruxic\dev\aware-engine\native\glimageupload.cpp
+	"jni/GLImageUpload_jni.h"
+	<string.h>
+	<stdlib.h>
+	"GLImage.hpp"
+	"aware_util.h"
+
+1339924613 c:\users\cruxic\dev\aware-engine\native\jni\glimageupload_jni.h
+	<jni.h>
+
+1339924613 source:c:\users\cruxic\dev\aware-engine\native\heightmap.cpp
+	"HeightMap.hpp"
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
+
+1339924613 c:\users\cruxic\dev\aware-engine\native\heightmap.hpp
+
+1339924613 source:c:\users\cruxic\dev\aware-engine\native\imagemask.cpp
+	"ImageMask.hpp"
+
+1339924613 c:\users\cruxic\dev\aware-engine\native\imagemask.hpp
+	"misc/Rect4i.hpp"
+	"misc/ArrayList.hpp"
+	"GLImage.hpp"
+
+1339924613 c:\users\cruxic\dev\aware-engine\native\misc\arraylist.hpp
+	<string.h>
+
+1339924613 source:c:\users\cruxic\dev\aware-engine\native\liquid_staticnoiseoverlay_impl.cpp
+	"Liquid_StaticNoiseOverlay_Impl.hpp"
+	<stdio.h>
+	"ImageMask.hpp"
+
+1339924613 c:\users\cruxic\dev\aware-engine\native\liquid_staticnoiseoverlay_impl.hpp
+	"StaticNoiseLiquidRefactionRenderer.hpp"
+	"GLImage.hpp"
+	"misc/ArrayList.hpp"
+
+1339924613 c:\users\cruxic\dev\aware-engine\native\staticnoiseliquidrefactionrenderer.hpp
+	"HeightMap.hpp"
+	"misc/ArrayList.hpp"
+	"GLImage.hpp"
+
+1339924613 source:c:\users\cruxic\dev\aware-engine\native\staticnoiseliquidrefactionrenderer.cpp
+	"StaticNoiseLiquidRefactionRenderer.hpp"
+	<math.h>
+
+1339924613 source:c:\users\cruxic\dev\aware-engine\native\aware_util.cpp
+	"aware_util.h"
+	<string.h>
+	<stdlib.h>
+	<stdio.h>
+	<errno.h>
+
+1339924613 source:c:\users\cruxic\dev\aware-engine\native\jni\liquid_staticnoiseoverlay_impl_jni.cpp
+	"Liquid_StaticNoiseOverlay_Impl_jni.h"
+	"../Liquid_StaticNoiseOverlay_Impl.hpp"
+	"../aware_util.h"
+
+1339924613 c:\users\cruxic\dev\aware-engine\native\jni\liquid_staticnoiseoverlay_impl_jni.h
+	<jni.h>
+
+1339924613 source:c:\users\cruxic\dev\aware-engine\native\misc\arraylist.cpp
+	"ArrayList.hpp"
+	<stdio.h>
+
+1339924613 source:c:\users\cruxic\dev\aware-engine\native\misc\rect4i.cpp
+	"Rect4i.hpp"
+	<stdio.h>
+
+1339924613 source:c:\users\cruxic\dev\aware-engine\native\misc\libtarga.c
+	<stdio.h>
+	<malloc.h>
+	"libtarga.h"
+
+1339924614 source:c:\users\cruxic\dev\aware-engine\native\misc\noise1234.cpp
+	"noise1234.h"
+
+1339924614 c:\users\cruxic\dev\aware-engine\native\misc\noise1234.h
+

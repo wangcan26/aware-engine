@@ -1,0 +1,1 @@
+Resources are not under version version control.  Please download them separately from the project homepage: http://code.google.com/p/aware-engine/downloads/list
