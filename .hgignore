@@ -4,6 +4,5 @@ aware.jar
 res
 native/CodeBlocks_project/obj
 IntelliJ/out
-Game-Data/tech-demo-1/*.png
-Game-Data/tech-demo-1/*.xcf
 Libs/sources
+demos

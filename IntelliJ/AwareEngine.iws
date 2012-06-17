@@ -92,19 +92,19 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="GameWorld.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="GameWorld.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../java/cruxic/aware/GameWorld.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="126" column="10" selection-start="2905" selection-end="2905" vertical-scroll-proportion="0.36206895">
+            <state line="190" column="17" selection-start="4286" selection-end="4286" vertical-scroll-proportion="0.42068964">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="game.aware" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../Game-Data/tech-demo-1/game.aware">
+      <file leaf-file-name="OverlayProcessor.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/../java/cruxic/aware/OverlayProcessor.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="743" column="7" selection-start="18962" selection-end="18962" vertical-scroll-proportion="0.2857143">
+            <state line="41" column="19" selection-start="1349" selection-end="1349" vertical-scroll-proportion="0.3224138">
               <folding />
             </state>
           </provider>
@@ -228,50 +228,6 @@
           <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
         </PATH_ELEMENT>
       </PATH>
-      <PATH>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="AwareEngine" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="AwareEngine" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="PsiDirectory:/home/cruxic/Programming/aware-engine" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="PsiDirectory:/home/cruxic/Programming/aware-engine/Game-Data" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="PsiDirectory:/home/cruxic/Programming/aware-engine/Game-Data/tech-demo-1" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-        </PATH_ELEMENT>
-      </PATH>
-      <PATH>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="AwareEngine" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="AwareEngine" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="PsiDirectory:/home/cruxic/Programming/aware-engine" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="PsiDirectory:/home/cruxic/Programming/aware-engine/Game-Data" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-        </PATH_ELEMENT>
-        <PATH_ELEMENT>
-          <option name="myItemId" value="PsiDirectory:/home/cruxic/Programming/aware-engine/Game-Data/jmp-tech-demo-1" />
-          <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-        </PATH_ELEMENT>
-      </PATH>
     </subPane>
   </component>
   <component name="ProjectReloadState">
@@ -310,7 +266,7 @@
       <recent name="cruxic.aware.tex_cache" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Run">
+  <component name="RunManager" selected="Application.Run example - fullscreen">
     <configuration default="true" type="TestNG" factoryName="TestNG" enabled="false" merge="false">
       <module name="" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
@@ -397,10 +353,10 @@
         <option name="Make" value="true" />
       </method>
     </configuration>
-    <configuration default="false" name="Run" type="Application" factoryName="Application" enabled="false" merge="false">
+    <configuration default="false" name="Run example" type="Application" factoryName="Application" enabled="false" merge="false">
       <option name="MAIN_CLASS_NAME" value="cruxic.aware.Main" />
       <option name="VM_PARAMETERS" value="-ea -Ddevel -Xmx64m -Djava.library.path=.:Libs/native/linux64" />
-      <option name="PROGRAM_PARAMETERS" value="Game-Data/tech-demo-1/game.aware" />
+      <option name="PROGRAM_PARAMETERS" value="" />
       <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$/.." />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" value="" />
@@ -423,10 +379,10 @@
         <option name="Make" value="true" />
       </method>
     </configuration>
-    <configuration default="false" name="Run - fullscreen" type="Application" factoryName="Application" enabled="false" merge="false">
+    <configuration default="false" name="Run example - fullscreen" type="Application" factoryName="Application" enabled="false" merge="false">
       <option name="MAIN_CLASS_NAME" value="cruxic.aware.Main" />
       <option name="VM_PARAMETERS" value="-ea -Dfullscreen -Ddevel -Xmx64m -Djava.library.path=.:Libs/native/linux64" />
-      <option name="PROGRAM_PARAMETERS" value="Game-Data/tech-demo-1/game.aware" />
+      <option name="PROGRAM_PARAMETERS" value="" />
       <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$/.." />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" value="" />
@@ -496,8 +452,8 @@
       </method>
     </configuration>
     <list size="4">
-      <item index="0" class="java.lang.String" itemvalue="Application.Run" />
-      <item index="1" class="java.lang.String" itemvalue="Application.Run - fullscreen" />
+      <item index="0" class="java.lang.String" itemvalue="Application.Run example" />
+      <item index="1" class="java.lang.String" itemvalue="Application.Run example - fullscreen" />
       <item index="2" class="java.lang.String" itemvalue="Application.Unit Tests" />
       <item index="3" class="java.lang.String" itemvalue="Application.Run jmp-tech-demo-1" />
     </list>
@@ -544,7 +500,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-4" y="0" width="1288" height="767" extended-state="4" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="2" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="8" />
@@ -555,9 +511,9 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="8" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3264" order="8" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="7" />
-      <window_info id="Structure" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.27597404" order="5" />
+      <window_info id="Structure" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.27029222" order="5" />
       <window_info id="Module Dependencies" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="4" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.28896105" order="0" x="452" y="71" width="376" height="625" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.31087664" order="0" x="452" y="71" width="376" height="625" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="8" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" order="2" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" order="6" />
@@ -595,36 +551,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/../Game-Data/tech-demo-1/Where are the files.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../java/cruxic/aware/PanoHotspot.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="32" column="11" selection-start="1063" selection-end="1063" vertical-scroll-proportion="0.68248177">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../java/cruxic/aware/EquirectViewpoint.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="24" column="5" selection-start="444" selection-end="444" vertical-scroll-proportion="1.2906574">
-          <folding>
-            <marker date="1339790705000" expanded="true" signature="219:236" placeholder="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../java/cruxic/aware/OverlayProcessor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="109" column="0" selection-start="2624" selection-end="2624" vertical-scroll-proportion="0.54092526">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../java/cruxic/aware/tex_cache/RamTextureCache.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="31" column="46" selection-start="1137" selection-end="1137" vertical-scroll-proportion="0.588968">
@@ -660,23 +586,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../java/cruxic/aware/Engine.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="225" column="8" selection-start="5635" selection-end="5635" vertical-scroll-proportion="0.029310346">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../java/cruxic/aware/Renderer.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="483" column="5" selection-start="12916" selection-end="12916" vertical-scroll-proportion="0.7948276">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../java/cruxic/aware/CubicViewpoint.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="49" column="50" selection-start="1207" selection-end="1207" vertical-scroll-proportion="0.9155173">
           <folding />
         </state>
       </provider>
@@ -688,23 +600,51 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../Game-Data/jmp-tech-demo-1/game.aware">
+    <entry file="file://$PROJECT_DIR$/../java/cruxic/aware/Engine.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="28" selection-start="176" selection-end="176" vertical-scroll-proportion="0.114285715">
+        <state line="426" column="40" selection-start="11006" selection-end="11006" vertical-scroll-proportion="0.63879">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../Game-Data/tech-demo-1/game.aware">
+    <entry file="file://$PROJECT_DIR$/../java/cruxic/aware/CubicViewpoint.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="743" column="7" selection-start="18962" selection-end="18962" vertical-scroll-proportion="0.2857143">
+        <state line="24" column="0" selection-start="365" selection-end="365" vertical-scroll-proportion="0.7071057">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../java/cruxic/math/SphereCoord3f.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="41" column="11" selection-start="1464" selection-end="1464" vertical-scroll-proportion="0.34341636">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../java/cruxic/aware/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="54" column="30" selection-start="1556" selection-end="1556" vertical-scroll-proportion="0.9608541">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../java/cruxic/aware/ResourceManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="91" column="22" selection-start="2398" selection-end="2398" vertical-scroll-proportion="0.33275563">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../java/cruxic/aware/GameWorld.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="126" column="10" selection-start="2905" selection-end="2905" vertical-scroll-proportion="0.36206895">
+        <state line="190" column="17" selection-start="4286" selection-end="4286" vertical-scroll-proportion="0.42068964">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../java/cruxic/aware/OverlayProcessor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="41" column="19" selection-start="1349" selection-end="1349" vertical-scroll-proportion="0.3224138">
           <folding />
         </state>
       </provider>

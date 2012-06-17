@@ -51,15 +51,14 @@ public class Main
 				return;
 			}
 
-			//make sure we have an argument
-			if (args.length == 0)
+			File game_data_dir;
+			if (args.length >= 1)
+				game_data_dir = new File(args[0]);
+			else
 			{
-				System.err.println("Missing argument!");
-				System.err.println("USAGE: <path/to/game.aware>");
-				System.exit(1);
+				game_data_dir = new File("Game-Data");
+				System.out.println("Assuming default ./Game-Data directory");
 			}
-
-			File gameSpecFile = new File(args[0]);
 
 			//Expose UnsatisfiedLinkErrors immediately
 			GLImage.allocateBlank(1, 1, (byte)0).dispose();
@@ -72,7 +71,7 @@ public class Main
 			glCtx.init();
 
 			//setup the game engine
-			Engine engine = new Engine(glCtx, gameSpecFile);
+			Engine engine = new Engine(glCtx, game_data_dir);
 
 			//start on the menu
 			engine.menu.setVisible(true);

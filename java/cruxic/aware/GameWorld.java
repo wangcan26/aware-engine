@@ -25,7 +25,6 @@ import java.io.*;
 import java.util.*;
 
 import cruxic.math.*;
-import cruxic.aware.overlays.OverlaySpecRegistry;
 
 /**
 	Holds the definition and state of one game world.
@@ -99,12 +98,12 @@ public class GameWorld
 			return null;
 	}
 
-	private static String getRelativeBaseDir(File someFile)
+	private static String getRelativeBaseDir(File someDir)
 	{
 		try
 		{
 			String cwd = new File(".").getCanonicalPath();
-			String gameBaseDir = someFile.getAbsoluteFile().getParent();
+			String gameBaseDir = someDir.getAbsolutePath();
 			String relativeBaseDir;
 			if (gameBaseDir.startsWith(cwd))
 				relativeBaseDir = gameBaseDir.substring(cwd.length() + 1);
@@ -121,83 +120,245 @@ public class GameWorld
 		}
 	}
 
-	public static GameWorld loadSpec(File specFile)
+	private static Properties readProperties(File pfile)
 		throws IOExceptionRt
 	{
-		//convertSpec(specFile);
+		Properties props = new Properties();
+		try
+		{
+			FileInputStream fis = new FileInputStream(pfile);
+			try
+			{
+				props.load(fis);
+			}
+			finally
+			{
+				fis.close();
+			}
+		}
+		catch (IOException ioe)
+		{
+			throw new IOExceptionRt(ioe);
+		}
 
-		JSONObject root = parseJSONFile(specFile);
+		return props;
+	}
 
-		String baseDir = getRelativeBaseDir(specFile);
+	private static boolean isPropTrue(String property_value)
+	{
+		return property_value != null
+			&& (property_value.toLowerCase().equals("true") || property_value.equals("1"));
+	}
+
+	/**Sort imageIds in this order: front, back, left, right, top, bottom*/
+	private static List<String> sortCubeImages_FBLRTB(Collection<String> imageIds)
+		throws IllegalArgumentException
+	{
+		String[] six = new String[6];
+
+		for (String imgId: imageIds)
+		{
+			int idx = getCubicFaceIndex(imgId);
+			if (idx != -1)
+			{
+				if (six[idx] != null)
+					throw new IllegalArgumentException("Duplicate cube face image: " + imgId);
+				else
+					six[idx] = imgId;
+			}
+		}
+
+		List<String> result = new ArrayList<String>(6);
+		for (String imgId: six)
+		{
+			if (imgId == null)
+				throw new IllegalArgumentException("Missing one or more cube-face images.  Make sure you have image names starting with: front, back, left, right, top, and bottom");
+			result.add(imgId);
+		}
+
+		return result;
+	}
+
+	private static int getCubicFaceIndex(String imgId)
+	{
+		int n;
+		if (imgId.contains("front"))
+			n = 0;
+		else if (imgId.contains("back"))
+			n = 1;
+		else if (imgId.contains("left"))
+			n = 2;
+		else if (imgId.contains("right"))
+			n = 3;
+		else if (imgId.contains("top"))
+			n = 4;
+		else if (imgId.contains("bottom"))
+			n = 5;
+		else
+			n = -1;
+
+		return n;
+	}
+
+
+	public static GameWorld load_game_data(File game_data_dir)
+		throws IOExceptionRt
+	{
+		//Read game.properties
+		Properties game_props = readProperties(new File(game_data_dir, "game.properties"));
+
+
+		String baseDir = getRelativeBaseDir(game_data_dir);
 
 		ResourceManager.FileResolver fileResolver = new ResourceManager.FileResolver(baseDir);
 
 		GameWorld gw = new GameWorld();
 
-		OverlaySpecRegistry overlaySpecRegistry = new OverlaySpecRegistry();
-
 		IdentityHashMap<PanoHotspot, String> hotspotTargets = new IdentityHashMap<PanoHotspot, String>(128);
 		Map<String, Viewpoint> viewpointsById = new HashMap<String, Viewpoint>(128);
 
-		List<JSONObject> jviewpoints = (List<JSONObject>)root.get("viewpoints");
-		for (JSONObject jvp: jviewpoints)
+		File[] vpDirs = game_data_dir.listFiles();
+
+		for (File vpDir: vpDirs)
 		{
-			PanoViewpoint vp;
-
-			boolean cubic = jvp.containsKey("type") && jvp.get("type").equals("cubic");
-			if (cubic)
+			//Skip normal files
+			if (!vpDir.isFile())
 			{
-				vp = new CubicViewpoint((String)jvp.get("id"));
-			}
-			else
-			{
-				vp = new EquirectViewpoint((String)jvp.get("id"));
-			}
+				Properties vpProps;
+				File vpPropFile = new File(vpDir, "viewpoint.properties");
+				if (vpPropFile.isFile())
+					vpProps = readProperties(vpPropFile);
+				else
+					vpProps = new Properties();
 
-			vp.location = parseVec3fFromJSON(jvp.get("loc"));
-			vp.implicitBackLink = (Boolean)jvp.get("implicitBackLink");
+				String vpId = vpDir.getName();
 
-			//Images
-			for (String imgId: (List<String>)jvp.get("images"))
-			{
-				vp.imageIds.add(fileResolver.resolveImageId(imgId));
-			}
-
-			if (vp instanceof CubicViewpoint)
-				((CubicViewpoint)vp).sortCubeImages_FBLRTB();
-
-			//Hotspots
-			List<JSONObject> jhss = (List<JSONObject>)jvp.get("hotspots");
-			for (JSONObject jhs: jhss)
-			{
-				PanoHotspot hs = new PanoHotspot((String)jhs.get("id"));
-
-				String targetViewpoint = (String)jhs.get("targetViewpoint");
-				if (targetViewpoint != null)
-					hotspotTargets.put(hs, targetViewpoint);
-
-				List<List<Double>> jpolygon = (List<List<Double>>)jhs.get("polygon");
-				for (List<Double> point: jpolygon)
+				File[] vpFiles = vpDir.listFiles();
+				Set<String> imageFiles = new HashSet<String>();
+				String eqr_pano_imgId = null;
+				for (File f: vpFiles)
 				{
-					double yaw = point.get(0);
-					double pitch = point.get(1);
+					String fname = f.getName();
+					if (fname.endsWith(".png"))
+					{
+						String relpath = vpDir.getName() + File.separatorChar + fname;
+						String imgId = fileResolver.resolveImageId(relpath);
+						imageFiles.add(imgId);
 
-					hs.polygon.add(new SphereCoord3f((float)yaw, (float)pitch, 1.0f));
+						if (fname.equals("eqr_pano.png"))
+							eqr_pano_imgId = imgId;
+
+					}
 				}
 
-				vp.hotspots.add(hs);
-			}
+				boolean cubic = eqr_pano_imgId == null && imageFiles.size() > 1;
 
-			//Overlay specs (optional)
-			List<JSONObject> joverlays = (List<JSONObject>)jvp.get("overlays");
-			if (joverlays != null)
-			{
-				for (JSONObject joverlay: joverlays)
-					vp.overlays.add(overlaySpecRegistry.loadFromJSON(joverlay, fileResolver));
-			}
+				PanoViewpoint vp;
 
-			gw.addViewpoint(vp);
-			viewpointsById.put(vp.id, vp);
+				if (cubic)
+				{
+					vp = new CubicViewpoint(vpId);
+				}
+				else
+				{
+					vp = new EquirectViewpoint(vpId);
+				}
+
+				vp.implicitBackLink = isPropTrue(vpProps.getProperty("implicitBackLink"));
+
+				//Images
+				if (cubic)
+					vp.imageIds = sortCubeImages_FBLRTB(imageFiles);
+				else
+					vp.imageIds.add(eqr_pano_imgId);  //assume the first
+
+				//Hotspots
+				for (int n = 1; n < 1000; n++)
+				{
+					String hsKey = "hotspot_" + n;
+					if (vpProps.containsKey(hsKey))
+					{
+						String val = vpProps.getProperty(hsKey).trim();
+
+						PanoHotspot hs = new PanoHotspot(hsKey);
+						boolean parse_error = false;
+
+						int cidx = val.indexOf('[');
+						if (cidx > 0)
+						{
+							String target = val.substring(0, cidx).trim();
+
+							if (!target.startsWith("../"))
+								throw new IOExceptionRt(String.format("Error parsing %s for viewpoint \"%s\": target is missing \"../\"", hsKey, vpId));
+							else
+								target = target.substring(3);
+
+							hotspotTargets.put(hs, target);
+						}
+						else if (cidx != 0 || (cidx + 3) > val.length()
+							|| !val.endsWith("]"))
+							parse_error = true;
+
+						if (!parse_error)
+						{
+							String[] parts = val.substring(cidx + 1, val.length() - 1).split(",");
+
+							int nDoubles = 0;
+							double yaw = 0.0;
+							double pitch = 0.0;
+
+							for (String part: parts)
+							{
+								part = part.trim();
+								if (part.length() == 0)
+								{
+									parse_error = true;
+									break;
+								}
+
+								try
+								{
+									double d = Double.parseDouble(part);
+
+									//even?
+									if ((nDoubles & 1) == 0)
+									{
+										yaw = d;
+									}
+									else
+									{
+										pitch = d;
+										hs.polygon.add(new SphereCoord3f((float)yaw, (float)pitch, 1.0f));
+									}
+
+									nDoubles++;
+								}
+								catch (NumberFormatException nfe)
+								{
+									parse_error = true;
+									break;
+								}
+							}
+
+							if (nDoubles < 2 || nDoubles % 2 != 0)
+								parse_error = true;
+						}
+
+						if (!parse_error)
+							vp.hotspots.add(hs);
+						else
+						{
+							throw new IOExceptionRt(String.format("Error parsing %s for viewpoint \"%s\"", hsKey, vpId));
+						}
+					}
+					else
+						break;
+				}
+
+				gw.addViewpoint(vp);
+				viewpointsById.put(vp.id, vp);
+
+			}
 		}
 
 		//Connect up hotspot target references
@@ -205,9 +366,28 @@ public class GameWorld
 		{
 			Viewpoint target = viewpointsById.get(e.getValue());
 			if (target == null)
-				System.out.printf("Unable to hotspot target: \"%s\"\n", e.getValue());
+				System.out.printf("Unable to find hotspot target: \"%s\"\n", e.getValue());
 			else
 				e.getKey().targetViewpoint = target;
+		}
+
+		//Set active viewpoint to starting_viewpoint
+		String starting_viewpoint_id = game_props.getProperty("starting_viewpoint");
+		if (starting_viewpoint_id != null)
+		{
+			boolean found = false;
+			for (Viewpoint vp: gw.viewpoints)
+			{
+				if (vp.getId().equals(starting_viewpoint_id))
+				{
+					gw.active = vp;
+					found = true;
+					break;
+				}
+			}
+
+			if (!found)
+				System.err.printf("Unable to find starting_viewpoint \"%s\"\n", starting_viewpoint_id);
 		}
 
 		return gw;
@@ -330,11 +510,6 @@ public class GameWorld
 				throw new IOExceptionRt(ioe);
 			}
 		}
-	}
-
-	public void saveSpec(File specFile)
-	{
-
 	}
 
 	public void loadState(File stateFile)

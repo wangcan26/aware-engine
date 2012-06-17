@@ -1,0 +1,1 @@
+The Game-Data folder is where all the data for the game should go (images, sounds, scripts, etc).  If you launch Aware Engine without any parameters, it will look for a "Game-Data" folder in the current working directory.
