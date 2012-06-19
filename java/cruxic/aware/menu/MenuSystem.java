@@ -23,8 +23,7 @@ import cruxic.aware.tex_cache.TextureCache;
 import cruxic.aware.ipo.*;
 import cruxic.aware.*;
 import cruxic.aware.misc.WorkingSet;
-import cruxic.aware.overlays.Liquid_StaticNoiseOverlaySpec;
-//import cruxic.aware.effects.WaterRipples_StaticNoise;
+//import cruxic.aware.overlays.Liquid_StaticNoiseOverlaySpec;
 import cruxic.math.*;
 import static cruxic.aware.MenuHandler.MenuAction.*;
 
@@ -85,7 +84,7 @@ public class MenuSystem
 
 	private MenuActionListener menuListener;
 
-	Liquid_StaticNoiseOverlaySpec rippleSpec;
+	//Liquid_StaticNoiseOverlaySpec rippleSpec;
 
 
 	public MenuSystem(Engine engine, OpenGLContext glCtx, TextureCache texCache, MenuActionListener menuListener)
@@ -98,14 +97,14 @@ public class MenuSystem
 		//preload handler classes to prevent click lag
 		menuListener.menuActivated(new LeafMenu(MNull, null));
 
-		rippleSpec = new Liquid_StaticNoiseOverlaySpec("ripples",
-		  "res/data/ripple_noise1.png", "res/menu/background-mask.png");
-		rippleSpec.noiseIntensity = 0.85f;
+		//rippleSpec = new Liquid_StaticNoiseOverlaySpec("ripples",
+		//  "res/data/ripple_noise1.png", "res/menu/background-mask.png");
+		//rippleSpec.noiseIntensity = 0.85f;
 
 		//dummy Viewpoint necessary for overlayprocessor call
 		menuViewpoint = new EquirectViewpoint("menu");
 		menuViewpoint.imageIds.add("res/menu/background.png");
-		menuViewpoint.overlays.add(rippleSpec);
+		//menuViewpoint.overlays.add(rippleSpec);
 
 		//MUST happen before you call createFonts
 		fontScaleFactor = glCtx.height / 600f	* FONT_NORMAL_POINT_SIZE;	//no scaling at 800x600
@@ -122,9 +121,27 @@ public class MenuSystem
 		SubMenu settings = root.addMenu(new SubMenu(null, "Settings"));
 		{
 			settings.addMenu(new ToggleMenu(MToggle_show_fps, "Show FPS", "renderer.show_fps"));
-			settings.addMenu(new ToggleMenu(MToggle_show_geom, "Show Geometry", "renderer.show_geom"));
-			settings.addMenu(new ToggleMenu(MToggle_show_hotspots, "Show Hotspots", "renderer.show_hotspots"));
-			settings.addMenu(new ToggleMenu(MToggle_show_hotspots, "Cycle Viewpoints", "devel.cycle_viewpoints"));
+			settings.addMenu(new ToggleMenu(MToggle_develop_mode, "Development Mode", "devel.enable"));
+
+			//settings.addMenu(new ToggleMenu(MToggleMusic, "Music"));
+			//settings.addMenu(new ToggleMenu(MToggleFullscreen, "Full Screen"));
+			//SubMenu numbers = settings.addMenu(new SubMenu(null, "Numbers"));
+			//for (int i = 0; i < 10; i++)
+			//	numbers.addMenu(new LeafMenu(null, "Number "));
+		}
+		SubMenu develop = root.addMenu(new SubMenu(Mdevelop, "Develop"));
+		{
+			SubMenu dev_hotspots = develop.addMenu(new SubMenu(null, "Hotspots"));
+			{
+				dev_hotspots.addMenu(new ToggleMenu(MToggle_hotspot_show_all, "Show Hotspots", "renderer.show_hotspots"));
+				dev_hotspots.addMenu(new LeafMenu(Mhotspot_add, "Add [A]"));
+				dev_hotspots.addMenu(new LeafMenu(Mhotspot_delete, "Delete [D]"));
+				dev_hotspots.addMenu(new LeafMenu(Mhotspot_link, "Link to viewpoint"));
+			}
+
+			develop.addMenu(new ToggleMenu(MToggle_show_geom, "Show Geometry", "renderer.show_geom"));
+			develop.addMenu(new ToggleMenu(MToggle_cycle_viewpoints, "Cycle Viewpoints", "devel.cycle_viewpoints"));
+
 
 			//settings.addMenu(new ToggleMenu(MToggleMusic, "Music"));
 			//settings.addMenu(new ToggleMenu(MToggleFullscreen, "Full Screen"));
@@ -265,6 +282,69 @@ public class MenuSystem
 		}
 		else
 			return false;
+	}
+
+	private LinkedList<Menu> findMenu(Object menuId)
+	{
+		LinkedList<Menu> path = new LinkedList<Menu>();
+		if (_findMenu(menuStack.getFirst(), menuId, path))
+			return path;
+		else
+			return null;
+	}
+
+	private boolean _findMenu(Menu node, Object menuId, LinkedList<Menu> path)
+	{
+		path.add(node);
+
+		Object nodeId = node.getId();
+		if (nodeId != null && nodeId.equals(menuId))
+			return true;
+		else
+		{
+			for (Menu child: node.getSubmenu())
+			{
+				if (_findMenu(child, menuId, path))
+					return true;
+			}
+
+			path.removeLast();
+
+			//not found
+			return false;
+		}
+	}
+
+	public void jumpTo(Object menuId)
+	{
+		//Pop to the root
+		while (menuStack.size() > 1)
+			menuStack.removeLast();
+
+		//Push until the specified menu is found
+		LinkedList<Menu> path = findMenu(menuId);
+		if (path != null)
+		{
+			//we are already on the root
+			path.removeFirst();
+
+			for (Menu parent: path)
+				pushMenu(parent);
+		}
+
+		layoutMenu(menuStack.getLast());
+	}
+
+	/**Return true if currently at or below the specified menu*/
+	public boolean within_submenu(Object menuId)
+	{
+		for (Menu m: menuStack)
+		{
+			Object mId = m.getId();
+			if (mId != null && mId.equals(menuId))
+				return true;
+		}
+		return false;
 	}
 
 	private void layoutMenu(Menu menu)
@@ -620,8 +700,8 @@ public class MenuSystem
 
 			//Push working set with all textures we will need
 			WorkingSet<String> ws = new WorkingSet<String>();
-			ws.add(rippleSpec.noiseImage, WorkingSet.PRI_HIGH + 1);
-			ws.add(rippleSpec.maskImage, WorkingSet.PRI_HIGH);
+			//ws.add(rippleSpec.noiseImage, WorkingSet.PRI_HIGH + 1);
+			//ws.add(rippleSpec.maskImage, WorkingSet.PRI_HIGH);
 			ws.add("res/menu/background.png", WorkingSet.PRI_HIGH);
 			ws.add("res/menu/border-horz.png", WorkingSet.PRI_NORM);
 			ws.add("res/menu/border-vert.png", WorkingSet.PRI_NORM);
@@ -642,5 +722,15 @@ public class MenuSystem
 	public boolean isVisible()
 	{
 		return visible;
+	}
+
+	public void simulateMenuClick(Object menuId)
+	{
+		LinkedList<Menu> path = findMenu(menuId);
+		if (path != null)
+		{
+			menuListener.menuActivated(path.getLast());
+		}
+
 	}
 }

@@ -24,7 +24,8 @@ import cruxic.aware.ipo.*;
 import cruxic.aware.tex_cache.TextureCache;
 import cruxic.aware.misc.WorkingSet;
 import cruxic.aware.menu.MenuSystem;
-import cruxic.math.SphereCoord3f;
+import cruxic.math.*;
+import cruxic.aware.Develop;
 
 import java.util.*;
 import java.io.File;
@@ -38,7 +39,9 @@ public class Engine
 	public static Engine instance;
 
 	public MenuSystem menu;
+	public Develop dev;
 	public Renderer renderer;
+	public HUDContext hudCtx;
 	public CameraInput cameraInput;
 	public OpenGLContext glCtx;
 	public TextureCache texCache;
@@ -68,11 +71,16 @@ public class Engine
 		stop = false;
 		this.game_data_dir = game_data_dir;
 
+		this.dev = new Develop();
+
 		params = new HashMap<String, Object>();
 		params.put("renderer.show_fps", Boolean.FALSE);
 		params.put("renderer.show_geom", Boolean.FALSE);
 		params.put("renderer.show_hotspots", Boolean.FALSE);
 		params.put("devel.cycle_viewpoints", Boolean.TRUE);
+		params.put("devel.enable", System.getProperty("devel") != null);
+
+
 
 		frameTimer = new EngineTimer();
 		nextFPSValue = 0;
@@ -83,6 +91,8 @@ public class Engine
 		this.glCtx = glCtx;
 
 		cameraInput = new CameraInput(glCtx.height);
+
+		hudCtx = new HUDContext(glCtx);
 
 		overlayProcessor = new OverlayProcessor();
 
@@ -181,10 +191,59 @@ public class Engine
 				}
 				case Keyboard.KEY_PAUSE:  //a last resort way to exit during development
 				{
-					stop = true;
+					if (develop())
+						stop = true;
 					break;
 				}
+				case Keyboard.KEY_GRAVE:  //'~'
+				{
+					//Show/Hide the "Develop" menu
+					if (released && develop())
+					{
+						if (!menu.within_submenu(MenuHandler.MenuAction.Mdevelop))
+						{
+							menu.jumpTo(MenuHandler.MenuAction.Mdevelop);
+							menu.setVisible(true);
+						}
+						else
+						{
+							if (menu.isVisible())
+							{
+								resumeGame();
+								menu.setVisible(false);
+							}
+							else
+								menu.setVisible(true);
+						}
+					}
+					break;
+				}
+				case Keyboard.KEY_RETURN:
+				{
+					if (develop()
+						&& dev.new_hotspot != null
+						&& dev.new_hotspot.polygon.size() > 2)
+					{
+						gameWorld.getActiveViewpoint().hotspots().add(dev.new_hotspot);
+						dev.new_hotspot = null;
+						dev.console_text.setLength(0);
+					}
 
+					break;
+				}
+				case Keyboard.KEY_A:
+				{
+					if (develop())
+						menu.simulateMenuClick(MenuHandler.MenuAction.Mhotspot_add);
+
+					break;
+				}
+				case Keyboard.KEY_D:
+				{
+					if (develop())
+						menu.simulateMenuClick(MenuHandler.MenuAction.Mhotspot_delete);
+					break;
+				}
 			}
 		}
 	}
@@ -299,13 +358,52 @@ public class Engine
 	{
 		Viewpoint avp = gameWorld.getActiveViewpoint();
 
-		//edit-mode: add a point to active hotspot
-//		var edSpot = avp.ed_getCurrentHotSpot();
-//		if (edSpot != null)
-//		{
-//			edSpot.polygon.add(engine.cameraInput.getLookRay());
-//			return;
-//		}
+		if (develop())
+		{
+			//Adding a new hotspot?
+			if (dev.new_hotspot != null)
+			{
+				dev.new_hotspot.polygon.add(cameraInput.getLookRay());
+				return;
+			}
+			else if (dev.delete_next_hotspot)
+			{
+				dev.delete_next_hotspot = false;
+				dev.console_text.setLength(0);
+
+				PanoHotspot clickedHS = avp.findActiveHotspot(cameraInput.getLookRay());
+				if (clickedHS != null)
+				{
+					Iterator<PanoHotspot> itr = avp.hotspots().iterator();
+					while (itr.hasNext())
+					{
+						if (itr.next() == clickedHS)
+							itr.remove();
+					}
+				}
+
+				return;
+			}
+			else if (dev.link_next_hotspot)
+			{
+				dev.link_next_hotspot = false;
+				dev.console_text.setLength(0);
+
+				dev.hotspot_to_link = avp.findActiveHotspot(cameraInput.getLookRay());
+				return;
+			}
+
+			//If they clicked a hotspot without a target then show the viewpoint selector
+			PanoHotspot clickedHS = avp.findActiveHotspot(cameraInput.getLookRay());
+			if (clickedHS != null && clickedHS.targetViewpoint == null)
+			{
+				dev.link_next_hotspot = false;
+				dev.console_text.setLength(0);
+
+				dev.hotspot_to_link = clickedHS;
+				return;
+			}
+		}
 
 		//edit-mode: delete a viewpoint
 //		switch (engine.console.state)
@@ -427,6 +525,11 @@ public class Engine
 			loadGameWorld(GameWorld.load_game_data(game_data_dir));
 			alreadyLoaded = true;
 		}
+	}
+
+	public boolean develop()
+	{
+		return (Boolean)params.get("devel.enable");
 	}
 
 	

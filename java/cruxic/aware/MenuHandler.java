@@ -20,8 +20,6 @@ package cruxic.aware;
 
 import cruxic.aware.menu.*;
 
-import java.io.File;
-
 /**
 
  */
@@ -37,9 +35,15 @@ public class MenuHandler
 		MQuit,
 		MToggleMusic,
 		MToggleFullscreen,
+		MToggle_develop_mode,
+		Mdevelop,
 		MToggle_show_fps,
 		MToggle_show_geom,
-		MToggle_show_hotspots,
+		MToggle_hotspot_show_all,
+		MToggle_cycle_viewpoints,
+		Mhotspot_add,
+		Mhotspot_delete,
+		Mhotspot_link,
 
 	}
 
@@ -59,7 +63,7 @@ public class MenuHandler
 
 		if (ma != null)
 		{
-			System.out.println("MenuClick: " + ma);
+			//System.out.println("MenuClick: " + ma);
 
 			switch (ma)
 			{
@@ -87,6 +91,54 @@ public class MenuHandler
 					engine.renderer.showFPS = ((ToggleMenu)theMenu).on;
 					break;
 				}*/
+
+				case Mhotspot_add:
+				{
+					String hsName = "hotspot_" + (engine.gameWorld.active.hotspots().size() + 1);
+					engine.dev.new_hotspot = new PanoHotspot(hsName);
+					engine.dev.console_text.setLength(0);
+					engine.dev.console_text.append("Click to add hotspot points. [ENTER] to finish, [A] to start over, [D] to cancel");
+					//turn on showing of hotspots
+					engine.params.put("renderer.show_hotspots", Boolean.TRUE);
+
+
+					engine.menu.setVisible(false);
+
+					break;
+				}
+				case Mhotspot_delete:
+				{
+					if (engine.dev.new_hotspot != null)
+					{
+						engine.dev.new_hotspot = null;
+						engine.dev.console_text.setLength(0);
+					}
+					else if (!engine.gameWorld.getActiveViewpoint().hotspots().isEmpty())
+					{
+						engine.dev.console_text.setLength(0);
+						engine.dev.console_text.append("Click a hotspot to delete.  (Click a non-hotspot to cancel)");
+						engine.dev.delete_next_hotspot = true;
+					}
+
+					engine.params.put("renderer.show_hotspots", Boolean.TRUE);
+					engine.menu.setVisible(false);
+
+					break;
+				}
+				case Mhotspot_link:
+				{
+					if (engine.dev.new_hotspot == null)
+					{
+						engine.dev.link_next_hotspot = true;
+						engine.dev.hotspot_to_link = null;
+						engine.dev.console_text.setLength(0);
+						engine.dev.console_text.append("Select a hotspot to link. (Click a non-hotspot to cancel)");
+
+						engine.params.put("renderer.show_hotspots", Boolean.TRUE);
+						engine.menu.setVisible(false);
+					}
+					break;
+				}
 			}
 		}
 
