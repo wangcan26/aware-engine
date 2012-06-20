@@ -29,7 +29,6 @@ import static cruxic.aware.MenuHandler.MenuAction.*;
 
 import java.awt.*;
 import java.util.*;
-import java.util.List;
 
 import static org.lwjgl.opengl.GL11.*;
 
@@ -38,49 +37,28 @@ import static org.lwjgl.opengl.GL11.*;
  */
 public class MenuSystem
 {
-	private static class MenuRect
-	{
-		public Rect4f rect;
-		public Menu menu;
-		public MenuRect(Rect4f rect, Menu menu)
-		{
-			this.rect = rect;
-			this.menu = menu;
-		}
-	}
-
-
 	private FTGLPixmapFont fontMenuItem;
 	private FTGLPixmapFont fontMenuItemHover;
 	private FTGLPixmapFont fontMenuTitle;
 	private FTGLPixmapFont fontMenuTitle_shadow;
-
-	private float LEFT = -1.0f;
-	private float RIGHT = 1.0f;
-	private float TOP = 1.0f;
-	private float BOT = -1.0f;
-	private float WIDTH = RIGHT - LEFT;
-	private float HEIGHT = TOP - BOT;
 
 	//private static final float BG_START_HUE = 2.35f;
 
 	private boolean visible;
 	private TextureCache texCache;
 
-	private Mouse2DTracker mousePos;
-
 	private IPOCurve bgHue;
 
+	private Engine engine;
+
 	private SubMenu root;
-	private ArrayList<MenuRect> menuLayout;
+	private Layout2D<Menu> layout;
 	private LinkedList<Menu> menuStack;
 
 	private OpenGLContext glCtx;
 
 	private EquirectViewpoint menuViewpoint;
 
-	private static final int FONT_NORMAL_POINT_SIZE = 30;
-	private float fontScaleFactor;
 
 	private MenuActionListener menuListener;
 
@@ -94,6 +72,8 @@ public class MenuSystem
 		this.glCtx = glCtx;
 		visible = false;
 
+		this.engine = engine;
+
 		//preload handler classes to prevent click lag
 		menuListener.menuActivated(new LeafMenu(MNull, null));
 
@@ -106,12 +86,8 @@ public class MenuSystem
 		menuViewpoint.imageIds.add("res/menu/background.png");
 		//menuViewpoint.overlays.add(rippleSpec);
 
-		//MUST happen before you call createFonts
-		fontScaleFactor = glCtx.height / 600f	* FONT_NORMAL_POINT_SIZE;	//no scaling at 800x600
 
 		createFonts();
-
-		mousePos = new Mouse2DTracker(new Rect4f(LEFT, TOP, WIDTH, HEIGHT), glCtx);
 
 		//bgHue = new RepeatingIPO(new LinearIPO(0.0f, 6.0f, 60.0f, engine.newTimeSource()));
 
@@ -153,7 +129,7 @@ public class MenuSystem
 		//for (int i = 0; i < 10; i++)
 		//	root.addMenu(new LeafMenu("More " + i, null));
 
-		menuLayout = new ArrayList<MenuRect>(32);
+		layout = new Layout2D<Menu>();
 		menuStack = new LinkedList<Menu>();
 		pushMenu(root);
 	}
@@ -162,16 +138,18 @@ public class MenuSystem
 	{
 		final String face = "sans-serif";
 
-		Font fnt = new Font(face, Font.PLAIN, relFontSize(2f));
+		HUDContext hc = engine.hudCtx;
+
+		Font fnt = new Font(face, Font.PLAIN, hc.relFontSize(2f));
 		fontMenuTitle = new FTGLPixmapFont(fnt);
 		fontMenuTitle.rgbaColor = new float[] {0.176471f, 0.364706f, 0.847059f, 1f};
 
-		fnt = new Font(face, Font.PLAIN, relFontSize(2f));
+		fnt = new Font(face, Font.PLAIN, hc.relFontSize(2f));
 		fontMenuTitle_shadow = new FTGLPixmapFont(fnt);
 		fontMenuTitle_shadow.rgbaColor = new float[] {0, 0, 0, 1f};
 
 
-		fnt = new Font(face, Font.PLAIN, relFontSize(1f));
+		fnt = new Font(face, Font.PLAIN, hc.relFontSize(1f));
 		fontMenuItem = new FTGLPixmapFont(fnt);
 		fontMenuItem.rgbaColor = new float[] {0.0352941f, 0.0745098f, 0.176471f, 1f};
 
@@ -180,37 +158,15 @@ public class MenuSystem
 
 	}
 
-	private int relFontSize(float percent)
-	{
-		return (int)(percent * fontScaleFactor);
-	}
-
-	private static float computeFontPointsPerPixel(OpenGLContext glCtx)
-	{
-		final int TEST_SIZE = 100;
-		FTGLPixmapFont ftgl = new FTGLPixmapFont(new Font(Font.DIALOG, Font.PLAIN, TEST_SIZE));
-		FTBBox bounds = ftgl.getBBox("M");
-		ftgl.clearCache(false);
-		return TEST_SIZE / bounds.getHeight();
-	}
 
 	public void drawMenu()
 	{
-		mousePos.checkForInput();
+		HUDContext hc = engine.hudCtx;
 
 		//glColor3f(0f, 0f, 0f);
 		//setup 2D projection
-		glMatrixMode(GL_PROJECTION);
-		glPushMatrix();
+		hc.pushContext();
 		{
-			glLoadIdentity();
-			//left,right  bottom,top  near,far
-			glOrtho(LEFT, RIGHT, BOT, TOP, 10.0f, -10.0f);
-
-	//		float consoleFontPixelScale = 1.0f / (float)engine.windowHeight;
-	//		float fontHeight = consoleFont.LineHeight() * consoleFontPixelScale;
-	//		float avgCharWidth = fontHeight / 2.0f;
-
 			glMatrixMode(GL_MODELVIEW);
 			glLoadIdentity();
 
@@ -218,49 +174,18 @@ public class MenuSystem
 
 			drawBackground();
 
-			drawMenuBorder(menuLayout);
+			drawMenuBorder();
 
-			drawMenuLayout(menuLayout);
+			drawMenuLayout();
 
-			drawMousePointer(mousePos.x, mousePos.y, "hand");
+			hc.drawMousePointer(hc.getMousePos(), "hand", 1.0f);
 
 		}
-		glMatrixMode(GL_PROJECTION);
-		glPopMatrix();
+		hc.popContext();
 	}
 
 
-	private void drawMousePointer(float x, float y, String imageId)
-	{
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		glColor4f(1f, 1f, 1f, 1f);
-		glEnable(GL_TEXTURE_2D);
-		int[] texId = texCache.getTexture(imageId);
-		glBindTexture(GL_TEXTURE_2D, texId[0]);
 
-		//the image coordinate where the tip of the pointer really is
-		float IMG_SZ = 32f;
-		float tipX = 10f / IMG_SZ;
-		float tipY = 2f / IMG_SZ;
-
-		float aspect = glCtx.getViewportAspectRatio();
-
-		float width = 0.05f;
-		float height = width * aspect;
-		float left = width * 0.5f - tipX * width;
-		float top = tipY * height - height * 0.5f;
-
-		draw2DBox(x + left, y + top, width, height, true, true);
-
-		glBlendFunc(GL_ONE, GL_ZERO);   //equivalent to disable blending
-		glDisable(GL_TEXTURE_2D);
-
-		//glColor3f(1.0f, 0f, 0f);
-		//glPointSize(4f);
-		//glBegin(GL_POINTS);
-		//glVertex2f(0f, 0f);
-		//glEnd();
-	}
 
 	private void pushMenu(Menu menu)
 	{
@@ -349,65 +274,32 @@ public class MenuSystem
 
 	private void layoutMenu(Menu menu)
 	{
-		menuLayout.clear();
+		layout.clear();
 
-		Rect4f headingBox = getTextRect(menu.getText(), fontMenuTitle);
-		headingBox = headingBox.centeredOn(Vec2f.ORIGIN).newY(HEIGHT * 0.25f);
-		menuLayout.add(new MenuRect(headingBox, menu));
+		HUDContext hc = engine.hudCtx;
+
+		Rect4f headingBox = hc.getTextRect(menu.getText(), fontMenuTitle);
+		headingBox = headingBox.centeredOn(Vec2f.ORIGIN).newY(hc.viewport.height * 0.25f);
+		layout.addItem(menu, headingBox);
 
 		float yPos = headingBox.bottom() - headingBox.height * 0.25f;
 
 		//Sub menu entries
 		for (Menu sub: menu.getSubmenu())
 		{
-			Rect4f rect = getTextRect(sub.getText(), fontMenuItem);
+			Rect4f rect = hc.getTextRect(sub.getText(), fontMenuItem);
 			rect = rect.centeredOn(Vec2f.ORIGIN).newY(yPos);
-			menuLayout.add(new MenuRect(rect, sub));
+			layout.addItem(sub, rect);
 
 			yPos = rect.bottom() - (rect.height * 0.25f);
 		}
 	}
 
-	private MenuRect getRectUnderMouse(List<MenuRect> layout)
+
+	private void drawMenuBorder()
 	{
-		Vec2f pos = mousePos.getPos();
-		for (MenuRect mr: layout)
-		{
-			if (mr.rect.contains(pos))
-				return mr;
-		}
+		HUDContext hc = engine.hudCtx;
 
-		return null;
-	}
-
-	private Rect4f getMenuBoundingRect(List<MenuRect> layout)
-	{
-		float left = Float.MAX_VALUE;
-		float right = Float.MIN_VALUE;
-		float top = Float.MIN_VALUE;
-		float bottom = Float.MAX_VALUE;
-
-		//Find maximum bounding box
-		for (MenuRect mr: layout)
-		{
-			if (mr.rect.left() < left)
-				left = mr.rect.left();
-
-			if (mr.rect.right() > right)
-				right = mr.rect.right();
-
-			if (mr.rect.bottom() < bottom)
-				bottom = mr.rect.bottom();
-
-			if (mr.rect.top() > top)
-				top = mr.rect.top();
-		}
-
-		return new Rect4f(left, top, right - left, top - bottom);
-	}
-
-	private void drawMenuBorder(List<MenuRect> layout)
-	{
 		//border width and height
 		final float BW = 0.035f;
 		final float BH = BW * glCtx.getViewportAspectRatio();
@@ -416,7 +308,7 @@ public class MenuSystem
 		final float BH2 = BH * 2.0f;
 
 		//Get bounding rect of entire menu text
-		Rect4f bounds = getMenuBoundingRect(layout);
+		Rect4f bounds = layout.getBoundingBox();
 
 		//enlarge sligtly
 		bounds = bounds.grow(0.1f);
@@ -427,115 +319,75 @@ public class MenuSystem
 		//Draw background rect
 		glDisable(GL_TEXTURE_2D);
 		glColor4f(1f, 1f, 1f, 0.4f);
-		drawRect(bounds.grow(-(BW / 2.0f)), true);
+		hc.drawRect(bounds.grow(-(BW / 2.0f)), true);
 
 		glEnable(GL_TEXTURE_2D);
 		glColor4f(1f, 1f, 1f, 1.0f);
 
 		//Top & Bottom
 		glBindTexture(GL_TEXTURE_2D, texCache.getTexture("res/menu/border-horz.png")[0]);
-		draw2DBox(bounds.pos.x + BW, bounds.pos.y, bounds.width - BW2, BH, true, false);
-		draw2DBox(bounds.pos.x + BW, bounds.bottom() + BH, bounds.width - BW2, BH, true, false);
+		hc.draw2DBox(bounds.pos.x + BW, bounds.pos.y, bounds.width - BW2, BH, true, false);
+		hc.draw2DBox(bounds.pos.x + BW, bounds.bottom() + BH, bounds.width - BW2, BH, true, false);
 
 		//Left & Right
 		glBindTexture(GL_TEXTURE_2D, texCache.getTexture("res/menu/border-vert.png")[0]);
-		draw2DBox(bounds.pos.x, bounds.pos.y - BH, BW, bounds.height - BH2, true, false);
-		draw2DBox(bounds.right() - BW, bounds.pos.y - BH, BW, bounds.height - BH2, true, false);
+		hc.draw2DBox(bounds.pos.x, bounds.pos.y - BH, BW, bounds.height - BH2, true, false);
+		hc.draw2DBox(bounds.right() - BW, bounds.pos.y - BH, BW, bounds.height - BH2, true, false);
 
 		//4 corners
 		glBindTexture(GL_TEXTURE_2D, texCache.getTexture("res/menu/corner.png")[0]);
 		//top-left
-		draw2DBox(bounds.pos.x, bounds.pos.y, BW, BH, true, false);
+		hc.draw2DBox(bounds.pos.x, bounds.pos.y, BW, BH, true, false);
 		//top-right
-		draw2DBox(bounds.pos.x + bounds.width - BW, bounds.pos.y, BW, BH, true, false);
+		hc.draw2DBox(bounds.pos.x + bounds.width - BW, bounds.pos.y, BW, BH, true, false);
 		//bot-left
-		draw2DBox(bounds.pos.x, bounds.bottom() + BH, BW, BH, true, false);
+		hc.draw2DBox(bounds.pos.x, bounds.bottom() + BH, BW, BH, true, false);
 		//bot-right
-		draw2DBox(bounds.pos.x + bounds.width - BW, bounds.bottom() + BH, BW, BH, true, false);
+		hc.draw2DBox(bounds.pos.x + bounds.width - BW, bounds.bottom() + BH, BW, BH, true, false);
 
 		glBlendFunc(GL_ONE, GL_ZERO);   //equivalent to disable blending
 
 	}
 
-	private void drawMenuLayout(List<MenuRect> layout)
+	private void drawMenuLayout()
 	{
 		glDisable(GL_TEXTURE_2D);
 
-		//get the item under the mouse
-		MenuRect hover = getRectUnderMouse(layout);
+		HUDContext hc = engine.hudCtx;
 
-		boolean isHeading = true;
-		for (MenuRect mr: layout)
+		//get the item under the mouse
+		Menu hover = layout.getItemAtPos(hc.getMousePos());
+
+		for (Menu mnu : layout)
 		{
+			Rect4f mrect = layout.getItemRect(mnu);
 			//glColor3f(1f, 1f, 1f);
 			//drawRect(mr.rect, false);
 
 			FTGLPixmapFont font;
-			if (isHeading)
+
+			//Heading?
+			if (mnu == menuStack.getLast())
 			{
 				font = fontMenuTitle;
-				isHeading = false;
 
 				//Draw head font shadow first
-				float[] xy = getTextRectRasterPos(mr.rect, font);
+				float[] xy = hc.getTextRectRasterPos(mrect, font);
 				float offset = (-font.descender() / glCtx.height) * 0.35f;  //offset the shadow relative to the size of the font
 				glRasterPos2f(xy[0] + offset, xy[1] - offset);
-				fontMenuTitle_shadow.render(mr.menu.getText());
+				fontMenuTitle_shadow.render(mnu.getText());
 			}
-			else if (hover == mr)
+			else if (hover == mnu)
 				font = fontMenuItemHover;
 			else
 				font = fontMenuItem;
 
-			setTextRectRasterPos(mr.rect, font);
-			font.render(mr.menu.getText());
+			hc.setTextRectRasterPos(mrect, font);
+			font.render(mnu.getText());
 		}
 	}
 
-	private void setTextRectRasterPos(Rect4f rect, FTGLPixmapFont font)
-	{
-		//note: FTFont.descender() is always negative
-		float descender = (-font.descender()  / glCtx.height) * HEIGHT;
 
-		glRasterPos2f(rect.pos.x, (rect.pos.y - rect.height) + descender);
-	}
-
-	private float[] getTextRectRasterPos(Rect4f rect, FTGLPixmapFont font)
-	{
-		//note: FTFont.descender() is always negative
-		float descender = (-font.descender()  / glCtx.height) * HEIGHT;
-
-		return new float[]{rect.pos.x, (rect.pos.y - rect.height) + descender};
-	}
-
-	private Rect4f getTextRect(String text, FTGLPixmapFont font)
-	{
-		//get the bounding box in pixels
-		FTBBox bb = font.getBBox(text);
-
-		final float WIDTH_HACK = 2f;  //correct for inaccurate font width metrics in jFTGL
-
-		return new Rect4f(Vec2f.ORIGIN,
-			((bb.getWidth() + WIDTH_HACK) / glCtx.width) * WIDTH,  //convert pixel width to viewport width
-			(font.getMaxHeight() / glCtx.height) * HEIGHT);  //convert pixel height to viewport height
-	}
-
-	private float pixelWidthToRealWidth(float pixelWidth)
-	{
-		return (pixelWidth / glCtx.width) * WIDTH;
-	}
-
-	private void drawCenteredText(float yPos, String text, FTGLPixmapFont font)
-	{
-		//get bounding box of the text (in screen pixels)
-		FTBBox bb = font.getBBox(text);
-
-		float xPos = pixelWidthToRealWidth(bb.getWidth()) / -2f;
-
-		glRasterPos2f(xPos, yPos);
-		font.render(text);
-
-	}
 
 	private void drawBackground()
 	{
@@ -547,7 +399,7 @@ public class MenuSystem
 
 		//Engine.instance.overlayProcessor.upload(menuViewpoint);
 
-		draw2DBox(LEFT, TOP, WIDTH, HEIGHT, true, false);
+		engine.hudCtx.draw2DBox_fullscreen(true);
 	}
 
 
@@ -635,52 +487,16 @@ public class MenuSystem
 			}
 	}
 
-	private void drawCenteredQuad(float percentWidth, float percentHeight)
-	{
-
-	}
-
-	private void drawRect(Rect4f rect, boolean filled)
-	{
-		draw2DBox(rect.pos.x, rect.pos.y, rect.width, rect.height, filled, false);
-	}
-
-	/**
-		@param center if true the image will be centered on left,top coordinates
-	*/
-	private void draw2DBox(float left, float top, float width, float height, boolean filled,
-		boolean center)
-	{
-		if (center)
-		{
-			left -= width / 2.0f;
-			top += height / 2.0f;
-		}
-
-		glPolygonMode(GL_FRONT_AND_BACK, filled ? GL_FILL : GL_LINE);
-
-		glBegin(GL_QUADS);
-		glTexCoord2f(1f, 1f);
-		glVertex2f(left + width, top);
-		glTexCoord2f(0f, 1f);
-		glVertex2f(left, top);
-		glTexCoord2f(0f, 0f);
-		glVertex2f(left, top - height);
-		glTexCoord2f(1f, 0f);
-		glVertex2f(left + width, top - height);
-		glEnd();
-	}
-
 	public void onMouseClick()
 	{
-		MenuRect rect = getRectUnderMouse(menuLayout);
-		if (rect != null)
+		Menu mnu = layout.getItemAtPos(engine.hudCtx.getMousePos());
+		if (mnu != null)
 		{
-			menuListener.menuActivated(rect.menu);
+			menuListener.menuActivated(mnu);
 
 			//Show submenu (if any)
-			if (rect.menu.hasSubmenu())
-				pushMenu(rect.menu);
+			if (mnu.hasSubmenu())
+				pushMenu(mnu);
 		}
 	}
 

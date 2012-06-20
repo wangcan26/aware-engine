@@ -296,6 +296,17 @@ public class Engine
 			//System.out.printf("Mouse.getEventButton() %d\n", Mouse.getEventButton());
 		}
 
+		if (useHUDMouse())
+			hudCtx.checkForMouseMovement();
+		else
+		{
+			if (cameraInput.checkForInput())
+			{
+				//show the pointer again since the mouse moved
+				cursorFadeOut.reset();
+			}
+		}
+
 
 		if (menu.isVisible())
 		{
@@ -305,13 +316,6 @@ public class Engine
 		}
 		else
 		{
-			//check for mouse and keyboard movement
-			if (cameraInput.checkForInput())
-			{
-				//show the pointer again since the mouse moved
-				cursorFadeOut.reset();
-			}
-
 			if (mouseDown)  //don't wait for button release so that game feels more responsive
 				onMouseClick();
 
@@ -390,6 +394,9 @@ public class Engine
 				dev.console_text.setLength(0);
 
 				dev.hotspot_to_link = avp.findActiveHotspot(cameraInput.getLookRay());
+				if (dev.hotspot_to_link != null)
+					dev.viewpoint_selector = new ViewpointSelector(hudCtx, gameWorld.viewpoints);
+
 				return;
 			}
 
@@ -404,32 +411,6 @@ public class Engine
 				return;
 			}
 		}
-
-		//edit-mode: delete a viewpoint
-//		switch (engine.console.state)
-//		{
-//			case ConsoleState.SELECT_HOTSPOT_TO_DELETE:
-//			{
-//				int hsIdx = avp.findActiveHotspot(engine.cameraInput.getLookRay());
-//				if (hsIdx != -1)
-//				{
-//					avp.hotSpots.remove_at(hsIdx);
-//					engine.console.popState();
-//				}
-//				return;
-//			}
-//			case ConsoleState.SELECT_HOTSPOT_TO_LINK:
-//			{
-//				int hsIdx = avp.findActiveHotspot(engine.cameraInput.getLookRay());
-//				if (hsIdx != -1)
-//				{
-//					engine.console.popState();
-//					engine.console.pushSelectionPrompt("Select viewpoint", getLinkableViewpoints(avp.hotSpots[hsIdx]), link_viewpoint_by_name, avp.hotSpots[hsIdx]);
-//				}
-//				return;
-//			}
-//			//no default case
-//		}
 
 		//Get clicked hotspot
 		Viewpoint clickedVP = getHotspotTarget(cameraInput.getLookRay());
@@ -530,6 +511,14 @@ public class Engine
 	public boolean develop()
 	{
 		return (Boolean)params.get("devel.enable");
+	}
+
+	/**True means we are showing a 2D mouse position (eg menu or viewpoint selector)
+	 False means the mouse movement moves the camera*/
+	public boolean useHUDMouse()
+	{
+		return menu.isVisible()
+			|| dev.viewpoint_selector != null;
 	}
 
 	

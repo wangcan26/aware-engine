@@ -249,64 +249,53 @@ public class Renderer
 
 			glEnd();
 		}
-
 	}
 
 	/**Render the "heads up display" (2D elements overlayed upon the game scene*/
 	private void render_HUD()
 	{
-		//setup 2D projection
-		glMatrixMode(GL_PROJECTION);
-		glPushMatrix();
-		glLoadIdentity();
-		//left,right  bottom,top  near,far
-		glOrtho(-1.0f, 1.0f, -1.0f, 1.0f, 10.0f, -10.0f);
+		HUDContext hc = engine.hudCtx;
 
-//		float consoleFontPixelScale = 1.0f / (float)engine.windowHeight;
-//		float fontHeight = consoleFont.LineHeight() * consoleFontPixelScale;
-//		float avgCharWidth = fontHeight / 2.0f;
-
-		glMatrixMode(GL_MODELVIEW);
-		glLoadIdentity();
-
-		//Draw FPS rate
-		if ((Boolean)engine.params.get("renderer.show_fps"))
+		hc.pushContext();
 		{
-			glRasterPos2f(-0.98f, 0.95f);
-			defaultFont.render(engine.getFramesPerSecond() + " FPS");
+			//Draw FPS rate
+			if ((Boolean)engine.params.get("renderer.show_fps"))
+			{
+				glRasterPos2f(-0.98f, 0.95f);
+				defaultFont.render(engine.getFramesPerSecond() + " FPS");
+			}
+
+			//Draw the console text
+			if (engine.dev.console_text.length() > 0)
+			{
+				glDisable(GL_TEXTURE_2D);
+				glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+				glColor4f(0.5f, 0.5f, 0.5f, 0.25f);
+				draw2DBox(-1.0f, 1.0f, 2.0f, 0.08f, true, false);
+				glBlendFunc(GL_ONE, GL_ZERO);   //equivalent to disable blending
+
+				glColor3f(1.0f, 1.0f, 1.0f);
+				glRasterPos2f(-0.98f, 0.95f);
+				defaultFont.render(engine.dev.console_text.toString());
+			}
+
+			//Draw viewpoint selector
+			if (engine.dev.viewpoint_selector != null)
+			{
+				engine.dev.viewpoint_selector.draw(hc);
+			}
+
+			if (engine.useHUDMouse())
+			{
+				hc.drawMousePointer(hc.getMousePos(), "hand", 1.0f);
+			}
+			else
+			{
+				//Draw mouse at the center of the screen (movement rotates the camera instead)
+				hc.drawMousePointer(Vec2f.ORIGIN, getCurrentPointerIcon(), engine.cursorFadeOut.currentValue());
+			}
 		}
-
-		//Draw the console text
-		if (engine.dev.console_text.length() > 0)
-		{
-			glDisable(GL_TEXTURE_2D);
-			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-			glColor4f(0.5f, 0.5f, 0.5f, 0.25f);
-			draw2DBox(-1.0f, 1.0f, 2.0f, 0.08f, true, false);
-			glBlendFunc(GL_ONE, GL_ZERO);   //equivalent to disable blending
-
-			glColor3f(1.0f, 1.0f, 1.0f);
-			glRasterPos2f(-0.98f, 0.95f);
-			defaultFont.render(engine.dev.console_text.toString());
-		}
-
-		//Draw viewpoint selector
-		if (engine.dev.hotspot_to_link != null)
-		{
-			drawViewpointSelector(engine.gameWorld.getActiveViewpoint(), engine.dev.hotspot_to_link.targetViewpoint);
-		}
-
-		glEnable(GL_TEXTURE_2D);
-
-		//Draw the mouse pointer
-		drawMousePointer(0f, 0f, getCurrentPointerIcon());
-
-		//pop projection matrix
-		glMatrixMode(GL_PROJECTION);
-		glPopMatrix();
-
-		//switch back to GL_MODELVIEW
-		glMatrixMode(GL_MODELVIEW);
+		hc.popContext();
 	}
 
 	private String getCurrentPointerIcon()
@@ -330,20 +319,6 @@ public class Renderer
 
 		//if the cursor is hidden force it to show again
 		engine.cursorFadeOut.reset();
-	}
-
-	private void drawViewpointSelector(Viewpoint activeVP, Viewpoint oldTargetVP)
-	{
-		glDisable(GL_TEXTURE_2D);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		glColor4f(0.5f, 0.5f, 0.5f, 0.75f);
-
-		draw2DBox(-0.9f, 0.9f, 1.8f, 1.8f, true, false);
-		glBlendFunc(GL_ONE, GL_ZERO);   //equivalent to disable blending
-
-//		glColor3f(1.0f, 1.0f, 1.0f);
-//		glRasterPos2f(-0.98f, 0.95f);
-//		defaultFont.render(engine.dev.console_text.toString());
 	}
 
 	/**
@@ -370,39 +345,6 @@ public class Renderer
 		glTexCoord2f(1f, 0f);
 		glVertex2f(left + width, top - height);
 		glEnd();
-	}
-
-
-	private void drawMousePointer(float x, float y, String imageId)
-	{
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		glColor4f(1f, 1f, 1f, engine.cursorFadeOut.currentValue());
-		glEnable(GL_TEXTURE_2D);
-		int[] texId = engine.texCache.vram.getTexIds(imageId);
-		glBindTexture(GL_TEXTURE_2D, texId[0]);
-
-		//the image coordinate where the tip of the pointer really is
-		float IMG_SZ = 32f;
-		float tipX = 10f / IMG_SZ;
-		float tipY = 2f / IMG_SZ;
-
-		float aspect = engine.glCtx.getViewportAspectRatio();
-
-		float width = 0.05f;
-		float height = width * aspect;
-		float left = width * 0.5f - tipX * width;
-		float top = tipY * height - height * 0.5f;
-
-		draw2DBox(left, top, width, height, true, true);
-
-		glBlendFunc(GL_ONE, GL_ZERO);   //equivalent to disable blending
-		glDisable(GL_TEXTURE_2D);
-
-		//glColor3f(1.0f, 0f, 0f);
-		//glPointSize(4f);
-		//glBegin(GL_POINTS);
-		//glVertex2f(0f, 0f);
-		//glEnd();
 	}
 
 	private void drawViewpoint(Viewpoint vp)

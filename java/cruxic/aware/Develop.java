@@ -14,6 +14,7 @@ public class Develop
 	public boolean link_next_hotspot;
 
 	public PanoHotspot hotspot_to_link;
+	public ViewpointSelector viewpoint_selector;
 
 	public StringBuilder console_text;
 

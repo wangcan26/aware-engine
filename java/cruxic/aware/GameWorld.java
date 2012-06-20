@@ -33,7 +33,7 @@ public class GameWorld
 {
 	public Viewpoint active;
 
-	private List<Viewpoint> viewpoints;
+	public List<Viewpoint> viewpoints;
 
 	public GameWorld()
 	{
