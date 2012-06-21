@@ -50,6 +50,16 @@ public class Rect4f
 			width, height);				
 	}
 
+	public Rect4f withPos(Vec2f point)
+	{
+		return new Rect4f(point, width, height);
+	}
+
+	public Rect4f withPos(float x, float y)
+	{
+		return new Rect4f(new Vec2f(x, y), width, height);
+	}
+
 	public float left()
 	{
 		return pos.x;

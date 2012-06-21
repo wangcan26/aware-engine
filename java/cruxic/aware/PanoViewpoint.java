@@ -21,6 +21,7 @@ package cruxic.aware;
 import cruxic.math.*;
 
 import java.util.*;
+import java.io.File;
 
 /**
 
