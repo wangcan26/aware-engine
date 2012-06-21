@@ -1,7 +1,9 @@
 syntax: glob
 libaware.so
-res
 native/CodeBlocks_project/obj
 IntelliJ/out
 Libs/sources
 demos
+res/pointers/*.bz2
+res/pointers/*.zip
+res/pointers/*.gz
