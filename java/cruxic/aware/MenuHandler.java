@@ -44,6 +44,7 @@ public class MenuHandler
 		Mhotspot_add,
 		Mhotspot_delete,
 		Mhotspot_link,
+		MJump2Viewpoint
 
 	}
 
@@ -97,7 +98,7 @@ public class MenuHandler
 					String hsName = "hotspot_" + (engine.gameWorld.active.hotspots().size() + 1);
 					engine.dev.new_hotspot = new PanoHotspot(hsName);
 					engine.dev.console_text.setLength(0);
-					engine.dev.console_text.append("Click to add hotspot points. [ENTER] to finish, [A] to start over, [D] to cancel");
+					engine.dev.console_text.append("Click to add hotspot points. [ENTER] to finish, [A] to start over");
 					//turn on showing of hotspots
 					engine.params.put("renderer.show_hotspots", Boolean.TRUE);
 
@@ -116,7 +117,7 @@ public class MenuHandler
 					else if (!engine.gameWorld.getActiveViewpoint().hotspots().isEmpty())
 					{
 						engine.dev.console_text.setLength(0);
-						engine.dev.console_text.append("Click a hotspot to delete.  (Click a non-hotspot to cancel)");
+						engine.dev.console_text.append("Click a hotspot to delete");
 						engine.dev.delete_next_hotspot = true;
 					}
 
@@ -137,6 +138,25 @@ public class MenuHandler
 						engine.params.put("renderer.show_hotspots", Boolean.TRUE);
 						engine.menu.setVisible(false);
 					}
+					break;
+				}
+				case MJump2Viewpoint:
+				{
+					engine.resumeGame();
+
+					ViewpointSelector.SelectionListener sl = new ViewpointSelector.SelectionListener()
+					{
+						public void handleSelection(Viewpoint selectedVP)
+						{
+							if (selectedVP != null)
+								engine.jump2Viewpoint(selectedVP);
+							engine.dev.viewpoint_selector = null;
+						}
+					};
+
+					engine.dev.viewpoint_selector = new ViewpointSelector(sl, engine.hudCtx, engine.gameWorld.viewpoints);
+					engine.menu.setVisible(false);
+
 					break;
 				}
 			}

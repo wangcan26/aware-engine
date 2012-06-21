@@ -13,6 +13,12 @@ import cruxic.math.*;
  */
 public class ViewpointSelector
 {
+	public static interface SelectionListener
+	{
+		/**selectedVP will be null if canceled*/
+		public void handleSelection(Viewpoint selectedVP);
+	}
+
 	private static class VPChoice implements Comparable<VPChoice>
 	{
 		String text;
@@ -33,14 +39,17 @@ public class ViewpointSelector
 
 	private List<Viewpoint> sorted_viewpoints;
 
+	private SelectionListener listener;
+	private HUDContext hc;
 	private Layout2D<VPChoice> layout;
 	private List<VPChoice> ordered_choices;
 	private FTGLPixmapFont choiceFont;
-	private FTGLPixmapFont choiceFontHover;
+	private FTGLPixmapFont choiceFontHover;	
 
-	public ViewpointSelector(HUDContext hc, Collection<Viewpoint> choices)
+	public ViewpointSelector(SelectionListener listener, HUDContext hc, Collection<Viewpoint> choices)
 	{
-
+		this.hc = hc;
+		this.listener = listener;
 		layout = new Layout2D<VPChoice>();
 		ordered_choices = new ArrayList<VPChoice>(choices.size());
 
@@ -62,20 +71,34 @@ public class ViewpointSelector
 		// Layout
 		//
 
-		float yPos = 0.85f;
+		final float BORDER = 0.05f;
+		float yPos = 1.0f - BORDER;
+		float xPos = -1.0f + BORDER;
+
+		float maxWidthInColumn = 0.0f;
+		float textHeight = 0.0f;
 		
 		for (VPChoice choice: ordered_choices)
 		{
 			Rect4f rect = hc.getTextRect(choice.text, choiceFont);
-			rect = rect.centeredOn(Vec2f.ORIGIN).newY(yPos);
+			rect = rect.withPos(xPos, yPos);
 			layout.addItem(choice, rect);
 
-			yPos = rect.bottom() - (rect.height * 0.25f);
-		}
+			if (rect.width > maxWidthInColumn)
+				maxWidthInColumn = rect.width;
 
-		here: focus on getting out a release that works.  FEATURES LATER
-		just do a dual column layout with no dynamic nature.  auto generate a bunch of choices
-		first.  don't even bother sorting unused first.
+			if (textHeight == 0.0f)
+				textHeight = rect.height * 0.25f;
+
+			yPos = rect.bottom() - textHeight;
+
+			//Time to move to next column?
+			if ((yPos - textHeight) <= (-1.0f + BORDER))
+			{
+				yPos = 1.0f - BORDER;
+				xPos += maxWidthInColumn + 0.02f;
+			}
+		}
 	}
 
 	public void draw(HUDContext hc)
@@ -84,12 +107,8 @@ public class ViewpointSelector
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		glColor4f(0.5f, 0.5f, 0.5f, 0.75f);
 
-		hc.draw2DBox(-0.9f, 0.9f, 1.8f, 1.8f, true, false);
+		hc.draw2DBox_fullscreen(true);
 		glBlendFunc(GL_ONE, GL_ZERO);   //equivalent to disable blending
-
-//		glColor3f(1.0f, 1.0f, 1.0f);
-//		glRasterPos2f(-0.98f, 0.95f);
-//		defaultFont.render(engine.dev.console_text.toString());
 
 		//get the item under the mouse
 		VPChoice hover = layout.getItemAtPos(hc.getMousePos());
@@ -115,6 +134,13 @@ public class ViewpointSelector
 
 	public void onMouseClick()
 	{
+		VPChoice vpc = layout.getItemAtPos(hc.getMousePos());
+		if (vpc != null)
+			listener.handleSelection(vpc.viewpoint);
+	}
 
+	public void cancel()
+	{
+		listener.handleSelection(null);
 	}
 }

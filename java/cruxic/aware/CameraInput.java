@@ -47,9 +47,7 @@ public class CameraInput
 		yaw = CrxMath.M_PI_2f;
 
 		//Grab the mouse so we can move rotate infinitely.
-		//Don't grab in development mode otherwise it can be hard to escape the window in case of a bug
-		if (System.getProperty("devel") == null)
-			Mouse.setGrabbed(true);
+		Mouse.setGrabbed(true);
 	}
 
 	public void scaleSensitivity(float scale)

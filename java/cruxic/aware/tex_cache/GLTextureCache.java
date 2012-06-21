@@ -37,7 +37,7 @@ public class GLTextureCache
 
 	public GLTextureCache()
 	{
-		cache = new SizeBasedCache<String, int[]>(128 * 1024 * 1024, this);
+		cache = new SizeBasedCache<String, int[]>(256 * 1024 * 1024, this);
 		cache.debugName = "GL:SizeBasedCache";
 		_maxGLTextureDimension = -1;  //lazy initialized
 	}

@@ -74,11 +74,11 @@ public class Engine
 		this.dev = new Develop();
 
 		params = new HashMap<String, Object>();
-		params.put("renderer.show_fps", Boolean.FALSE);
-		params.put("renderer.show_geom", Boolean.FALSE);
-		params.put("renderer.show_hotspots", Boolean.FALSE);
-		params.put("devel.cycle_viewpoints", Boolean.TRUE);
-		params.put("devel.enable", System.getProperty("devel") != null);
+		params.put("renderer.show_fps", false);
+		params.put("renderer.show_geom", false);
+		params.put("renderer.show_hotspots", false);
+		params.put("devel.cycle_viewpoints", false);
+		params.put("devel.enable", true);
 
 
 
@@ -120,6 +120,7 @@ public class Engine
 		texCache.vram.load("hand", resMgr.readGLImage("res/pointers/hand.png"), true);
 		texCache.vram.load("hand-no-action", resMgr.readGLImage("res/pointers/hand-no-action.png"), true);
 		texCache.vram.load("hand-clicked", resMgr.readGLImage("res/pointers/hand-clicked.png"), true);
+		texCache.vram.load("link", resMgr.readGLImage("res/pointers/link.png"), true);
 	}
 
 	/**cleanup all resources held by the engine in preparation for process exit*/
@@ -184,6 +185,25 @@ public class Engine
 								resumeGame();
 							}
 						}
+						else if (dev.viewpoint_selector != null)
+						{
+							dev.viewpoint_selector.cancel();
+						}
+						else if (dev.new_hotspot != null)
+						{
+							dev.new_hotspot = null;
+							dev.console_text.setLength(0);
+						}
+						else if (dev.delete_next_hotspot)
+						{
+							dev.delete_next_hotspot = false;
+							dev.console_text.setLength(0);
+						}
+						else if (dev.link_next_hotspot)
+						{
+							dev.link_next_hotspot = false;
+							dev.console_text.setLength(0);
+						}
 						else
 							menu.setVisible(true);
 					}
@@ -201,20 +221,15 @@ public class Engine
 					if (released && develop())
 					{
 						if (!menu.within_submenu(MenuHandler.MenuAction.Mdevelop))
-						{
 							menu.jumpTo(MenuHandler.MenuAction.Mdevelop);
-							menu.setVisible(true);
+
+						if (menu.isVisible())
+						{
+							resumeGame();
+							menu.setVisible(false);
 						}
 						else
-						{
-							if (menu.isVisible())
-							{
-								resumeGame();
-								menu.setVisible(false);
-							}
-							else
-								menu.setVisible(true);
-						}
+							menu.setVisible(true);
 					}
 					break;
 				}
@@ -227,6 +242,8 @@ public class Engine
 						gameWorld.getActiveViewpoint().hotspots().add(dev.new_hotspot);
 						dev.new_hotspot = null;
 						dev.console_text.setLength(0);
+
+						gameWorld.write_viewpoint_properties(gameWorld.getActiveViewpoint());
 					}
 
 					break;
@@ -238,10 +255,16 @@ public class Engine
 
 					break;
 				}
-				case Keyboard.KEY_D:
+				case Keyboard.KEY_DELETE:
 				{
 					if (develop())
 						menu.simulateMenuClick(MenuHandler.MenuAction.Mhotspot_delete);
+					break;
+				}
+				case Keyboard.KEY_J:
+				{
+					if (develop())
+						menu.simulateMenuClick(MenuHandler.MenuAction.MJump2Viewpoint);
 					break;
 				}
 			}
@@ -364,6 +387,8 @@ public class Engine
 
 		if (develop())
 		{
+			PanoHotspot clickedHS = avp.findActiveHotspot(cameraInput.getLookRay());
+
 			//Adding a new hotspot?
 			if (dev.new_hotspot != null)
 			{
@@ -375,53 +400,77 @@ public class Engine
 				dev.delete_next_hotspot = false;
 				dev.console_text.setLength(0);
 
-				PanoHotspot clickedHS = avp.findActiveHotspot(cameraInput.getLookRay());
 				if (clickedHS != null)
 				{
 					Iterator<PanoHotspot> itr = avp.hotspots().iterator();
 					while (itr.hasNext())
 					{
 						if (itr.next() == clickedHS)
+						{
 							itr.remove();
+							gameWorld.write_viewpoint_properties(avp);
+							break;
+						}
 					}
 				}
 
 				return;
 			}
-			else if (dev.link_next_hotspot)
+			else if (dev.viewpoint_selector != null)
+			{
+				dev.viewpoint_selector.onMouseClick();
+				return;
+			}
+			else if (dev.link_next_hotspot
+				|| (clickedHS != null && clickedHS.targetViewpoint == null && !avp.isImplicitBackLink()))  //If they clicked a hotspot without a target then show the viewpoint selector
 			{
 				dev.link_next_hotspot = false;
 				dev.console_text.setLength(0);
 
 				dev.hotspot_to_link = avp.findActiveHotspot(cameraInput.getLookRay());
 				if (dev.hotspot_to_link != null)
-					dev.viewpoint_selector = new ViewpointSelector(hudCtx, gameWorld.viewpoints);
+				{
+					ViewpointSelector.SelectionListener sl = new ViewpointSelector.SelectionListener()
+					{
+						public void handleSelection(Viewpoint selectedVP)
+						{
+							//not canceled?
+							if (selectedVP != null)
+							{
+								dev.hotspot_to_link.targetViewpoint = selectedVP;
+
+								gameWorld.write_viewpoint_properties(gameWorld.getActiveViewpoint());
+							}
+							dev.viewpoint_selector = null;
+							dev.hotspot_to_link = null;
+							dev.console_text.setLength(0);
+						}
+					};
+
+					dev.viewpoint_selector = new ViewpointSelector(sl, hudCtx, gameWorld.viewpoints);
+				}
 
 				return;
 			}
 
-			//If they clicked a hotspot without a target then show the viewpoint selector
-			PanoHotspot clickedHS = avp.findActiveHotspot(cameraInput.getLookRay());
-			if (clickedHS != null && clickedHS.targetViewpoint == null)
-			{
-				dev.link_next_hotspot = false;
-				dev.console_text.setLength(0);
-
-				dev.hotspot_to_link = clickedHS;
-				return;
-			}
 		}
 
 		//Get clicked hotspot
 		Viewpoint clickedVP = getHotspotTarget(cameraInput.getLookRay());
-		System.out.printf("Clicked %s\n", clickedVP);
 
-		//no hotspot clicked
-		if (clickedVP == null)
-			return;
+		if (clickedVP != null)
+		{
+			//System.out.printf("Clicked %s\n", clickedVP);
+			jump2Viewpoint(clickedVP);
+		}
+	}
+
+	public void jump2Viewpoint(Viewpoint newViewpoint)
+	{
+		Viewpoint avp = gameWorld.getActiveViewpoint();
 
 		previousViewpoint = avp;
-		avp = clickedVP;
+		avp = newViewpoint;
 		gameWorld.active = avp;
 
 		//setup the new working texture set

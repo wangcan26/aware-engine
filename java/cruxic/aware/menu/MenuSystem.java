@@ -97,7 +97,7 @@ public class MenuSystem
 		SubMenu settings = root.addMenu(new SubMenu(null, "Settings"));
 		{
 			settings.addMenu(new ToggleMenu(MToggle_show_fps, "Show FPS", "renderer.show_fps"));
-			settings.addMenu(new ToggleMenu(MToggle_develop_mode, "Development Mode", "devel.enable"));
+			//settings.addMenu(new ToggleMenu(MToggle_develop_mode, "Development Mode", "devel.enable"));
 
 			//settings.addMenu(new ToggleMenu(MToggleMusic, "Music"));
 			//settings.addMenu(new ToggleMenu(MToggleFullscreen, "Full Screen"));
@@ -105,14 +105,16 @@ public class MenuSystem
 			//for (int i = 0; i < 10; i++)
 			//	numbers.addMenu(new LeafMenu(null, "Number "));
 		}
-		SubMenu develop = root.addMenu(new SubMenu(Mdevelop, "Develop"));
+		SubMenu develop = root.addMenu(new SubMenu(Mdevelop, "Develop [`]"));
 		{
+			develop.addMenu(new LeafMenu(MJump2Viewpoint, "Jump to viewpoint [J]"));
+
 			SubMenu dev_hotspots = develop.addMenu(new SubMenu(null, "Hotspots"));
 			{
 				dev_hotspots.addMenu(new ToggleMenu(MToggle_hotspot_show_all, "Show Hotspots", "renderer.show_hotspots"));
 				dev_hotspots.addMenu(new LeafMenu(Mhotspot_add, "Add [A]"));
-				dev_hotspots.addMenu(new LeafMenu(Mhotspot_delete, "Delete [D]"));
-				dev_hotspots.addMenu(new LeafMenu(Mhotspot_link, "Link to viewpoint"));
+				dev_hotspots.addMenu(new LeafMenu(Mhotspot_delete, "Delete [DEL]"));
+				dev_hotspots.addMenu(new LeafMenu(Mhotspot_link, "Change Link"));
 			}
 
 			develop.addMenu(new ToggleMenu(MToggle_show_geom, "Show Geometry", "renderer.show_geom"));

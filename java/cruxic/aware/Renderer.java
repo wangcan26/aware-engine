@@ -258,10 +258,16 @@ public class Renderer
 
 		hc.pushContext();
 		{
+			//Draw viewpoint selector
+			if (engine.dev.viewpoint_selector != null)
+			{
+				engine.dev.viewpoint_selector.draw(hc);
+			}
+
 			//Draw FPS rate
 			if ((Boolean)engine.params.get("renderer.show_fps"))
 			{
-				glRasterPos2f(-0.98f, 0.95f);
+				glRasterPos2f(0.90f, 0.95f);
 				defaultFont.render(engine.getFramesPerSecond() + " FPS");
 			}
 
@@ -278,12 +284,7 @@ public class Renderer
 				glRasterPos2f(-0.98f, 0.95f);
 				defaultFont.render(engine.dev.console_text.toString());
 			}
-
-			//Draw viewpoint selector
-			if (engine.dev.viewpoint_selector != null)
-			{
-				engine.dev.viewpoint_selector.draw(hc);
-			}
+			
 
 			if (engine.useHUDMouse())
 			{
@@ -305,8 +306,25 @@ public class Renderer
 		else
 		{
 			SphereCoord3f lookRay = engine.cameraInput.getLookRay();
-			boolean overLink = engine.getHotspotTarget(lookRay) != null;
-			if (overLink)
+			if (engine.develop())
+			{
+				if (engine.dev.new_hotspot != null)  //force hand when adding hotspot points
+					return "hand";
+				else
+				{
+
+					Viewpoint avp = engine.gameWorld.getActiveViewpoint();
+
+					//Get clicked hotspot
+					PanoHotspot clickedHS = avp.findActiveHotspot(lookRay);
+
+					if (clickedHS != null && clickedHS.targetViewpoint == null
+						&& !avp.isImplicitBackLink())
+						return "link";
+				}
+			}
+
+			if (engine.getHotspotTarget(lookRay) != null)
 				return "hand";
 			else
 				return "hand-no-action";
