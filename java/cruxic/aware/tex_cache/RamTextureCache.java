@@ -40,7 +40,7 @@ public class RamTextureCache
 
 	public RamTextureCache(ResourceManager resMgr)
 	{
-		cache = new SizeBasedCache<String, GLImage>(128 * 1024 * 1024, this);
+		cache = new SizeBasedCache<String, GLImage>(256 * 1024 * 1024, this);
 		cache.debugName = "RAM:SizeBasedCache";
 		loaderPool = new ImageLoaderPool(1, this, resMgr);
 		curSet = new WorkingSet<String>();

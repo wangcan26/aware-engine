@@ -149,65 +149,24 @@ public class Renderer
 		}
 
 		//draw the hotspots
-		if ((Boolean)engine.params.get("renderer.show_hotspots"))
+		if ((Boolean)engine.params.get("renderer.show_hotspots")
+			|| engine.dev.new_hotspot != null)
 		{
-			Viewpoint vp = activeVP;
 			SphereCoord3f lookRay = engine.cameraInput.getLookRay();
-
-			PanoHotspot edHotSpot = null;//vp.ed_getCurrentHotSpot();
 
 			glDisable(GL_TEXTURE_2D);
 
-			for (PanoHotspot hotspot: vp.hotspots())
-			{
-				//Setup color and style of hotspot
+			for (PanoHotspot hotspot: activeVP.hotspots())
+				drawHotspot(hotspot, lookRay);
 
-				glPointSize(4);
-				glLineWidth(1.0f);
-
-				if (hotspot == edHotSpot)
-					glColor3f(1, 0, 0);
-				else if (hotspot.isRayInside(lookRay))
-				{
-					//make it look fat
-					glPointSize(6);
-					glLineWidth(3.0f);
-					glColor3f(0, 1, 0);
-				}
-				else
-				{
-					glColor3f(1, 1, 0);
-				}
-
-				//Draw twice, once for the lines and again for the dots
-				for (int i = 0; i < 2; i++)
-				{
-					glBegin(i == 0 ? GL_LINE_STRIP : GL_POINTS);
-
-					//have at least a line?
-					if (hotspot.polygon.size() >= 2 || i == 1)
-					{
-						for (SphereCoord3f sc: hotspot.polygon)
-						{
-							//sc.toPoint().debugPrint();
-							sc.toPoint().glVertex();
-						}
-					}
-
-					//close the polygon unless it's being edited
-					if (hotspot != edHotSpot && hotspot.polygon.size() >= 3)
-						hotspot.polygon.get(0).toPoint().glVertex();
-
-					glEnd();
-				}
-			}
+			if (engine.dev.new_hotspot != null)
+				drawHotspot(engine.dev.new_hotspot, lookRay);
 
 			//restore default line width
 			glLineWidth(1.0f);
 		}
 
-
-		render2D_UI();
+		render_HUD();
 
 		switch (transitionState)
 		{
@@ -248,39 +207,96 @@ public class Renderer
 		glEnd();*/
 	}
 
-	private void render2D_UI()
+	private void drawHotspot(PanoHotspot hotspot, SphereCoord3f lookRay)
 	{
-		//setup 2D projection
-		glMatrixMode(GL_PROJECTION);
-		glPushMatrix();
-		glLoadIdentity();
-		//left,right  bottom,top  near,far
-		glOrtho(-1.0f, 1.0f, -1.0f, 1.0f, 10.0f, -10.0f);
+		//Setup color and style of hotspot
 
-//		float consoleFontPixelScale = 1.0f / (float)engine.windowHeight;
-//		float fontHeight = consoleFont.LineHeight() * consoleFontPixelScale;
-//		float avgCharWidth = fontHeight / 2.0f;
+		glPointSize(4);
+		glLineWidth(1.0f);
 
-		glMatrixMode(GL_MODELVIEW);
-		glLoadIdentity();
-
-		if ((Boolean)engine.params.get("renderer.show_fps"))
+		if (hotspot == engine.dev.new_hotspot)
+			glColor3f(1, 0, 0);
+		else if (hotspot.isRayInside(lookRay))
 		{
-			glRasterPos2f(-0.98f, 0.95f);
-			defaultFont.render(engine.getFramesPerSecond() + " FPS");
+			//make it look fat
+			glPointSize(6);
+			glLineWidth(3.0f);
+			glColor3f(0, 1, 0);
+		}
+		else
+		{
+			glColor3f(1, 1, 0);
 		}
 
-		glEnable(GL_TEXTURE_2D);
+		//Draw twice, once for the lines and again for the dots
+		for (int i = 0; i < 2; i++)
+		{
+			glBegin(i == 0 ? GL_LINE_STRIP : GL_POINTS);
 
-		//Draw the mouse pointer
-		drawMousePointer(0f, 0f, getCurrentPointerIcon());
+			//have at least a line?
+			if (hotspot.polygon.size() >= 2 || i == 1)
+			{
+				for (SphereCoord3f sc: hotspot.polygon)
+				{
+					//sc.toPoint().debugPrint();
+					sc.toPoint().glVertex();
+				}
+			}
 
-		//pop projection matrix
-		glMatrixMode(GL_PROJECTION);
-		glPopMatrix();
+			//close the polygon unless it's being edited
+			if (hotspot != engine.dev.new_hotspot && hotspot.polygon.size() >= 3)
+				hotspot.polygon.get(0).toPoint().glVertex();
 
-		//switch back to GL_MODELVIEW
-		glMatrixMode(GL_MODELVIEW);
+			glEnd();
+		}
+	}
+
+	/**Render the "heads up display" (2D elements overlayed upon the game scene*/
+	private void render_HUD()
+	{
+		HUDContext hc = engine.hudCtx;
+
+		hc.pushContext();
+		{
+			//Draw viewpoint selector
+			if (engine.dev.viewpoint_selector != null)
+			{
+				engine.dev.viewpoint_selector.draw(hc);
+			}
+
+			//Draw FPS rate
+			if ((Boolean)engine.params.get("renderer.show_fps"))
+			{
+				glRasterPos2f(0.90f, 0.95f);
+				defaultFont.render(engine.getFramesPerSecond() + " FPS");
+			}
+
+			//Draw the console text
+			if (engine.dev.console_text.length() > 0)
+			{
+				glDisable(GL_TEXTURE_2D);
+				glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+				glColor4f(0.5f, 0.5f, 0.5f, 0.25f);
+				draw2DBox(-1.0f, 1.0f, 2.0f, 0.08f, true, false);
+				glBlendFunc(GL_ONE, GL_ZERO);   //equivalent to disable blending
+
+				glColor3f(1.0f, 1.0f, 1.0f);
+				glRasterPos2f(-0.98f, 0.95f);
+				defaultFont.render(engine.dev.console_text.toString());
+			}
+			
+
+			if (engine.useHUDMouse())
+			{
+				hc.drawMousePointer(hc.getMousePos(), "hand", 1.0f);
+			}
+			else
+			{
+				//Draw mouse at the center of the screen (movement rotates the camera instead)
+				hc.drawMousePointer(Vec2f.ORIGIN, getCurrentPointerIcon(), engine.cursorFadeOut.currentValue());
+			}
+		}
+		hc.popContext();
 	}
 
 	private String getCurrentPointerIcon()
@@ -290,8 +306,25 @@ public class Renderer
 		else
 		{
 			SphereCoord3f lookRay = engine.cameraInput.getLookRay();
-			boolean overLink = engine.getHotspotTarget(lookRay) != null;
-			if (overLink)
+			if (engine.develop())
+			{
+				if (engine.dev.new_hotspot != null)  //force hand when adding hotspot points
+					return "hand";
+				else
+				{
+
+					Viewpoint avp = engine.gameWorld.getActiveViewpoint();
+
+					//Get clicked hotspot
+					PanoHotspot clickedHS = avp.findActiveHotspot(lookRay);
+
+					if (clickedHS != null && clickedHS.targetViewpoint == null
+						&& !avp.isImplicitBackLink())
+						return "link";
+				}
+			}
+
+			if (engine.getHotspotTarget(lookRay) != null)
 				return "hand";
 			else
 				return "hand-no-action";
@@ -330,39 +363,6 @@ public class Renderer
 		glTexCoord2f(1f, 0f);
 		glVertex2f(left + width, top - height);
 		glEnd();
-	}
-
-
-	private void drawMousePointer(float x, float y, String imageId)
-	{
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		glColor4f(1f, 1f, 1f, engine.cursorFadeOut.currentValue());
-		glEnable(GL_TEXTURE_2D);
-		int[] texId = engine.texCache.vram.getTexIds(imageId);
-		glBindTexture(GL_TEXTURE_2D, texId[0]);
-
-		//the image coordinate where the tip of the pointer really is
-		float IMG_SZ = 32f;
-		float tipX = 10f / IMG_SZ;
-		float tipY = 2f / IMG_SZ;
-
-		float aspect = engine.glCtx.getViewportAspectRatio();
-
-		float width = 0.05f;
-		float height = width * aspect;
-		float left = width * 0.5f - tipX * width;
-		float top = tipY * height - height * 0.5f;
-
-		draw2DBox(left, top, width, height, true, true);
-
-		glBlendFunc(GL_ONE, GL_ZERO);   //equivalent to disable blending
-		glDisable(GL_TEXTURE_2D);
-
-		//glColor3f(1.0f, 0f, 0f);
-		//glPointSize(4f);
-		//glBegin(GL_POINTS);
-		//glVertex2f(0f, 0f);
-		//glEnd();
 	}
 
 	private void drawViewpoint(Viewpoint vp)

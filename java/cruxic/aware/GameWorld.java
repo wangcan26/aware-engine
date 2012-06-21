@@ -33,7 +33,18 @@ public class GameWorld
 {
 	public Viewpoint active;
 
-	private List<Viewpoint> viewpoints;
+	public List<Viewpoint> viewpoints;
+
+
+	private static class VPInfo
+	{
+		/**the directory containing the viewpoint's data*/
+		File dir;
+		/**the .properties file for this viewpoint*/
+		File propFile;
+	}
+
+	private IdentityHashMap<Viewpoint, VPInfo> vp_infos;
 
 	public GameWorld()
 	{
@@ -144,6 +155,27 @@ public class GameWorld
 		return props;
 	}
 
+	private static void writeProperties(Properties props, File pfile)
+		throws IOExceptionRt
+	{
+		try
+		{
+			FileOutputStream fos = new FileOutputStream(pfile);
+			try
+			{
+				props.store(fos, null);
+			}
+			finally
+			{
+				fos.close();
+			}
+		}
+		catch (IOException ioe)
+		{
+			throw new IOExceptionRt(ioe);
+		}
+	}
+
 	private static boolean isPropTrue(String property_value)
 	{
 		return property_value != null
@@ -214,6 +246,9 @@ public class GameWorld
 
 		GameWorld gw = new GameWorld();
 
+		//save some info in memory for development
+		gw.vp_infos = new IdentityHashMap<Viewpoint, VPInfo>(128);
+
 		IdentityHashMap<PanoHotspot, String> hotspotTargets = new IdentityHashMap<PanoHotspot, String>(128);
 		Map<String, Viewpoint> viewpointsById = new HashMap<String, Viewpoint>(128);
 
@@ -224,10 +259,13 @@ public class GameWorld
 			//Skip normal files
 			if (!vpDir.isFile())
 			{
+				VPInfo vpinf = new VPInfo();
+				vpinf.dir = vpDir;
+
 				Properties vpProps;
-				File vpPropFile = new File(vpDir, "viewpoint.properties");
-				if (vpPropFile.isFile())
-					vpProps = readProperties(vpPropFile);
+				vpinf.propFile = new File(vpDir, "viewpoint.properties");
+				if (vpinf.propFile.isFile())
+					vpProps = readProperties(vpinf.propFile);
 				else
 					vpProps = new Properties();
 
@@ -356,6 +394,7 @@ public class GameWorld
 				}
 
 				gw.addViewpoint(vp);
+				gw.vp_infos.put(vp, vpinf);
 				viewpointsById.put(vp.id, vp);
 
 			}
@@ -390,127 +429,40 @@ public class GameWorld
 				System.err.printf("Unable to find starting_viewpoint \"%s\"\n", starting_viewpoint_id);
 		}
 
+		System.out.printf("Loaded %d viewpoints\n", gw.viewpoints.size());
+
 		return gw;
 	}
 
-	public static void copyFile(File sourceFile, File destFile) throws IOException {
-    if(!destFile.exists()) {
-        destFile.createNewFile();
-    }
-
-    java.nio.channels.FileChannel source = null;
-    java.nio.channels.FileChannel destination = null;
-
-    try {
-        source = new FileInputStream(sourceFile).getChannel();
-        destination = new FileOutputStream(destFile).getChannel();
-        destination.transferFrom(source, 0, source.size());
-    }
-    finally {
-        if(source != null) {
-            source.close();
-        }
-        if(destination != null) {
-            destination.close();
-        }
-    }
-}
-
-	public static void convertSpec(File specFile)
-		throws IOExceptionRt
+	/*public static void copyFile(File sourceFile, File destFile) throws IOException
 	{
-		JSONObject root = parseJSONFile(specFile);
-
-		File newDir = new File(specFile.getParentFile(), "converted");
-
-		String baseDir = getRelativeBaseDir(specFile);
-
-		List<JSONObject> jviewpoints = (List<JSONObject>)root.get("viewpoints");
-		for (JSONObject jvp: jviewpoints)
+		if (!destFile.exists())
 		{
-			Properties props = new Properties();
+			destFile.createNewFile();
+		}
 
-			File vpDir = new File(newDir, (String)jvp.get("id"));
-			vpDir.mkdirs();
+		java.nio.channels.FileChannel source = null;
+		java.nio.channels.FileChannel destination = null;
 
-			System.out.println(vpDir);
-
-			PanoViewpoint vp = new EquirectViewpoint((String)jvp.get("id"));
-
-			if ((Boolean)jvp.get("implicitBackLink"))
-				props.put("implicitBackLink", "true");
-
-			//Images
-			for (String imgId: (List<String>)jvp.get("images"))
+		try
+		{
+			source = new FileInputStream(sourceFile).getChannel();
+			destination = new FileOutputStream(destFile).getChannel();
+			destination.transferFrom(source, 0, source.size());
+		}
+		finally
+		{
+			if (source != null)
 			{
-				File imageFile = new File(specFile.getParent(), imgId + ".png");
-				if (!imageFile.exists())
-					throw new RuntimeException(imageFile.getPath());
-
-				File target = new File(vpDir, "eqr_pano.png");
-				target.delete();
-
-				try
-				{
-					copyFile(imageFile, target);
-				}
-				catch (IOException e)
-				{
-					throw new IOExceptionRt(e);
-				}
+				source.close();
 			}
-
-			//Hotspots
-			List<JSONObject> jhss = (List<JSONObject>)jvp.get("hotspots");
-			int n = 1;
-			for (JSONObject jhs: jhss)
+			if (destination != null)
 			{
-				StringBuilder sb = new StringBuilder();
-
-				String targetViewpoint = (String)jhs.get("targetViewpoint");
-				sb.append("../");
-				sb.append(targetViewpoint);
-				sb.append(" [");
-
-
-				List<List<Double>> jpolygon = (List<List<Double>>)jhs.get("polygon");
-				boolean first = true;
-				for (List<Double> point: jpolygon)
-				{
-					double yaw = point.get(0);
-					double pitch = point.get(1);
-
-					if (first)
-						first = false;
-					else
-						sb.append(", ");
-
-					sb.append(yaw);
-					sb.append(',');
-					sb.append(pitch);
-				}
-				sb.append(']');
-
-				props.put("hotspot_" + n, sb.toString());
-
-				n++;
-			}
-
-
-
-			File propFile = new File(vpDir, "viewpoint.properties");
-			try
-			{
-				FileOutputStream fos = new FileOutputStream(propFile);
-				props.store(fos, null);
-				fos.close();
-			}
-			catch (IOException ioe)
-			{
-				throw new IOExceptionRt(ioe);
+				destination.close();
 			}
 		}
-	}
+	}*/
+
 
 	public void loadState(File stateFile)
 	{
@@ -539,5 +491,66 @@ public class GameWorld
 
 		//given viewpoint not found
 		return null;
+	}
+
+	public void write_viewpoint_properties(Viewpoint vp)
+		throws IOExceptionRt
+	{
+		VPInfo vpinf = vp_infos.get(vp);
+		assert vpinf != null : vp.getId();
+
+		//Read the old
+		Properties props;
+		if (vpinf.propFile.isFile())
+			props = readProperties(vpinf.propFile);
+		else
+			props = new Properties();
+
+		props.remove("implicitBackLink");
+		if (vp.isImplicitBackLink())
+			props.put("implicitBackLink", "true");
+
+		Enumeration names = props.propertyNames();
+		while (names.hasMoreElements())
+		{
+			String name = (String)names.nextElement();
+			if (name.startsWith("hotspot_"))
+				props.remove(name);
+		}
+
+		//Hotspots
+		int n = 1;
+		for (PanoHotspot hs: vp.hotspots())
+		{
+			StringBuilder sb = new StringBuilder();
+
+			if (hs.targetViewpoint != null)
+			{
+				sb.append("../");
+				sb.append(hs.targetViewpoint.getId());
+			}
+			sb.append(" [");
+
+			boolean first = true;
+			for (SphereCoord3f sc: hs.polygon)
+			{
+				if (first)
+					first = false;
+				else
+					sb.append(", ");
+
+				sb.append(sc.yaw);
+				sb.append(',');
+				sb.append(sc.pitch);
+			}
+			sb.append(']');
+
+			props.put("hotspot_" + n, sb.toString());
+
+			n++;
+		}
+
+		writeProperties(props, vpinf.propFile);
+		System.out.println("Wrote: " + vpinf.propFile.getPath());
 	}
 }
