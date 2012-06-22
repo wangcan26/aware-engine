@@ -112,6 +112,7 @@ public class MenuSystem
 			SubMenu dev_hotspots = develop.addMenu(new SubMenu(null, "Hotspots"));
 			{
 				dev_hotspots.addMenu(new ToggleMenu(MToggle_hotspot_show_all, "Show Hotspots", "renderer.show_hotspots"));
+				dev_hotspots.addMenu(new ToggleMenu(MToggle_hotspot_show_all, "Label Hotspots", "renderer.label_hotspots"));
 				dev_hotspots.addMenu(new LeafMenu(Mhotspot_add, "Add [A]"));
 				dev_hotspots.addMenu(new LeafMenu(Mhotspot_delete, "Delete [DEL]"));
 				dev_hotspots.addMenu(new LeafMenu(Mhotspot_link, "Change Link"));
