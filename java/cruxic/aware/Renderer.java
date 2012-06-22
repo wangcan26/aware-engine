@@ -140,7 +140,7 @@ public class Renderer
 		//drawQuad(0.5f);
 
 		//draw the sphere wireframe (for debuggging)
-		if ((Boolean)engine.params.get("renderer.show_geom"))
+		if (engine.params.getBool("renderer.show_geom"))
 		{
 			glDisable(GL_TEXTURE_2D);
 			glColor3f(0.5f, 0.5f, 0.5f);
@@ -149,7 +149,7 @@ public class Renderer
 		}
 
 		//draw the hotspots
-		if ((Boolean)engine.params.get("renderer.show_hotspots")
+		if (engine.params.getBool("renderer.show_hotspots")
 			|| engine.dev.new_hotspot != null)
 		{
 			SphereCoord3f lookRay = engine.cameraInput.getLookRay();
@@ -265,10 +265,13 @@ public class Renderer
 			}
 
 			//Draw FPS rate
-			if ((Boolean)engine.params.get("renderer.show_fps"))
+			if (engine.params.getBool("renderer.show_fps"))
 			{
-				glRasterPos2f(0.90f, 0.95f);
-				defaultFont.render(engine.getFramesPerSecond() + " FPS");
+				String text = engine.getFramesPerSecond() + " FPS";
+				Rect4f rect = hc.getTextRect(text, defaultFont);
+				rect = rect.withPos(1.0f - rect.width, 1.0f);
+				hc.setTextRectRasterPos(rect, defaultFont);
+				defaultFont.render(text);
 			}
 
 			//Draw the console text
@@ -284,7 +287,31 @@ public class Renderer
 				glRasterPos2f(-0.98f, 0.95f);
 				defaultFont.render(engine.dev.console_text.toString());
 			}
-			
+
+			if (engine.params.getBool("renderer.label_hotspots")
+				&& !engine.cursorFadeOut.isComplete())  //hide when cursor hides
+			{
+				Viewpoint avp = engine.gameWorld.getActiveViewpoint();
+				PanoHotspot hotspot = avp.findActiveHotspot(engine.cameraInput.getLookRay());
+				if (hotspot != null)
+				{
+					String label = hotspot.targetViewpoint == null ? "<No Link>" : hotspot.targetViewpoint.getId();
+
+					Rect4f textRect = hc.getTextRect(label, defaultFont);
+					final float PAD = 0.01f;
+					textRect = textRect.withPos(1.0f - textRect.width - PAD, -1.0f + textRect.height);
+
+					glDisable(GL_TEXTURE_2D);
+					glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+					glColor4f(0.5f, 0.5f, 0.5f, 0.25f);
+					hc.draw2DBox(textRect.left() - PAD, textRect.top(), textRect.width + (PAD * 2.0f), textRect.height, true, false);
+					glBlendFunc(GL_ONE, GL_ZERO);   //equivalent to disable blending
+
+					glColor3f(1.0f, 1.0f, 1.0f);
+					hc.setTextRectRasterPos(textRect, defaultFont);
+					defaultFont.render(label);
+				}
+			}
 
 			if (engine.useHUDMouse())
 			{

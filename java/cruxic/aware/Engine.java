@@ -60,7 +60,7 @@ public class Engine
 
 	boolean stop;
 
-	public final Map<String, Object> params;
+	public final Params params;
 
 	private final File game_data_dir;
 
@@ -73,13 +73,17 @@ public class Engine
 
 		this.dev = new Develop();
 
-		params = new HashMap<String, Object>();
-		params.put("renderer.show_fps", false);
-		params.put("renderer.show_geom", false);
-		params.put("renderer.show_hotspots", false);
-		params.put("devel.cycle_viewpoints", false);
-		params.put("devel.enable", true);
-
+		File prefsDir = new File(System.getProperty("user.home"), "Aware-Engine");
+		prefsDir.mkdirs();
+		if (prefsDir.isDirectory())
+		{
+			params = new Params(new File(prefsDir, "engine.properties"));
+		}
+		else
+		{
+			System.err.println("Unable to create dir: " + prefsDir.getPath());
+			params = new Params();
+		}
 
 
 		frameTimer = new EngineTimer();
@@ -366,7 +370,7 @@ public class Engine
 		//no hotspot clicked
 		if (clickedHS == null)
 		{
-			if ((Boolean)params.get("devel.cycle_viewpoints"))
+			if (params.getBool("devel.cycle_viewpoints"))
 				return gameWorld.getNextViewpointInCycle(avp);
 			//return to previous viewpoint
 			else if (avp.isImplicitBackLink() && previousViewpoint != null)
@@ -447,7 +451,7 @@ public class Engine
 						}
 					};
 
-					dev.viewpoint_selector = new ViewpointSelector(sl, hudCtx, gameWorld.viewpoints);
+					dev.viewpoint_selector = new ViewpointSelector(sl, hudCtx, gameWorld.viewpoints, avp);
 				}
 
 				return;
@@ -536,7 +540,7 @@ public class Engine
 		}
 
 		//In cycle mode, add the next viewpoint in the cycle
-		if ((Boolean)params.get("devel.cycle_viewpoints"))
+		if (params.getBool("devel.cycle_viewpoints"))
 		{
 			Viewpoint next = gameWorld.getNextViewpointInCycle(vp);
 			if (!list.contains(next))
@@ -559,7 +563,7 @@ public class Engine
 
 	public boolean develop()
 	{
-		return (Boolean)params.get("devel.enable");
+		return params.getBool("devel.enable");
 	}
 
 	/**True means we are showing a 2D mouse position (eg menu or viewpoint selector)

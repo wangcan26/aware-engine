@@ -23,12 +23,14 @@ public class ViewpointSelector
 	{
 		String text;
 		Viewpoint viewpoint;
+		private boolean isActive;
 		//ToDo: in the future I'll add a thumbnail image
 
-		public VPChoice(Viewpoint vp)
+		public VPChoice(Viewpoint vp, boolean isActive)
 		{
 			this.viewpoint = vp;
 			this.text = vp.getId();
+			this.isActive = isActive;
 		}
 
 		public int compareTo(VPChoice vpChoice)
@@ -46,7 +48,7 @@ public class ViewpointSelector
 	private FTGLPixmapFont choiceFont;
 	private FTGLPixmapFont choiceFontHover;	
 
-	public ViewpointSelector(SelectionListener listener, HUDContext hc, Collection<Viewpoint> choices)
+	public ViewpointSelector(SelectionListener listener, HUDContext hc, Collection<Viewpoint> choices, Viewpoint activeViewpoint)
 	{
 		this.hc = hc;
 		this.listener = listener;
@@ -55,7 +57,7 @@ public class ViewpointSelector
 
 		for (Viewpoint vp: choices)
 		{
-			ordered_choices.add(new VPChoice(vp));
+			ordered_choices.add(new VPChoice(vp, vp == activeViewpoint));
 		}
 
 		Collections.sort(ordered_choices);
@@ -120,7 +122,7 @@ public class ViewpointSelector
 			//drawRect(mr.rect, false);
 
 			FTGLPixmapFont font;
-			if (hover == choice)
+			if (hover == choice || choice.isActive)
 				font = choiceFontHover;
 			else
 				font = choiceFont;

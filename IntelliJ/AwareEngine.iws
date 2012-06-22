@@ -91,7 +91,17 @@
     </favorites_list>
   </component>
   <component name="FileEditorManager">
-    <leaf />
+    <leaf>
+      <file leaf-file-name="Renderer.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/../java/cruxic/aware/Renderer.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="291" column="80" selection-start="8080" selection-end="8080" vertical-scroll-proportion="0.19520548">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -229,18 +239,35 @@
       <recent name="cruxic.aware.tex_cache" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Run example">
-    <configuration default="true" type="Applet" factoryName="Applet">
+  <component name="RunManager" selected="Application.Run Dropbox JMP">
+    <configuration default="true" type="TestNG" factoryName="TestNG" enabled="false" merge="false">
       <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="SUITE_NAME" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="GROUP_NAME" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="VM_PARAMETERS" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="OUTPUT_DIRECTORY" />
+      <option name="ANNOTATION_TYPE" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="ADDITIONAL_CLASS_PATH" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="wholeProject" />
+      </option>
+      <option name="PROPERTIES_FILE" />
+      <envs />
+      <properties />
+      <listeners />
+      <method>
+        <option name="Make" value="true" />
+      </method>
     </configuration>
     <configuration default="true" type="Application" factoryName="Application" enabled="false" merge="false">
       <option name="MAIN_CLASS_NAME" />
@@ -280,41 +307,24 @@
         <option name="Make" value="true" />
       </method>
     </configuration>
-    <configuration default="true" type="TestNG" factoryName="TestNG" enabled="false" merge="false">
-      <module name="" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="SUITE_NAME" />
-      <option name="PACKAGE_NAME" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="METHOD_NAME" />
-      <option name="GROUP_NAME" />
-      <option name="TEST_OBJECT" value="CLASS" />
-      <option name="VM_PARAMETERS" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" />
-      <option name="OUTPUT_DIRECTORY" />
-      <option name="ANNOTATION_TYPE" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="ADDITIONAL_CLASS_PATH" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="wholeProject" />
-      </option>
-      <option name="PROPERTIES_FILE" />
-      <envs />
-      <properties />
-      <listeners />
-      <method>
-        <option name="Make" value="true" />
-      </method>
-    </configuration>
     <configuration default="true" type="Remote" factoryName="Remote">
       <option name="USE_SOCKET_TRANSPORT" value="true" />
       <option name="SERVER_MODE" value="false" />
       <option name="SHMEM_ADDRESS" value="javadebug" />
       <option name="HOST" value="localhost" />
       <option name="PORT" value="5005" />
+    </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
     </configuration>
     <configuration default="false" name="Run example" type="Application" factoryName="Application" enabled="false" merge="false">
       <option name="MAIN_CLASS_NAME" value="cruxic.aware.Main" />
@@ -388,10 +398,10 @@
         <option name="Make" value="true" />
       </method>
     </configuration>
-    <configuration default="false" name="Run jmp-tech-demo-1" type="Application" factoryName="Application" enabled="false" merge="false">
+    <configuration default="false" name="Run Dropbox JMP" type="Application" factoryName="Application" enabled="false" merge="false">
       <option name="MAIN_CLASS_NAME" value="cruxic.aware.Main" />
       <option name="VM_PARAMETERS" value="-ea -Dfullscreen -Ddevel -Xmx64m -Djava.library.path=.:Libs/native/linux64" />
-      <option name="PROGRAM_PARAMETERS" value="Game-Data/jmp-tech-demo-1/game.aware" />
+      <option name="PROGRAM_PARAMETERS" value="&quot;$PROJECT_DIR$/../../../Dropbox/adam jmp/current version/aware-engine/Game-Data&quot;" />
       <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$/.." />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" value="" />
@@ -418,7 +428,7 @@
       <item index="0" class="java.lang.String" itemvalue="Application.Run example" />
       <item index="1" class="java.lang.String" itemvalue="Application.Run example - fullscreen" />
       <item index="2" class="java.lang.String" itemvalue="Application.Unit Tests" />
-      <item index="3" class="java.lang.String" itemvalue="Application.Run jmp-tech-demo-1" />
+      <item index="3" class="java.lang.String" itemvalue="Application.Run Dropbox JMP" />
     </list>
     <configuration name="&lt;template&gt;" type="WebApp" default="true" selected="false">
       <Host>localhost</Host>
@@ -472,11 +482,11 @@
       <window_info id="Find" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5914149" order="1" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.304" order="3" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="8" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3264" order="8" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32591414" order="8" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="7" />
       <window_info id="Structure" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.21672077" order="5" />
       <window_info id="Module Dependencies" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="4" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.28733766" order="0" x="452" y="71" width="376" height="625" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.26948053" order="0" x="452" y="71" width="376" height="625" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" order="8" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" order="2" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" order="6" />
@@ -514,34 +524,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar:///usr/lib/jvm/java-6-openjdk-amd64/jre/lib/rt.jar!/java/awt/font/GlyphVector.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="44" column="42" selection-start="1651" selection-end="1651" vertical-scroll-proportion="0.33215547">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../java/cruxic/aware/HUDContext.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="89" column="99" selection-start="1992" selection-end="1992" vertical-scroll-proportion="0.39222616">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../java/cruxic/aware/CameraInput.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="48" column="0" selection-start="1604" selection-end="1604" vertical-scroll-proportion="0.45053002">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../java/cruxic/aware/Develop.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="4" selection-start="400" selection-end="400" vertical-scroll-proportion="0.7314974">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../java/cruxic/aware/PanoHotspot.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="30" column="34" selection-start="1030" selection-end="1043" vertical-scroll-proportion="0.5123675">
@@ -559,27 +541,6 @@
     <entry file="file://$PROJECT_DIR$/../java/cruxic/aware/tex_cache/RamTextureCache.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="42" column="55" selection-start="1407" selection-end="1407" vertical-scroll-proportion="0.7632509">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../java/cruxic/aware/Engine.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="421" column="23" selection-start="10011" selection-end="10011" vertical-scroll-proportion="0.20141342">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../java/cruxic/aware/menu/MenuSystem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="116" column="0" selection-start="3864" selection-end="3864" vertical-scroll-proportion="0.29858658">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../java/cruxic/aware/Renderer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="321" column="52" selection-start="8752" selection-end="8752" vertical-scroll-proportion="0.56183743">
           <folding />
         </state>
       </provider>
@@ -605,23 +566,72 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../java/cruxic/aware/MenuHandler.java">
+    <entry file="file://$PROJECT_DIR$/../java/cruxic/aware/menu/MenuSystem.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="144" column="40" selection-start="3575" selection-end="3575" vertical-scroll-proportion="0.3510274">
+        <state line="292" column="70" selection-start="7938" selection-end="7938" vertical-scroll-proportion="0.5068493">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../java/cruxic/aware/HUDContext.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="128" column="35" selection-start="3083" selection-end="3083" vertical-scroll-proportion="0.7089041">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../java/cruxic/math/Rect4f.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="61" column="4" selection-start="1523" selection-end="1523" vertical-scroll-proportion="0.4457429">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../java/cruxic/aware/menu/ToggleMenu.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="48" column="58" selection-start="1334" selection-end="1334" vertical-scroll-proportion="0.7659208">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../java/cruxic/aware/Params.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="109" column="9" selection-start="2448" selection-end="2448" vertical-scroll-proportion="0.7208481">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../java/cruxic/aware/GameWorld.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="431" column="72" selection-start="9837" selection-end="9837" vertical-scroll-proportion="0.8578767">
+        <state line="160" column="4" selection-start="3426" selection-end="3426" vertical-scroll-proportion="0.4328622">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../java/cruxic/aware/MenuHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="157" column="90" selection-start="4007" selection-end="4007" vertical-scroll-proportion="0.6532258">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../java/cruxic/aware/ViewpointSelector.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="95" column="47" selection-start="2259" selection-end="2259" vertical-scroll-proportion="0.7619863">
+        <state line="36" column="9" selection-start="745" selection-end="745" vertical-scroll-proportion="0.65068495">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../java/cruxic/aware/Engine.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="453" column="59" selection-start="10994" selection-end="10994" vertical-scroll-proportion="0.21232876">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../java/cruxic/aware/Renderer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="291" column="80" selection-start="8080" selection-end="8080" vertical-scroll-proportion="0.19520548">
           <folding />
         </state>
       </provider>

@@ -36,8 +36,7 @@ public class ToggleMenu extends LeafMenu
 
 	public boolean isOn()
 	{
-		Object on = Engine.instance.params.get(paramName);
-		return on != null && on instanceof Boolean && ((Boolean)on).booleanValue();		
+		return Engine.instance.params.getBool(paramName);
 	}
 
 	public String getText()
@@ -47,6 +46,6 @@ public class ToggleMenu extends LeafMenu
 
 	public void toggle()
 	{
-		Engine.instance.params.put(paramName, !isOn());
+		Engine.instance.params.update(paramName, !isOn());
 	}
 }

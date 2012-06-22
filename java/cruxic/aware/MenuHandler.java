@@ -100,7 +100,7 @@ public class MenuHandler
 					engine.dev.console_text.setLength(0);
 					engine.dev.console_text.append("Click to add hotspot points. [ENTER] to finish, [A] to start over");
 					//turn on showing of hotspots
-					engine.params.put("renderer.show_hotspots", Boolean.TRUE);
+					engine.params.update("renderer.show_hotspots", true);
 
 
 					engine.menu.setVisible(false);
@@ -121,7 +121,7 @@ public class MenuHandler
 						engine.dev.delete_next_hotspot = true;
 					}
 
-					engine.params.put("renderer.show_hotspots", Boolean.TRUE);
+					engine.params.update("renderer.show_hotspots", true);
 					engine.menu.setVisible(false);
 
 					break;
@@ -135,7 +135,7 @@ public class MenuHandler
 						engine.dev.console_text.setLength(0);
 						engine.dev.console_text.append("Select a hotspot to link. (Click a non-hotspot to cancel)");
 
-						engine.params.put("renderer.show_hotspots", Boolean.TRUE);
+						engine.params.update("renderer.show_hotspots", true);
 						engine.menu.setVisible(false);
 					}
 					break;
@@ -154,7 +154,8 @@ public class MenuHandler
 						}
 					};
 
-					engine.dev.viewpoint_selector = new ViewpointSelector(sl, engine.hudCtx, engine.gameWorld.viewpoints);
+					engine.dev.viewpoint_selector = new ViewpointSelector(sl, engine.hudCtx,
+						engine.gameWorld.viewpoints, engine.gameWorld.getActiveViewpoint());
 					engine.menu.setVisible(false);
 
 					break;
