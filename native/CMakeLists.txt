@@ -27,6 +27,19 @@ endif()
 FIND_PACKAGE(PNG 1.2 REQUIRED)
 FIND_PACKAGE(OpenGL REQUIRED)
 
+set(OptAwareEngineDir /opt/AwareEngine)
+if(NOT IS_DIRECTORY ${OptAwareEngineDir})
+	message(SEND_ERROR "${OptAwareEngineDir} missing.  Please install dependencies (like ffmpeg) there first.")
+endif()
+
+SET(AWARE_FFMPEG_LIBRARIES 
+	${OptAwareEngineDir}/lib/libavformat.so 
+	${OptAwareEngineDir}/lib/libavcodec.so 
+	${OptAwareEngineDir}/lib/libswscale.so 
+	${OptAwareEngineDir}/lib/libavutil.so)
+
+
+
 #
 # Function to run javah command to produce JNI header files
 #
@@ -64,6 +77,7 @@ set(SOURCES
 	misc/libtarga.c
 	misc/noise1234.cpp
 	misc/Rect4i.cpp
+	webm/cruxic_webm.c
 	aware_util.cpp
 	GLImage.cpp
 	GLImageUpload.cpp
@@ -75,11 +89,10 @@ set(SOURCES
 	${generated_jni_headers}
 	)
 	
-include_directories(BEFORE ${JNI_INCLUDE_DIRS} ${PNG_INCLUDE_DIRS} ${OPENGL_INCLUDE_DIR})
-
+include_directories(BEFORE ${OptAwareEngineDir}/include ${JNI_INCLUDE_DIRS} ${PNG_INCLUDE_DIRS} ${OPENGL_INCLUDE_DIR} )
 
 #The library
 add_library(aware SHARED ${SOURCES})
-target_link_libraries(aware ${PNG_LIBRARIES} ${OPENGL_LIBRARIES})
+target_link_libraries(aware ${PNG_LIBRARIES} ${OPENGL_LIBRARIES} ${AWARE_FFMPEG_LIBRARIES})
 
 
