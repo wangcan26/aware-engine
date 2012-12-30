@@ -209,8 +209,8 @@ void * tga_load( const char * filename,
     uint16 cmap_first;          //
     uint16 cmap_length;         // how long the colormap is
     ubyte  cmap_entry_size;     // how big a palette entry is.
-    uint16 img_spec_xorig;      // the x origin of the image in the image data.
-    uint16 img_spec_yorig;      // the y origin of the image in the image data.
+    //uint16 img_spec_xorig;      // the x origin of the image in the image data.
+    //uint16 img_spec_yorig;      // the y origin of the image in the image data.
     uint16 img_spec_width;      // the width of the image.
     uint16 img_spec_height;     // the height of the image.
     ubyte  img_spec_pix_depth;  // the depth of a pixel in the image.
@@ -243,7 +243,7 @@ void * tga_load( const char * filename,
     uint32 j = 0;
 
     ubyte * image_data = 0;
-    uint32 img_dat_len = 0;
+    //uint32 img_dat_len = 0;
 
     ubyte bytes_per_pix = 0;
 
@@ -297,8 +297,8 @@ void * tga_load( const char * filename,
     cmap_length        = ttohs( *(uint16 *)(&tga_hdr[HDR_CMAP_LENGTH]) );
     cmap_entry_size    = (ubyte)tga_hdr[HDR_CMAP_ENTRY_SIZE];
 
-    img_spec_xorig     = ttohs( *(uint16 *)(&tga_hdr[HDR_IMG_SPEC_XORIGIN]) );
-    img_spec_yorig     = ttohs( *(uint16 *)(&tga_hdr[HDR_IMG_SPEC_YORIGIN]) );
+    //img_spec_xorig     = ttohs( *(uint16 *)(&tga_hdr[HDR_IMG_SPEC_XORIGIN]) );
+    //img_spec_yorig     = ttohs( *(uint16 *)(&tga_hdr[HDR_IMG_SPEC_YORIGIN]) );
     img_spec_width     = ttohs( *(uint16 *)(&tga_hdr[HDR_IMG_SPEC_WIDTH]) );
     img_spec_height    = ttohs( *(uint16 *)(&tga_hdr[HDR_IMG_SPEC_HEIGHT]) );
     img_spec_pix_depth = (ubyte)tga_hdr[HDR_IMG_SPEC_PIX_DEPTH];
@@ -428,7 +428,7 @@ void * tga_load( const char * filename,
 
     image_data = (ubyte *)malloc( bytes_total );
 
-    img_dat_len = img_spec_width * img_spec_height * bytes_per_pix;
+    //img_dat_len = img_spec_width * img_spec_height * bytes_per_pix;
 
     // compute the true number of bits per pixel
     true_bits_per_pixel = cmap_type ? cmap_entry_size : img_spec_pix_depth;
@@ -689,7 +689,8 @@ int tga_write_rle( const char * file, int width, int height, unsigned char * dat
 
     float red, green, blue, alpha;
 
-    int idx, row, column;
+    int idx, column;
+    //int row;
 
     // have to buffer a whole line for raw packets.
     unsigned char * rawbuf = (unsigned char *)malloc( width * format );
@@ -758,7 +759,7 @@ int tga_write_rle( const char * file, int width, int height, unsigned char * dat
 
         idx = i * format;
 
-        row = i / width;
+        //row = i / width;
         column = i % width;
 
         //printf( "row: %d, col: %d\n", row, column );
