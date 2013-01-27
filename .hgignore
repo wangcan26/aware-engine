@@ -1,9 +1,15 @@
 syntax: glob
 libaware.so
 native/CodeBlocks_project/obj
+native/build
+native/jni/*_jni.h
 IntelliJ/out
 Libs/sources
 demos
 res/pointers/*.bz2
 res/pointers/*.zip
 res/pointers/*.gz
+Game-Data
+Develop
+Tools
+rewrite/native/build*
