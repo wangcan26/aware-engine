@@ -1,0 +1,25 @@
+
+Cross compiling Lua using mingw on Linux:
+
+1) Extract lua-5.2.1.tar.gz
+2) Edit src/Makefile to add cross compile support:
+
+	CC= $(CROSS_COMPILE)gcc
+	...
+	AR= $(CROSS_COMPILE)ar rcu
+	RANLIB= $(CROSS_COMPILE)ranlib
+
+3) Run the root make file (above src) like so:
+
+	make generic CROSS_COMPILE=i686-w64-mingw32-
+
+4) Install lua into the cross compiler like so:
+	
+	sudo make install INSTALL_TOP=/usr/i686-w64-mingw32 CROSS_COMPILE=i686-w64-mingw32-
+
+
+When compiling Lua 5.2 if not compiling with LUA_COMPAT_ALL (on by default) you'll need to add the following to the end of lua/src/luaconf.h:
+
+/*Enable the old luaL_register() way of defining modules (pre 5.2).
+Needed by luagl*/
+#define LUA_COMPAT_MODULE
